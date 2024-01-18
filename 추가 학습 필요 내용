@@ -1,0 +1,73 @@
+a_condition = False
+if not a_condition:
+    # if not False 구조
+---------------
+lambda 예제
+number_of_people = 0
+number_of_book = 100
+
+def increase_user():
+    global number_of_people
+    number_of_people += 1
+
+name = ['김시습', '허균', '남영로', '임제', '박지원']
+age = [20, 16, 52, 36, 60]
+address = ['서울', '강릉', '조선', '나주', '한성부']
+
+
+def create_user(name, age, address):
+    increase_user()
+    user_info ={}
+    user_info['name'] = name
+    user_info['age'] = age
+    user_info['address'] = address
+    print(f'{name}님 환영합니다!')
+    return user_info
+
+many_user = list(map(lambda x,y,z : create_user(x,y,z), name, age, address))
+info = dict(map(lambda x : (x['name'], x['age']), many_user))
+def decrease_book(number):
+    global number_of_book
+    number_of_book -= number
+    print(f'남은 책의 수 : {number_of_book}')
+
+def rental_book(info):
+    name_list, age_list = map()
+    
+    
+    for name, age in info.items():
+        number =  age // 10
+        decrease_book(number)
+        print(f'{name}님이 {number}권의 책을 대여하였습니다.')
+
+rental_book(info)
+--------------
+json
+response  - 네트워크 공부 필요
+API 통신
+
+pip가 무엇인가
+
+from pprint import pprint as print
+
+-------ws_4_b
+print(f'{food['이름']}') 
+SyntaxError: f-string: unmatched '['
+해결책 :     print(f"{food['이름']}")
+https://realpython.com/python-f-strings/
+-------
+
+'''
+B 형 설명회
+삼성전자에서 나눈 등급
+im advanced professional expert
+sw 적성진단에서 두문제를 다풀면 advanced
+trial&error 방식으로 문제를 푸는 경우가 제일 안좋은 습관
+
+에러 없이 시물레이션 문제를 한번에 푸는 방법을 생각하는게 좋다
+
+자료구조와 알고리즘을 잘써야 실력이 잘 증가함
+프로페셔널이 엑스퍼트와 같이 시험봐서 엑스퍼트와 같은 성적을 갖으면 됨.
+
+B형은 google amazon정도는 충분히 감
+'''
