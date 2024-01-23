@@ -1,3 +1,4 @@
+#240118
 a_condition = False
 if not a_condition:
     # if not False 구조
@@ -71,3 +72,27 @@ trial&error 방식으로 문제를 푸는 경우가 제일 안좋은 습관
 
 B형은 google amazon정도는 충분히 감
 '''
+
+# 240119
+sys.stdin.readline()이 더 빠른 이유
+context switching때문일거다??? 이건 OS관련된 이내용을 공부하면서 알아보자
+
+
+if censored_user_list.get("name"): # dictionary 형태의 데이터에서 키를 통해 데이터가 없으면 None출력 = False로 암시적 형변환이 일어남
+
+for 문으로 dictionary를 만드는 방법
+    
+L=list(map(lambda x,y : x+y,range(1,5),range(5))) # zip과 비슷하게 동작함, 패킹을 제일 적은 인자수에 맞춰서 묶음 나머지는 버림
+
+dict('a':1,'b':2,'c':1)
+1 in dict # False
+
+함수에 리턴값을 설정안하면 None을 리턴
+
+dict
+L=[]
+a= [1,2,3,4,5]
+while a: # 리스트안의 요소가 사라지면 false
+    b= a.pop()
+    if a%2 ==1:
+        L.extend(a)
