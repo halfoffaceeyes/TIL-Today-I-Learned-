@@ -96,3 +96,14 @@ while a: # 리스트안의 요소가 사라지면 false
     b= a.pop()
     if a%2 ==1:
         L.extend(a)
+
+for item in convi:
+    # result.append([]).extend(item) 리스트가 없을 경우 사용방법
+    if item in result:
+        result[item].append(item)
+    else:
+
+
+------------------------
+# 개인공부시 유익한 인강
+https://www.inflearn.com/course/%ED%8C%8C%EC%9D%B4%EC%8D%AC-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EB%AC%B8%EC%A0%9C%ED%92%80%EC%9D%B4-%EC%BD%94%EB%94%A9%ED%85%8C%EC%8A%A4%ED%8A%B8#curriculum
