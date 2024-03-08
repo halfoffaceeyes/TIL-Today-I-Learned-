@@ -19,13 +19,13 @@ def BFS(G,v): # 그래프 G와 탐색 시작점 v
                     queue.append(i) # 큐에넣기
 
 ```
-![BFS과정](%EC%9D%B4%EB%AF%B8%EC%A7%80/BFS%EC%98%88%EC%A0%9C.PNG)
-![BFS과정2](%EC%9D%B4%EB%AF%B8%EC%A7%80/BFS%EC%98%88%EC%A0%9C2.PNG)
-![BFS과정3](%EC%9D%B4%EB%AF%B8%EC%A7%80/BFS%EC%98%88%EC%A0%9C3.PNG)
-![BFS과정4](%EC%9D%B4%EB%AF%B8%EC%A7%80/BFS%EC%98%88%EC%A0%9C4.PNG)
+![BFS과정](이미지/240216/BFS과정.PNG)
+![BFS과정2](이미지/240216/BFS과정2.PNG)
+![BFS과정3](이미지/240216/BFS과정3.PNG)
+![BFS과정4](이미지/240216/BFS과정4.PNG)
 
 ## BFS예제
-![BFS예제](%EC%9D%B4%EB%AF%B8%EC%A7%80/BFS%EC%98%88%EC%A0%9C.PNG)
+![BFS예제](이미지/240216/BFS예제.PNG)
 1. A를 visited에 방문표시후 A를 enqueue
 2. A에 인접한 B,C,D 를 enqueue
 3. B를 dequeue하고 B에 인접한 E,F enqueue
@@ -59,7 +59,7 @@ BFS는 특정 지점까지의 최단거리 탐색을 할때 유용하게 사용�
 
 
 
-![연습문제](%EC%9D%B4%EB%AF%B8%EC%A7%80/BFS%EC%97%B0%EC%8A%B5%EB%AC%B8%EC%A0%9C.PNG)
+![연습문제](이미지/240216/BFS연습문제.PNG)
 ```py
 
 def bfs(s,N): # 시작 정점s, 노드개수N

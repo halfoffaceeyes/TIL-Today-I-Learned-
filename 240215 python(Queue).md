@@ -22,15 +22,20 @@
 front : 마지막 dequeue된 값의 인덱스
 rear : 마지막 enqueue된 값의 인덱스
 1) 공백 큐 생성 : createQueue();
-![createqueue](%EC%9D%B4%EB%AF%B8%EC%A7%80/createqueue.PNG)
+
+![createqueue](이미지/240215/createqueue.PNG)
+
 2) 원소 A 삽입: enQueue(A);
 3) 원소 B 삽입 : enQueue(B);
-![enqueue](%EC%9D%B4%EB%AF%B8%EC%A7%80/enQueue.PNG)
+
+![enqueue](이미지/240215/enQueue.PNG)
+
 4) 원소 반환/삭제:deQueue();
 5) 원소 C 삽입 : enQueue(C);
 6) 원소 반환/삭제 : deQueue();
 7) 원소 반환/삭제 : deQueue();
-![dequeue](%EC%9D%B4%EB%AF%B8%EC%A7%80/dequeue.PNG)
+
+![dequeue](이미지/240215/dequeue.PNG)
 
 ## 큐의 구현
 * 선형큐
@@ -98,7 +103,8 @@ def Qpeek():
     * 원소 이동에 많은 시간이 소요되어 큐의 효율성이 급격히 떨어짐
 * 해결 방법2
     * 1차원 배열을 사용하되, 논리적으로는 배열의 처음과 끝이 연결되어 원형 형태의 큐를 이룬다고 가정하고 사용
-    ![원형큐](%EC%9D%B4%EB%AF%B8%EC%A7%80/%EC%9B%90%ED%98%95%ED%81%90.PNG)
+
+    ![원형큐](이미지/240215/원형큐.PNG)
 ### 원형큐의 구조
 * 초기 공백 상태
     * front = rear=0
@@ -113,16 +119,22 @@ def Qpeek():
 |원형큐|rear=(rear+1)mod n|front=(front+1) mod n|
 ### 원형 큐의 연산 과정
 1) 공백 큐 생성 : createQueue();
-![원형create](%EC%9D%B4%EB%AF%B8%EC%A7%80/%EC%9B%90%ED%98%95create.PNG)
+
+![원형create](이미지/240215/원형create.PNG)
+
 2) 원소 A 삽입: enQueue(A);
 3) 원소 B 삽입 : enQueue(B);
-![원형enqueue](%EC%9D%B4%EB%AF%B8%EC%A7%80/%EC%9B%90%ED%98%95enqueue.PNG)
+
+![원형enqueue](이미지/240215/원형enqueue.PNG)
+
 4) 원소 반환/삭제:deQueue();
 5) 원소 C 삽입 : enQueue(C);
 6) 원소 반환/삭제 : deQueue();
 7) 원소 반환/삭제 : deQueue();
-![원형dequeue](%EC%9D%B4%EB%AF%B8%EC%A7%80/%EC%9B%90%ED%98%95dequeue.PNG)
-![원형full](%EC%9D%B4%EB%AF%B8%EC%A7%80/%EC%9B%90%ED%98%95full.PNG)
+
+![원형dequeue](이미지/240215/원형dequeue.PNG)
+
+![원형full](이미지/240215/원형full.PNG)
 ### 원형 큐의 구현
 * 초기공백 큐 생성
     * 크기 n인 1차원 배열 생성
@@ -184,19 +196,29 @@ def isFull():
 
 ## 연결 큐의 연산 과정
 1) 공백 큐 생성 : createLinkedQueue();
-![연결큐 생성](%EC%9D%B4%EB%AF%B8%EC%A7%80/%EC%97%B0%EA%B2%B0%ED%81%90.PNG)
+
+![연결큐 생성](이미지/240215/연결큐.PNG)
+
 값의 주소가 없음
 2) 원소 A 삽입: enQueue(A);
 3) 원소 B 삽입 : enQueue(B);
-![연결큐enqueue](%EC%9D%B4%EB%AF%B8%EC%A7%80/%EC%97%B0%EA%B2%B0%ED%81%90enqueue.PNG)
+
+![연결큐enqueue](이미지/240215/연결큐enqueue.PNG)
+
 새로운값이 추가되면 값옆에 다음 값의 주소를 입력하고 rear에는 마지막 값 주소가 입력되고 front는 맨 앞이 주소가 입력
+
 4) 원소 반환/삭제:deQueue();
-![연결큐dequeue](%EC%9D%B4%EB%AF%B8%EC%A7%80/%EC%97%B0%EA%B2%B0%ED%81%90dequeue.PNG)
+
+![연결큐dequeue](이미지/240215/연결큐dequeue.PNG)
+
 맨앞의 삭제되면 다음 값의 주소를 front로 할당해줌
+
 5) 원소 C 삽입 : enQueue(C);
 6) 원소 반환/삭제 : deQueue();
 7) 원소 반환/삭제 : deQueue();
-![연결큐 원소 제거](%EC%9D%B4%EB%AF%B8%EC%A7%80/%EC%97%B0%EA%B2%B0%ED%81%90.PNG)
+
+![연결큐 원소 제거](이미지/240215/연결큐.PNG)
+
 모든 요소가 삭제되면 front rear모두 Null값을 갖음
 
 ### deque(덱)
@@ -239,7 +261,7 @@ def isFull():
 # 우선순위 큐의 기본연산
 * 삽입:enQueue
 * 삭제:deQueue
-![우선순위 큐](%EC%9D%B4%EB%AF%B8%EC%A7%80/%EC%9A%B0%EC%84%A0%EC%88%9C%EC%9C%84%ED%81%90.PNG)
+![우선순위 큐](이미지/240215/우선순위큐.PNG)
 
 # 큐의 활용
 ## 버퍼
