@@ -1,18 +1,19 @@
 # Bootstrap
 * CSS 프론트엔드 프레임워크(Toolkit)
 * 미리 만들어진 다양한 디자인 요소들을 제공하여 웹사이트를 빠르고 쉽게 개발할 수 있도록 함
+* Bootstrap은 가장 인기 많은 toolkit
 
 ![bootstrap](이미지/240308/bootstrap.png)
 
 ## bootstrap 사용해보기
-1. Bootstrap 공식 문서 접속
+1. Bootstrap 공식 문서 접속(원문으로 접속할것 한글 문서는 업데이트가 늦고 빠진 내용이 많음)
 -  http://getbootstrap.com/
 2. Docs-> Introduction -> Quick Start
 3. 'include Bootstrap's CSS and JS' 코드 확인 및 가져오기
 - https://getbootstrap.com/docs/5.3/getting-started/introduction/#quick-start
 - head와 body에 bootstrap CDN이 포함된 코드 블록
 
-## CDN(content Delivery Network)
+## CDN(Content Delivery Network)
 * 지리적 제약 없이 빠르고 안전하게 콘텐츠를 전송할 수 있는 전송 기술
 * 서버와 사용자 사이의 물리적인 거리를 줄여 콘텐츠 로딩에 소요되는 시간을 최소화(웹페이지 로드 속도를 높임)
 * 지리적으로 사용자와 가까운 CDN서버에 콘텐츠를 저장해서 사용자에게 전달
@@ -21,10 +22,12 @@
 
 
 ## Bootstrap CDN
-1. Bootstrap 홈페이지 - Download - 'Complied CSS and JS' 다운로드
+1. Bootstrap 홈페이지 docs - Download - 'Complied CSS and JS' 다운로드
 2. CDN을 통해 가져오는 bootstrap css와 js파일을 확인
 3. bootstrap.css 파일 참고
 온라인 CDN 서버에 업로드 된 css 및 js 파일을 불러와서 사용하는 것
+
+한개의 bootstrap 파일은 12000줄정도 되는데 이것은 각각 필요한 모듈들이 합쳐져서 만들어진 형태(필요한 부분만 골라서 사용도 가능함)
 
 ![bootstrap cdn](<이미지/240308/Bootstrap CDN.png>)
 
@@ -35,9 +38,14 @@
 
 ![bootstrap spaicng](<이미지/240308/Bootstrap spacing.png>)
 
+left right대신 start의 s , end의 e를 사용
+
+rem= root em ==브라우저의 root px ==16px
+
 https://getbootstrap.com/docs/5.3/utilities/spacing/#margin-and-padding
 
 * Bootstrap에는 특정한 규칙이 있는 클래스 이름으로 스타일 및 레이아웃이 미리 작성되어 있음
+* 모두 !important가 붙어 있어서 bootstrap의 규칙을 우선적용
 
 # Reset CSS
 Bootstrap 적용 전/후 비교
@@ -48,11 +56,11 @@ Bootstrap 적용 전/후 비교
     > HTML Element,Table, List 등의 요소들에 일관성 있게 스타일을 적용시키는 기본 단계
 
 ## Reset CSS 사용 배경
-* 모든 브라우저는 각자의 'user agent stylesheet'를 가지고 있음
+* 모든 브라우저는 각자의 'user agent stylesheet'를 가지고 있음(font나 margin이 각각 다름)
     - 웹사이트를 보다 읽기 편하게 하기 위해
 * 문제는 이설정이 브라우저마다 상이하다는 것
 * 모든 브라우저에서 웹사이트를 동일하게 보이게 만들어야 하는 개발자에겐 매우 골치 아픈 일
-> 모두 똑같은 스타일 상태로 만들고 스타일 개발을 시작하자!
+> 모두 똑같은 스타일 상태로 만들고 스타일 개발을 시작하자!하여 초기화 시키고 다시 설정함
 
 ## User-agent stylesheets
 * 모든 문서에 기본 스타일을 제공하는 기본 스타일 시트
