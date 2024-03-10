@@ -7,6 +7,7 @@
 
 ## Web page
 * HTML, CSS등의 웹 기술을 이용하여 만들어진, 'Web site'를 구성하는 하나의 요소
+
 ![비유](%EC%9D%B4%EB%AF%B8%EC%A7%80/240306/web%EA%B5%AC%EC%84%B1.PNG)![구성요소](<이미지/240306/webpage 구성요소.PNG>)
 
 # HTML
@@ -15,6 +16,7 @@
 ## Hypertext
 * 웹페이지를 다른 페이지로 연결하는 링크
 * 참조를 통해 사용자가 한문서에서 다른 문서로 즉시 접근할 수 있는 텍스트
+
 ![hypertext](%EC%9D%B4%EB%AF%B8%EC%A7%80/240306/hypertext.PNG)
 ## Markup Language
 * 태그 등을 이용하여 문서나 데이터의 구조를 명시하는 언어
@@ -46,6 +48,7 @@
 
 \<body>\</body>
 - 페이지에 표시되는 모든 콘텐츠
+
 ![HTML 구조](<이미지/240306/HTML 구조.PNG>)
 
 ## HTML Element(요소)
@@ -53,6 +56,7 @@
 * 하나의 요소는 여는 태그와 닫는 태그 그리고 그안의 내용으로 구성됨
 * 닫는태그는 태그 이름 앞에 슬래시가 포함되며 닫는 태그가 없는 태그도 존재
 * \<p>는 paragraph
+* \<img> 태그는 닫는 태그가 없음 = 속성값만 존재한다
 
 ## HTML Attributes(속성)
 ![속성](<이미지/240306/HTML 속성.PNG>)
@@ -81,13 +85,13 @@
     <a href="http://www.google.co.kr/">Google</a>
     <!--이미지는 닫는태그가 없다 -> 열고닫는게 있다는 것은 컨텐츠가 있다는 의미이므로 컨텐츠가 없다는 뜻-->
     <img src="images/sample.png" alt="">
-    <!--이미지 태그는 속성값만 필요함, src==source==파일 경로, alt == 이미지가 호출이 안될경우 대체될 텍스트 -->
+    <!--이미지 태그는 속성값만 필요함, src==source==파일 경로, alt == 이미지가 호출이 안될경우 대체될 텍스트, 시각장애인의 경우 스크린 리더로 웹페이지를 읽는데 그 때 이미지 대신 읽을 텍스트 -->
 </body>
 </html>
 ```
-VScode의 확장프로그램 중 open in browser를 사용하면 alt+b를 눌러서 vscode에서 바로 html 실행가능
+* VScode의 확장프로그램 중 open in browser를 사용하면 alt+b를 눌러서 vscode에서 바로 html 실행가능
 
-크롬의 F12를 눌러보면 개발자 도구를 볼수 있는데 HTML의 디버깅 도구라고 보면 됨. 개발자 도구의 Element탭 위주로 확인해서 어떤 요소가 되어 있는지 확인을 필수로 해야함!
+* 크롬의 F12 or ctrl+shift+i를 눌러보면 개발자 도구를 볼수 있는데 HTML의 디버깅 도구라고 보면 됨. 개발자 도구의 Element탭 위주로 확인해서 어떤 요소가 되어 있는지 확인을 필수로 해야함!
 
 # Text Structure
 ## HTML Text structure
@@ -394,6 +398,12 @@ h1{
 * 다른 우선 순위 규칙보다 우선하여 적용하는 키워드
 * Cascade의 구조를 무시하고 강제로 스타일을 적용하는 방식이므로 사용을 권장하지 않음
 
+## 명시도 관련 문서
+* 그림으로 보는 명시도
+https://specifishity.com/
+
+* 명시도 계산기
+https://specificity.keegan.st/
 
 # CSS 상속
 * 기본적으로 CSS는 상속을 통해 부모요소의 속성을 자식에게 상속해 재사용성을 높임
