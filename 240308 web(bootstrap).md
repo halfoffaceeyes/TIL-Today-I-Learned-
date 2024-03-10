@@ -128,6 +128,11 @@ Bootstrap에서 제공하는 UI 관련 요소 (버트, 네비게이션 바, 카�
 ## 참고
 * Bootstrap 코드 파일을 불러와 사용하기
 ![코드파일 활용한 bootstrap](<이미지/240308/Bootstrap 코드로 활용.png>)
+```html
+<!-- 반드시 bootstrap 링크코드를 입력해야 동작함 -->
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+```
 
 * Bootstrap을 사용하는 이유
 - 가장 많이 사용되는 CSS 프레임워크
@@ -138,9 +143,166 @@ Bootstrap에서 제공하는 UI 관련 요소 (버트, 네비게이션 바, 카�
 * 크로스 브라우징(Cross browsing)지원
     - 모든 주요 브라우저에서 작동하도록 설계되어 있음
 
+* Crousel (이미지가 회전하는 버튼)
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+</head>
+
+<body>
+  <!-- carousel의 id 값과 각 버튼의 data-bs-target이 일치 하는지를 잘 봐야 한다. -->
+  <!--  model id 값과 버튼의  -->
+  <div class="container">
+    <div id="carouselExample" class="carousel slide">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="https://picsum.photos/200/300" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+          <img src="https://picsum.photos/200/300" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+          <img src="https://picsum.photos/200/300" class="d-block w-100" alt="...">
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+    <hr>
+    <div id="carouselExample2" class="carousel slide">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="https://picsum.photos/200/300" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+          <img src="https://picsum.photos/200/300" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+          <img src="https://picsum.photos/200/300" class="d-block w-100" alt="...">
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample2" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExample2" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
+
+```
+
+* modal
+```html
+  <!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+</head>
+
+<body>
+  <!-- modal id 값과 버튼의  data-bs-target이 각각 올바르게 일치하는지 확인 -->
+  <!-- 주의사항 -->
+  <!-- 1. modal 코드와 button 코드가 반드시 함께 다닐 필요는 없다. -->
+  <!-- 2. modal 코드가 다른 코드 안쪽에 중첩되어 들어가버리면 modal이 켜졌을때 회색 화면 뒤로 감춰질 수 있음 -->
+  <!-- 3. modal 코드는 주로 body 태그가 닫히는 곳에 모아두는 것을 권장 -->
+
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Launch demo modal
+  </button>
+
+  <hr>
+
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+    Launch demo modal
+  </button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          2번 모달
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          1번 모달
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
+
+```
+
 # Semantic Web
 * 웹 데이터를 의미론적으로 구조화된 형태로 표현하는 방식
 ![semantic Web](이미지/240308/semanticweb.png)
+
+google에서 Naver라고 검색할 경우,아래와 같이 검색결과가 나오는데 링크만 나오지 않고 웹사이트 내에 들어 있는 목록이 나오는 이유는 google이 자체적으로 semantic web을 검사하여 heading영역을 보여주기 때문 = 이것을 검색엔진 최적화(SEO)라고 함
+
+=마케팅에서도 중요한 역할을 수행
+
+![google예시](<이미지/240308/semantic 예시.PNG>)
 
 ## Semantic in HTML
 * HTML 요소가 의미를 가진다는 것
@@ -167,6 +329,7 @@ Bootstrap에서 제공하는 UI 관련 요소 (버트, 네비게이션 바, 카�
 * CSS를 효율적이고 유지 보수가 용이하게 작성하기 위한 일련의 가이드라인
 ### OOCSS(Object Oriented CSS)
 * 객체 지향적 접근법을 적용하여 CSS를 구성하는 방법론
+* 기본원칙 : 기능별로 분리!(bootstrap에서 잘 나눠져있음)
 * OOCSS 기본원칙
 1. 구조와 스킨을 분리
 - 구조와 스킨을 분리함으로써 재사용 가능성을 높임
@@ -175,7 +338,7 @@ Bootstrap에서 제공하는 UI 관련 요소 (버트, 네비게이션 바, 카�
 ![구조 스킨을 분리](<이미지/240308/구조와 스킨을 분리.png>)
 
 2. 컨테이너와 콘텐츠를 분리
-- 객체에 직접 적용하는 대신 객체를 둘러싸는 컨텡이너에 스타일을 적용
+- 객체에 직접 적용하는 대신 객체를 둘러싸는 컨테이너에 스타일을 적용
 - 스타일을 정의할 떄 위치에 의존적인 스타일을 사용하지 않도록 함
 - 콘텐츠를 다른 컨테이너로 이동시키거나 재배치할 때 스타일이 깨지는 것을 방지
 
@@ -193,3 +356,76 @@ Bootstrap에서 제공하는 UI 관련 요소 (버트, 네비게이션 바, 카�
         - 웹 사이트, 도구, 기술이 고령자나 장애를 가진 사용자들이 사용할 수 있도록 설계 및 개발하는 것
         - ex) 스크린 리더를 통해 전맹 시각장애 사용자에게 웹의 글씨를 읽어줌
         - https://nuli.navercorp.com/
+
+* OOCSS 코드 예시
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    /* 기본 Card 구조 */
+    .card {
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 16px;
+      width: 50%;
+    }
+
+    /* Card 제목 */
+    .card-title {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    /* Card 설명 */
+    .card-description {
+      font-size: 16px;
+      margin-bottom: 16px;
+    }
+
+    /* 기본 버튼 구조 */
+    .btn {
+      display: inline-block;
+      border-radius: 4px;
+      padding: 8px 16px;
+      font-size: 1rem;
+      font-weight: 400;
+      color: #212529;
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    /* 파란 배경 버튼 */
+    .btn-blue {
+      background-color: #007bff;
+      color: #fff;
+    }
+
+    /* 빨간 배경 버튼 */
+    .btn-red {
+      background-color: #cb2323;
+      color: #fff;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="card">
+    <p class="card-title">Card Title</p>
+    <p class="card-description">This is a card description.</p>
+    <button class="btn btn-blue">Learn More</button>
+    <button class="btn btn-red">Learn More</button>
+  </div>
+</body>
+
+</html>
+
+
+```
