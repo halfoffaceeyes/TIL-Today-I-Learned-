@@ -3,7 +3,7 @@
 * 미리 만들어진 다양한 디자인 요소들을 제공하여 웹사이트를 빠르고 쉽게 개발할 수 있도록 함
 * Bootstrap은 가장 인기 많은 toolkit
 
-![bootstrap](이미지/240308/bootstrap.png)
+![bootstrap](../이미지/240308/bootstrap.png)
 
 ## bootstrap 사용해보기
 1. Bootstrap 공식 문서 접속(원문으로 접속할것 한글 문서는 업데이트가 늦고 빠진 내용이 많음)
@@ -18,7 +18,7 @@
 * 서버와 사용자 사이의 물리적인 거리를 줄여 콘텐츠 로딩에 소요되는 시간을 최소화(웹페이지 로드 속도를 높임)
 * 지리적으로 사용자와 가까운 CDN서버에 콘텐츠를 저장해서 사용자에게 전달
 
-![CDN](이미지/240308/CDN.png)
+![CDN](../이미지/240308/CDN.png)
 
 
 ## Bootstrap CDN
@@ -29,14 +29,14 @@
 
 한개의 bootstrap 파일은 12000줄정도 되는데 이것은 각각 필요한 모듈들이 합쳐져서 만들어진 형태(필요한 부분만 골라서 사용도 가능함)
 
-![bootstrap cdn](<이미지/240308/Bootstrap CDN.png>)
+![bootstrap cdn](<../이미지/240308/Bootstrap CDN.png>)
 
 ## Bootstrap 기본사용법
-![bootstrap 사용법](<이미지/240308/bootstrap 사용법.png>)
+![bootstrap 사용법](<../이미지/240308/bootstrap 사용법.png>)
 
 * Bootstrap에서는 클래스 이름으로 Spacing을 표현함
 
-![bootstrap spaicng](<이미지/240308/Bootstrap spacing.png>)
+![bootstrap spaicng](<../이미지/240308/Bootstrap spacing.png>)
 
 left right대신 start의 s , end의 e를 사용
 
@@ -49,7 +49,7 @@ https://getbootstrap.com/docs/5.3/utilities/spacing/#margin-and-padding
 
 # Reset CSS
 Bootstrap 적용 전/후 비교
-![bootstrap 적용](<이미지/240308/bootstrap 적용.png>)
+![bootstrap 적용](<../이미지/240308/bootstrap 적용.png>)
 
 * Reset CSS
     * 모든 HTML요소 스타일을 일관된 기준으로 재설정하는 간결하고 압축된 규칙 세트
@@ -64,7 +64,7 @@ Bootstrap 적용 전/후 비교
 
 ## User-agent stylesheets
 * 모든 문서에 기본 스타일을 제공하는 기본 스타일 시트
-![user-agent stylesheets](<이미지/240308/user-agent stylesheets.png>)
+![user-agent stylesheets](<../이미지/240308/user-agent stylesheets.png>)
 
 ## Normalize CSS
 * Reset CSS 방법 중 대표적인 방법
@@ -74,7 +74,7 @@ Bootstrap 적용 전/후 비교
 ## Bootstrap에서의 Reset CSS
 * Bootstrap은 bootstrap-reboot.css
 라는 파일명으로 normalize.css를 자체적으로 커스텀해서 사용하고 있음
-![bootstrap_resetcss](<이미지/240308/Bootstrap에서 Reset CSS.png>)
+![bootstrap_resetcss](<../이미지/240308/Bootstrap에서 Reset CSS.png>)
 
 # Bootstrap 활용
 ## Typography
@@ -82,15 +82,15 @@ Bootstrap 적용 전/후 비교
 
 ### Display headings
 * 기존 Heading보다 더 눈에 띄는 제목이 필요한 경우(더 크고 약간 다른 스타일)
-![display heading](<이미지/240308/display headings.png>)
+![display heading](<../이미지/240308/display headings.png>)
 
 ### Inline Text elements
 HTML inline 요소에 대한 스타일
-![inline text elements](<이미지/240308/inline text element.png>)
+![inline text elements](<../이미지/240308/inline text element.png>)
 
 ### Lists
 HTML list 요소에 대한 스타일
-![Lists](이미지/240308/Lists.png)
+![Lists](../이미지/240308/Lists.png)
 
 ## Colors
 ### Bootstrap Color system
@@ -99,18 +99,18 @@ Bootstrap이 지정하고 제공하는 색상 시스템
 ### Colors
 Text,Border,Background 및 다양한 요소에 사용하는 Bootstrap의 색상 키워드
 
-![colors](이미지/240308/colors.png)
+![colors](../이미지/240308/colors.png)
 
 ### Text Colors
 
-![text colors](<이미지/240308/Text colors.png>)
+![text colors](<../이미지/240308/Text colors.png>)
 
 ### Background Colors
-![background colors](<이미지/240308/background colors.png>)
+![background colors](<../이미지/240308/background colors.png>)
 
 ### Bootstrap 실습
 너비와 높이가 각각 200px인 정사각형 작성하기(너비와 높이를 제외한 스타일은 모두 bootstrap으로 작성)
-![실습](<이미지/240308/bootstrap 실습.png>)
+![실습](<../이미지/240308/bootstrap 실습.png>)
 
 ## Component
 Bootstrap에서 제공하는 UI 관련 요소 (버트, 네비게이션 바, 카드, 폼, 드롭다운 등)
@@ -127,7 +127,7 @@ Bootstrap에서 제공하는 UI 관련 요소 (버트, 네비게이션 바, 카�
 
 ## 참고
 * Bootstrap 코드 파일을 불러와 사용하기
-![코드파일 활용한 bootstrap](<이미지/240308/Bootstrap 코드로 활용.png>)
+![코드파일 활용한 bootstrap](<../이미지/240308/Bootstrap 코드로 활용.png>)
 ```html
 <!-- 반드시 bootstrap 링크코드를 입력해야 동작함 -->
  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -296,17 +296,17 @@ Bootstrap에서 제공하는 UI 관련 요소 (버트, 네비게이션 바, 카�
 
 # Semantic Web
 * 웹 데이터를 의미론적으로 구조화된 형태로 표현하는 방식
-![semantic Web](이미지/240308/semanticweb.png)
+![semantic Web](../이미지/240308/semanticweb.png)
 
 google에서 Naver라고 검색할 경우,아래와 같이 검색결과가 나오는데 링크만 나오지 않고 웹사이트 내에 들어 있는 목록이 나오는 이유는 google이 자체적으로 semantic web을 검사하여 heading영역을 보여주기 때문 = 이것을 검색엔진 최적화(SEO)라고 함
 
 =마케팅에서도 중요한 역할을 수행
 
-![google예시](<이미지/240308/semantic 예시.PNG>)
+![google예시](<../이미지/240308/semantic 예시.PNG>)
 
 ## Semantic in HTML
 * HTML 요소가 의미를 가진다는 것
-![HTML요소 semantic](<이미지/240308/HTML semantic.png>)
+![HTML요소 semantic](<../이미지/240308/HTML semantic.png>)
 
 ### HTML Semantic Element
 * 기본적인 모양과 기능 이외에 의미를 가지는 HTML 요소
@@ -322,7 +322,7 @@ google에서 Naver라고 검색할 경우,아래와 같이 검색결과가 나�
     * footer
 
 * Semantic Element 사용예시
-![semantic element 사용예시](<이미지/240308/semantic element 사용예시.png>)
+![semantic element 사용예시](<../이미지/240308/semantic element 사용예시.png>)
 
 ## Semantic in CSS
 ### CSS 방법론
@@ -335,7 +335,7 @@ google에서 Naver라고 검색할 경우,아래와 같이 검색결과가 나�
 - 구조와 스킨을 분리함으로써 재사용 가능성을 높임
 - 모든 버튼의 공통 구조를 정의 + 각각의 스킨(배경색과 폰트 색상)을 정의
 
-![구조 스킨을 분리](<이미지/240308/구조와 스킨을 분리.png>)
+![구조 스킨을 분리](<../이미지/240308/구조와 스킨을 분리.png>)
 
 2. 컨테이너와 콘텐츠를 분리
 - 객체에 직접 적용하는 대신 객체를 둘러싸는 컨테이너에 스타일을 적용
@@ -343,7 +343,7 @@ google에서 Naver라고 검색할 경우,아래와 같이 검색결과가 나�
 - 콘텐츠를 다른 컨테이너로 이동시키거나 재배치할 때 스타일이 깨지는 것을 방지
 
 ### OOCSS 적용 예시
-![OOCSS 적용](<이미지/240308/OOCSS 적용 예시.png>)
+![OOCSS 적용](<../이미지/240308/OOCSS 적용 예시.png>)
 
 ## 참고
 - HTML : 콘텐츠의 구조와 의미

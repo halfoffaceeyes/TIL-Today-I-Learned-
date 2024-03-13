@@ -38,40 +38,40 @@ div>.container>h1{Hello}+navi>ul>li*5>a{Link $}
 ## 반응형 웹디자인(Responsive Web Design)
 * 디바이스 종류나 화면 크기에 상관없이, 어디서든 일관된 레이아웃 및 사용자 경험을 제공하는 디자인 기능
   
-![12개의 컬럼 사용 예시](<이미지/240311/12컬럼 예시.PNG>)
+![12개의 컬럼 사용 예시](<../이미지/240311/12컬럼 예시.PNG>)
 
 ## Grid system 구조
 1. Container(=row, class = 'container'랑 혼동하지 말것)
    * Column들을 담고 있는 공간
-![container](<이미지/240311/grid system container.PNG>)
+![container](<../이미지/240311/grid system container.PNG>)
 2. Column
    * 실제 컨텐츠를 포함하는 부분
-![column](<이미지/240311/grid system column.PNG>)
+![column](<../이미지/240311/grid system column.PNG>)
 3. Gutter
     * 컴럼과 컬럼 사이의 여백
-![Gutter](<이미지/240311/grid system gutter.PNG>)
+![Gutter](<../이미지/240311/grid system gutter.PNG>)
 
 * 1개의 row 안에 12개의 column 영역이 구성
 * 각 요소는 12개 중 몇개를 차지할 것인지 지정됨
-![기본요소](<이미지/240311/grid system 기본요소.PNG>)
+![기본요소](<../이미지/240311/grid system 기본요소.PNG>)
 ### Grid System 실습
 * 기본
 
-![기본예시](<이미지/240311/grid system 기본.PNG>)
+![기본예시](<../이미지/240311/grid system 기본.PNG>)
 * 중첩(Nesting)
 
-![중첩예시](<이미지/240311/grid system Nesting.PNG>)
+![중첩예시](<../이미지/240311/grid system Nesting.PNG>)
 
 
 * 상쇄(Offset) - 특정 영역을 비우는 기능
 
-![상쇄예시](<이미지/240311/grid system Offset.PNG>)
+![상쇄예시](<../이미지/240311/grid system Offset.PNG>)
 
 * Gutter : Grid system에서 column 사이에 여백 영역, x축은 padding, y축은 margin으로 여백 생성
 
-![gutter 설명](<이미지/240311/grid system gutter예시.PNG>)
+![gutter 설명](<../이미지/240311/grid system gutter예시.PNG>)
 
-![gutter예시](<이미지/240311/grid system gutter 실습.PNG>)
+![gutter예시](<../이미지/240311/grid system gutter 실습.PNG>)
 
 ```html
 <!DOCTYPE html>
@@ -213,7 +213,7 @@ div>.container>h1{Hello}+navi>ul>li*5>a{Link $}
 * 기본적으로 안쪽에 있는 요소들의 오와 열을 맞추는 것에서 기인
 * 정보 구조와 배열을 체계적으로 작성하여 정보의 질서를 부여하는 시스템
 
-![grid system](<이미지/240311/grid system.PNG>)
+![grid system](<../이미지/240311/grid system.PNG>)
 
 
 # Grid system for responsive web
@@ -226,11 +226,11 @@ div>.container>h1{Hello}+navi>ul>li*5>a{Link $}
 * 화면 너비에 따라 6개의 분기점 제공(xs(기본),sm,md,lg,xl,xxl)
 * 각 breakpoints 마다 설정된 최대 너비값 **이상으로** 화면이 커지면 grid system 동작이 변경됨
 * 
-* ![grid system breakpoint](<이미지/240311/grid system breakpoint.PNG>)
+* ![grid system breakpoint](<../이미지/240311/grid system breakpoint.PNG>)
 
 ### breakpoints 실습
-![breakpoints1](%EC%9D%B4%EB%AF%B8%EC%A7%80/240311/breakpoints1.PNG)
-![breakpoints2](%EC%9D%B4%EB%AF%B8%EC%A7%80/240311/breakpoints2.PNG)
+![breakpoints1](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240311/breakpoints1.PNG)
+![breakpoints2](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240311/breakpoints2.PNG)
 ```html
 <!DOCTYPE html>
 <html lang="en">
@@ -297,7 +297,7 @@ div>.container>h1{Hello}+navi>ul>li*5>a{Link $}
 
 * Media Query로 작성된 grid system의 breakpoints
 
-![Media Query](<이미지/240311/media query로 작성된 breakpoints.PNG>)
+![Media Query](<../이미지/240311/media query로 작성된 breakpoints.PNG>)
 
 ### bootstrap에서 gridcard 문법을 지원해줌
 * row-cols 클래스를 사용하여 행당 표시할 열(카드) 수를 손쉽게 제어할 수 있음
@@ -366,13 +366,13 @@ div>.container>h1{Hello}+navi>ul>li*5>a{Link $}
 ```
 
 # CSS Layout 종합정리
-![CSS lay out 종합정리1](<이미지/240311/css layout 정리1.PNG>)
+![CSS lay out 종합정리1](<../이미지/240311/css layout 정리1.PNG>)
 
-![CSS lay out 종합정리2](<이미지/240311/css layout 정리2.PNG>)
+![CSS lay out 종합정리2](<../이미지/240311/css layout 정리2.PNG>)
 
-![CSS lay out 종합정리3](<이미지/240311/css layout 정리3.PNG>)
+![CSS lay out 종합정리3](<../이미지/240311/css layout 정리3.PNG>)
 
-![CSS lay out 종합정리4](<이미지/240311/css layout 정리4.PNG>)
+![CSS lay out 종합정리4](<../이미지/240311/css layout 정리4.PNG>)
 
 
 web개발 연습은 이미 만들어진 웹페이지를 잡아서 clone 코딩연습을 해보기!

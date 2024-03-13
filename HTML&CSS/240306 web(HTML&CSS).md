@@ -8,7 +8,7 @@
 ## Web page
 * HTML, CSS등의 웹 기술을 이용하여 만들어진, 'Web site'를 구성하는 하나의 요소
 
-![비유](%EC%9D%B4%EB%AF%B8%EC%A7%80/240306/web%EA%B5%AC%EC%84%B1.PNG)![구성요소](<이미지/240306/webpage 구성요소.PNG>)
+![비유](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240306/web%EA%B5%AC%EC%84%B1.PNG)![구성요소](<../이미지/240306/webpage 구성요소.PNG>)
 
 # HTML
 * HyperText Markup Language 웹페이지의 의미와 구조를 정의하는 언어
@@ -17,20 +17,20 @@
 * 웹페이지를 다른 페이지로 연결하는 링크
 * 참조를 통해 사용자가 한문서에서 다른 문서로 즉시 접근할 수 있는 텍스트
 
-![hypertext](%EC%9D%B4%EB%AF%B8%EC%A7%80/240306/hypertext.PNG)
+![hypertext](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240306/hypertext.PNG)
 ## Markup Language
 * 태그 등을 이용하여 문서나 데이터의 구조를 명시하는 언어
 * ex) HTML, Markdown
 
 마크업을 적용 안했을때
 
-![markup example](%EC%9D%B4%EB%AF%B8%EC%A7%80/240306/Markup%EC%A0%81%EC%9A%A9x.PNG)
+![markup example](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240306/Markup%EC%A0%81%EC%9A%A9x.PNG)
 
 마크업을 적용했을때
 
-![markup](<이미지/240306/Markup 적용.PNG>)
+![markup](<../이미지/240306/Markup 적용.PNG>)
 
-![markup language](%EC%9D%B4%EB%AF%B8%EC%A7%80/240306/Markup.PNG)
+![markup language](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240306/Markup.PNG)
 
 # 웹 구조화
 <\!DOCTYPE html>
@@ -49,17 +49,17 @@
 \<body>\</body>
 - 페이지에 표시되는 모든 콘텐츠
 
-![HTML 구조](<이미지/240306/HTML 구조.PNG>)
+![HTML 구조](<../이미지/240306/HTML 구조.PNG>)
 
 ## HTML Element(요소)
-![HTML 요소](<이미지/240306/HTML 요소.PNG>)
+![HTML 요소](<../이미지/240306/HTML 요소.PNG>)
 * 하나의 요소는 여는 태그와 닫는 태그 그리고 그안의 내용으로 구성됨
 * 닫는태그는 태그 이름 앞에 슬래시가 포함되며 닫는 태그가 없는 태그도 존재
 * \<p>는 paragraph
 * \<img> 태그는 닫는 태그가 없음 = 속성값만 존재한다
 
 ## HTML Attributes(속성)
-![속성](<이미지/240306/HTML 속성.PNG>)
+![속성](<../이미지/240306/HTML 속성.PNG>)
 속성="값" 형태(html은 쌍따옴표를 사용)
 * 규칙
     * 속성은 요소 이름과 속성 사이에 공백이 있어야 함
@@ -68,7 +68,7 @@
 * 목적
     * 나타내고 싶지 않지만 추가적인 기능, 내용을 담고 싶을 때 사용
     * CSS에서 해당 요소를 선택하기 위한 값으로 활용됨
-![구조예시](<이미지/240306/HTML 구조 예시.PNG>)
+![구조예시](<../이미지/240306/HTML 구조 예시.PNG>)
 
 
 ```html
@@ -113,7 +113,7 @@
   
 * 구조를 잡고 코드로 옮기는 연습을 우선적으로 진행 해야함!
 * 아래 코드의 구조
-![구조잡기](%EC%9D%B4%EB%AF%B8%EC%A7%80/240306/%EA%B5%AC%EC%A1%B0%EC%9E%A1%EA%B8%B0.png)
+![구조잡기](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240306/%EA%B5%AC%EC%A1%B0%EC%9E%A1%EA%B8%B0.png)
 ```html
 <!DOCTYPE html>
 <html>
@@ -151,9 +151,9 @@
 * Cascading Style Sheet
 * 웹 페이지의 디자인과 레이아웃을 구성하는 언어
 
-![Css 적용x](<이미지/240306/css 적용x.PNG>)
+![Css 적용x](<../이미지/240306/css 적용x.PNG>)
 
-![css구문](<이미지/240306/css 구문.PNG>)
+![css구문](<../이미지/240306/css 구문.PNG>)
 * 값을 입력할 경우 단위를 만드시 사용해야함.
 * font-size의 기본값(rem) ==16px, font-size :1.5 rem;이라고 적으면 24 px를 의미함
 * 하나의 선언이 끝나면 세미콜론을 무조건 찍어주어야함
@@ -162,16 +162,16 @@
 1. 인라인(Inline)스타일
     * HTML 요소 안에 style 속성 값으로 작성
   
-  ![인라인](%EC%9D%B4%EB%AF%B8%EC%A7%80/240306/%EC%9D%B8%EB%9D%BC%EC%9D%B8.PNG)
+  ![인라인](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240306/%EC%9D%B8%EB%9D%BC%EC%9D%B8.PNG)
 2. Internal style
     * head 태그 안에 style 태그에 작성
 
-![내부 스타일](%EC%9D%B4%EB%AF%B8%EC%A7%80/240306/%EB%82%B4%EB%B6%80%EC%8A%A4%ED%83%80%EC%9D%BC.PNG)
+![내부 스타일](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240306/%EB%82%B4%EB%B6%80%EC%8A%A4%ED%83%80%EC%9D%BC.PNG)
 
 3. External style
     * 별도의 CSS 파일 생성후 HTML link 태그를 사용해 불러오기
 
-![외부css](<이미지/240306/외부 css.PNG>)
+![외부css](<../이미지/240306/외부 css.PNG>)
 
 * 재사용성이 제일 좋은 3번형식을 파일의 규모가 커질 경우 사용하고, 2번 방법도 많이 사용함
 * 인라인 방법은 주로 테스트 용도로 사용
@@ -226,12 +226,12 @@
     * 자손 결합자(' '(space)) = 자식 + 손주
     * 자식 결합자(>)
 
-![css 선택자](<이미지/240306/css 선택자.PNG>)
+![css 선택자](<../이미지/240306/css 선택자.PNG>)
 
 
 * google에 css bento라고 검색하면 css dinner라는 페이지에서 선택자와 결합자를 찾아가는 연습가능(움직이는 그림의 선택자를 입력)
-* 
-![css bento 예시](<이미지/240306/css bento.PNG>)
+  
+![css bento 예시](<../이미지/240306/css bento.PNG>)
 
 
 ```html
@@ -295,7 +295,7 @@
 </html>
 
 ```
-![셀렉터 예시](<이미지/240306/selector 예시.PNG>)
+![셀렉터 예시](<../이미지/240306/selector 예시.PNG>)
 
 * HTML 문서는 프로그래밍 언어랑 다르게 잘못될 경우 에러를 발생시키지 않고 적용하지 않음, 그래서 잘못 작성한 코드를 직접 찾아야함
 
@@ -344,7 +344,7 @@ h1{
 
 명시도를 따질 때에는 동일한 태그인지 여부가 중요, 동일한 위치의 태그이라면 명시도를 고려하지만 그게 아니라면 태그 기준으로 들어감
 ```
-*
+
 
 ```html
 <!DOCTYPE html>
@@ -415,11 +415,11 @@ https://specificity.keegan.st/
 
 * 상속 여부는 MDN 문서에서 확인하기
 
-![MDN](<이미지/240306/상속 MDN.PNG>)
+![MDN](<../이미지/240306/상속 MDN.PNG>)
 
-![상속 예시](%EC%9D%B4%EB%AF%B8%EC%A7%80/240306/%EC%83%81%EC%86%8D.PNG)
+![상속 예시](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240306/%EC%83%81%EC%86%8D.PNG)
 
-![결과](<이미지/240306/상속 결과.PNG>)
+![결과](<../이미지/240306/상속 결과.PNG>)
 
 # 참고
 ## HTML 관련사항
