@@ -4,7 +4,7 @@
 * HTML의 콘텐츠를 변수값에 따라 바꾸고 싶다면?
 * render의 3번째인자에 딕셔너리 형태의 데이터를 넘겨주어야함
 * 이 때, 값 표현은 {{}}로 표기
-* ![HTML변수설정](<../이미지/240313/HTML콘텐츠 변수설정.PNG>)
+![HTML변수설정](<../이미지/240313/HTML콘텐츠 변수설정.PNG>)
 
 ## Django Template Language(DTL)
 * Template에서 조건, 반복, 변수 등의 프로그래밍 적 기능을 제공하는 시스템
@@ -44,6 +44,41 @@
 ![DTL 예시 코드](<../이미지/240313/DTL 예시 코드.PNG>)
 
 
+* HTML에서 DTL로 접근시 키로 접근하는 방식으로 사용가능 (view.py의 work 키의 값을 index.html의 for문에서 key로 호출)
+```html
+<!-- index.html -->
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>할 일 목록 관리 프로젝트 메인 페이지</h1>
+  <p>이 곳에서 할 일 목록을 관리합니다.</p>
+  <ul>
+    {% for unord in work %}
+    <li>{{ unord }}</li>
+    {% endfor %}
+  </ul>
+{% endblock content %}
+```
+```py
+# view.py
+from django.shortcuts import render
+lst= []
+# Create your views here.
+def index(request):
+    message = request.GET.get('work')
+    if message:
+        lst.append(message)
+
+    context = {
+        'work' : lst
+    }
+    return render(request, 'todos/index.html',context)
+
+def create_todo(request):
+
+    return render(request, 'todos/create_todo.html')
+```
+
 * Django 공식 문서를 검색할 때, google에 django documment+ 공식 문서 내용로 검색
 * 공식문서내에서는 목차의 대주제를 확인해서 필요한 내용만 읽어보는 연습을 할 것
 
@@ -72,6 +107,7 @@
 * 데이터를 보내고 가져오기(Sending and Retrieving form data)
   * HTML 'form' element를 통해 사용자와 애플리케이션 간의 상호작용 이해하기
   * HTML'form'은 HTTP 요청을 서버로 보내는 가장 편리한 방법
+  * form tag는 사용자가 입력한 정보를 모아서 서버로 보내는 역할
 ![form 예시](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240313/form%EC%98%88%EC%8B%9C.PNG)
 ![실제 Form 사용예시](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240313/%EC%8B%A4%EC%A0%9Cform%EC%98%88%EC%8B%9C.PNG)
 
@@ -116,7 +152,9 @@
 ![활용예시 서버만들기](<../이미지/240313/사용자 입력데이러를 출력하는 서버만들기.PNG>)
 
 ![Throw작성](<../이미지/240313/throw 작성.PNG>)
-
+* 만약 form tag에서 action값을 입력하지 않는다면 현재 페이지로 입력값을 전달
+* 사용자로부터 받은 데이터를 전달하는 방법 2가지(method) : GET - 전달되는 데이터가 URL에 노출이 됨, POST - 데이터가 header에 담겨서 전달이 되어 URL에 노출되지 않음(길거나 중요한 데이터)
+  
 ![Throw 예시](<../이미지/240313/Throw 예시.PNG>)
 
 ![catch 작성](<../이미지/240313/catch 작성.PNG>)
