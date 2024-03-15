@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+{% include "modal.html"%}
+<nav class="navbar sticky-top bg-dark border-bottom border-body navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+    <div class="container-fluid ">
+        <a class="navbar-brand" href="#">
+          <img src="{% static "/images/logo.png"%}" alt="logo" width="80" height="40">
+        </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 text-end">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/movies/">Home</a>
+          </li>
+          <li class="nav-item e-0">
+            <a class="nav-link active" aria-current="page" href="/movies/community/">Community</a>
+          </li>
+          <li class="nav-item e-0">
+            <a class="nav-link active" aria-current="page" href="#"  data-bs-toggle="modal" data-bs-target="#exampleModal">Login</a>
+          </li>
+          
+        </ul>
+
+      </div>
+    </div>
+  </nav>
+{% endblock content %}
