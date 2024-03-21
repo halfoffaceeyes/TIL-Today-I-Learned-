@@ -41,6 +41,7 @@ from heapq import heappush,heappop
 def prim(start):
     pq=[]
     MST=[0]*V
+    sum_weight=0
     # 시작점 추가
     # [기존 BFS] 노드 번호만 관리
     # [PRIM] 가중치가 낮으면 먼저 나와야한다.
