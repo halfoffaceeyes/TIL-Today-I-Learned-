@@ -171,6 +171,27 @@ print(f'최소비용 ={sum_weight}')
 * 이 때, 최단 경로는 s에서 x까지의 최단 경로와 x에서 t까지의 최단 경로로 구성
 * 탐욕 기법을 사용한 알고리즘으로 MST의 프림 알고리즘과 유사
 
+## 다익스타라 알고리즘 적용 예시
+![Dijkstra 수도 코드](<../이미지/240321/Dijkstra 수도 코드.PNG>)
+
+![Dijkstra 알고리즘1](<../이미지/240321/Dijkstra 알고리즘 1.PNG>)
+
+![Dijkstra 알고리즘2](<../이미지/240321/Dijkstra 알고리즘 2.PNG>)
+
+![Dijkstra 알고리즘3](<../이미지/240321/Dijkstra 알고리즘 3.PNG>)
+
+![Dijkstra 알고리즘4](<../이미지/240321/Dijkstra 알고리즘 4.PNG>)
+
+![Dijkstra 알고리즘5](<../이미지/240321/Dijkstra 알고리즘 5.PNG>)
+
+![Dijkstra 알고리즘6](<../이미지/240321/Dijkstra 알고리즘 6.PNG>)
+
+![Dijkstra 알고리즘7](<../이미지/240321/Dijkstra 알고리즘 7.PNG>)
+
+![Dijkstra 알고리즘8](<../이미지/240321/Dijkstra 알고리즘 8.PNG>)
+
+![Dijkstra 알고리즘9](<../이미지/240321/Dijkstra 알고리즘 9.PNG>)
+
 ```py
 from heapq import heappush,heappop
 
@@ -220,3 +241,4 @@ def dijkstra(start):
 dijkstra(0)
 print(distance)
 ```
+
