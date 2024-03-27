@@ -73,6 +73,7 @@ url tag 입력시 article.pk를 입력하지 않으면 No Reversed Match 발생
 ![POST 메서드 적용](<../이미지/240326/post 메서드 적용.PNG>)
 
 * POST 메서드는 적용만 한다면 403 응답이 발생(CSRF Token이 없기 때문)
+
 ![403 예시](<../이미지/240326/403 응답.PNG>)
 
 post 방식은 코드를 줌??
@@ -80,6 +81,7 @@ post 방식은 코드를 줌??
 #### HTTP response status code
 * 특정 HTTP 요청이 성공적으로 완료되었는지를 3자리 숫자로 표현하기로 약속한 것
 
+* 400번대 client 잘못, 500번대 server잘못
 * 403 Forbidden
     * 서버에 요청이 전달되었지만, 권한 때문에 거절되었다는 것을 의미
     * 거절 이유 : CSRF token 누락
