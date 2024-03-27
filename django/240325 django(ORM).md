@@ -10,9 +10,15 @@
 # QuerySet API
 * ORM에서 데이터를 검색, 필터링, 정렬 및 그룹화 하는 데 사용하는 도구
 > API를 사용하여 SQL이 아닌 Python 코드로 데이터를 처리
+![QuerySet API 구문](<../이미지/240325/QuerySet API 구문.png>)
+QuerySet: 다중 데이터<br>
+Instance : 단일 데이터
 
 ## QuerySet API 구문
 ![QuerySet API](<../이미지/240325/QuerySet API.PNG>)
+호출시 모델명.objects. 는 고정(objects가 여러 메서드를 제공하는 역할)
+
+![QuerySet API 구문 예시](<../이미지/240325/QuerySet API 구문 예시.png>)
 
 ### Query
 * 데이터베이스에 특정한 데이터를 보여 달라는 요청
@@ -28,24 +34,32 @@
 > QuerySet API는 python의 모델 클래스와 인스턴스를 활용해 DB에 데이터를 저장, 조회, 수정, 삭제하는 것(CRUD, Create, Read, Update, Delete)
 
 # QuerySet API 실습
-* 실습 사전 준비 - 외부라이브러리 설치 및 설정
+* 실습 사전 준비 - 외부라이브러리 설치 및 설정(Django-Shell 설치)
 
 \$ pip install ipython django-extensions
+* django-extensions : django의 확장 프로그램
+* ipython : django-shell환경은 colorizing과 자동완성이 안되는데 가능하게 만들어주는 프로그램
 
 ![QuerySet API 실습](<../이미지/240325/QuerySet API 실습.PNG>)
+꼭 settings.py의 INSTALLED_APPS에 django_extensions를 설치해 줄것
 
 ## Django Shell
 * Django 환경안에서 실행되는 python shell
 * 입력하는 QuerySet API 구문이 Django 프로젝트에 영향을 미침
 \$ python manage.py shell_plus
+shell_plus는 shell과 다르게 django의 Model을 불러옴
+
 ## Create
 ### 데이터 객체를 만드는 3가지 방법
 1. 특정 테이블에 새로운 행을 추가하여 데이터를 추가하는 방법
 
+클래스가 instance를 만들면서 시작
 ![객체형성1](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240325/create1.PNG)
+save()를 호출해주어야 DB에 전달 가능
 ![객체형성2](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240325/create2.PNG)
 ![객체형성3](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240325/create3.PNG)
 ![객체형성4](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240325/create4.PNG)
+
 2. save 메서드를 호출해야 비로소 DB에 데이터가 저장됨
 * 테이블에 한줄(행,레코드)이 쓰여진 것
 
@@ -53,12 +67,14 @@
 
 
 3. QuerySet API 중 create() 메서드 활용
+
 ![create()메서드](<../이미지/240325/create 메서드 활용.PNG>)
+
 ### save()
 객체를 데이터베이스에 저장하는 메서드
 
-## Read
-* Return nwe QuerySets
+## Read(조회)
+* Return new QuerySets
     * all()
     * filter()
 
@@ -70,11 +86,11 @@
 ![all()](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240325/all().PNG)
 
 ### filter()
-특정 조건 데이터 조회
+특정 조건 데이터 조회(키워드 인자가 있음, 데이터가 없어도 반환된 결과는 Queryset)
 ![filter()](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240325/filter().PNG)
 
 ### get()
-단일 데이터 조회
+단일 데이터 조회(반환값이 존재하여 변수에 저장가능하고 만약 데이터가 없으면 오류 발생, 여러개의 데이터를 조회해도 오류발생)
 
 ![get()](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240325/get().PNG)
 
@@ -85,6 +101,7 @@
 ## Update
 * 인스턴스 변수를 변경 후 save 메서드 호출
 * 수정과 삭제를 하려면 조회를 먼저 하고 진행해야함(get->update)
+* 수정후 반드시 저장을 해줘야 db에 전달됨
 ![update](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240325/update.PNG)
 
 ## Delete
@@ -97,7 +114,7 @@
 
 # 참고
 ## Field lookups
-* 특정 레코드에 대한 조건을 설정하는 방법
+* 특정 레코드에 대한 조건을 설정하는 방법(더 디테일한 조건을 설정하는 방법)
 * QuerySet메서드filter(),exclude() 및 get()에 대한 키워드 인자로 지정
 - https://docs.djangoproject.com/en/4.2/ref/models/querysets/#field-lookups
 
@@ -112,3 +129,19 @@ Article.objects.filter(content__contains='dja')
 * 데이터베이스와의 결합도를 낮추고 개발자가 더욱 직관적이고 생산적으로 개발할 수 있도록 도움
 * https://docs.djangoproject.com/en/4.2/ref/models/querysets/
 * https://docs.djangoproject.com/en/4.2/topics/db/queries
+
+## 메인페이지를 만드는 법
+* url -> view -> template순으로 작성(데이터의 흐름 순으로 작성)
+* MTV 에서 View함수는 Controller역할이므로 데이터 베이스를 요청할수 있고 모델이랑 소통가능
+* view함수에서 조회를 할 경우 반환값은 QuerySet 딕셔너리 형태의 데이터가 반환되는데 이를 render함수로 넘겨줄 때, dictionary 형태로 묶어서 전달해야하는 규칙이 있음
+```py
+def index(request):
+    articles = Article.objects.all()
+    context = {
+        'articles' = articles,
+    }
+    return render(request,'articles/index.html', context)
+# Article 클래스의 객체를 조회해서 articles로 반환해주고
+# context를 통해 index.html로 전달
+# 그럼 index에서 {{articles}}로 queryset을 호출 가능
+```

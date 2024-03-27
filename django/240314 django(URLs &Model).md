@@ -51,7 +51,7 @@
   * 'app_name' 속성지정
     * app_name은 이름을 그대로 써야함, 안그러면 에러 발생
 
-![app_name]](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240314/app_name.PNG)
+![app_name](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240314/app_name.PNG)
 
 * URL tag의 최종 변화
   * 마지막으로 url태그가 사용하는 모든 곳의 표기 변경이 필요
