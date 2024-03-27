@@ -108,19 +108,80 @@ post 방식은 코드를 줌??
 ![게시글 작성결과](<../이미지/240326/게시글 작성 CSRF토큰.PNG>)
 
 # Redirect
-
+* 데이터 저장 후 페이지를 주는 것이 아닌 다른 페이지로 사용자를 보내야하는 경우에 사용
+* 클라이언트가 인자에 작성된 주소로 다시 요청을 보내도록 하는 함수
+## Render vs Redirect
 render : HTML을 보여줄 필요가 있을 경우 사용
 redirect : 보여줄 HTML이 이미 정의가 되어있을 경우= 이미 있는 것을 그대로 사용하고 싶은 경우 사용, 모든 주소가 GET으로 요청이 감
 
+![redirect 적용](<../이미지/240326/redirect()함수 적용.PNG>)
 
-# 조회
-'GET'Method
+* redirect 특징
+    * 해당 redirect에서 클라이언트는 detail url로 요청을 다시 보내게 됨
+    * 결과적으로 detail view 함수가 호출되어 detail view 함수의 반환 결과인 detail 페이지를 응답 받음
+    * 결국 사용자는 게시글 작성 후 작성된 게시글의 detail페이지로 이동하는 것으로 느끼게 되는 것
+
+```py
+from django.shortcuts import render, redirect
+
+def create(request):
+    return redirect('articles:detail', article.pk)
+
+```
+![redirect 결과](<../이미지/240326/redirect 결과.PNG>)
+
+# Delete 기능 구현
+조회 후 삭제!
+![delete](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240326/delete.PNG)
+
+# Update
+* 2개의 view함수가 필요
+    * edit : 사용자 입력 데이터를 받을 페이지를 렌더링
+    * update : 사용자가 입력한 데이터를 받아 DB에 저장
+
+* edit
+
+![edit 코드](<../이미지/240326/edit 코드.PNG>)
+
+![edit 구현](<../이미지/240326/edit 구현.PNG>)
+
+![edit 작성후 template 수정](<../이미지/240326/edit 템플릿.PNG>)
+
+![edit 이동](<../이미지/240326/edit 이동 코드.PNG>)
+
+* update
+
+![update](<../이미지/240326/update 코드.PNG>)
+
+![update 작성후 템플릿 수정](<../이미지/240326/update 템플릿 수정.PNG>)
+
+# GET과 POST
+
+* 'GET'Method
 로그인에서는 get을 사용하지 않음
-로그인에서는 post를 사용
-왜냐하면 get함수를 사용하면 조회를 url로 보내고 post는 조회를 body에 담음
+* 로그인에서는 post를 사용
+* 왜냐하면 get함수를 사용하면 조회를 url로 보내고 post는 조회를 body에 담음
 
-post는 DB의 구조를 직접적으로 바꿈
+* post는 DB의 구조를 직접적으로 바꿈
+![POST GET](<../이미지/240326/GET POST.PNG>)
 
+## GET 요청이 필요한 경우
+* 캐싱 및 성능
+    * GET 요청은 캐시(Cache)될 수 있고, 이전에 요청한 정보를 새로 요청하지 않고 사용할 수 있음
+    * 특히, 동일한 검색 결과를 여러번 요청하는 경우 GET 요청은 캐시를 활용하여 더 빠르게 응답할 수 있음
+
+* 가시성 및 공유
+    * GET 요청은 URL에 데이터가 노출되어 있기 때문에 사용자가 해당 URL을 북마크하거나 다른 사람과 공유하기 용이
+
+* RESTful API 설계
+    * HTTP 메서드의 의미에 따라 동작하도록 디자인된 API의 일관성을 유지할 수 있음
+
+## 캐시(Cache)
+* 데이터나 정보를 임시로 저장해두는 메모리나 디스크 공간
+* 이전에 접근한 데이터를 빠르게 검색하고 접근할 수 있도록 함
+
+* HTTP request methods를 활용한 효율적인 URL 구성
+https://developer.themoviedb.org/reference/intro/getting-started
 
 
 
