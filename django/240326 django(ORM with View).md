@@ -76,7 +76,6 @@ url tag 입력시 article.pk를 입력하지 않으면 No Reversed Match 발생
 
 ![403 예시](<../이미지/240326/403 응답.PNG>)
 
-post 방식은 코드를 줌??
 
 #### HTTP response status code
 * 특정 HTTP 요청이 성공적으로 완료되었는지를 3자리 숫자로 표현하기로 약속한 것
@@ -114,8 +113,9 @@ post 방식은 코드를 줌??
 * 데이터 저장 후 페이지를 주는 것이 아닌 다른 페이지로 사용자를 보내야하는 경우에 사용
 * 클라이언트가 인자에 작성된 주소로 다시 요청을 보내도록 하는 함수
 ## Render vs Redirect
-render : HTML을 보여줄 필요가 있을 경우 사용
-redirect : 보여줄 HTML이 이미 정의가 되어있을 경우= 이미 있는 것을 그대로 사용하고 싶은 경우 사용, 모든 주소가 GET으로 요청이 감
+* render : HTML을 보여줄 필요가 있을 경우 사용
+* redirect : 보여줄 HTML이 이미 정의가 되어있을 경우= 이미 있는 것을 그대로 사용하고 싶은 경우 사용, 모든 주소가 GET으로 요청이 감
+* redirect는 해당 경로의 view함수를 호출하는 셈
 
 ![redirect 적용](<../이미지/240326/redirect()함수 적용.PNG>)
 

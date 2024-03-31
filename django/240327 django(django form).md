@@ -32,8 +32,9 @@ https://docs.djangoproject.com/en/4.2/topics/forms/#form-rendering-options
 ![Form rendering options 결과](<../이미지/240327/Form rendering options 결과.PNG>)
 
 # Widgets
-* HTML 'input' element의 '표현'을 담당
+* HTML 'input' element의 '표현'을 담당(CSS를 입히는 것과 비슷한 역할)
 * Widget은 단순히 input요소의 속성 및 출력되는 부분을 변경하는 것
+* 위의 예시들에서 django form으로 형성할 경우 content에 입력하는 부분이 textfield로 설정되어 크기가 작은데 forms.py에서 widget으로 속성을 textarea로 지정해줄경우 크기 조절이 가능하게 속성값을 입힐 수 있음
 
 https://docs.djangoproject.com/ko/4.2/ref/forms/widgets/#built-in-widgets
 
@@ -41,18 +42,23 @@ https://docs.djangoproject.com/ko/4.2/ref/forms/widgets/#built-in-widgets
 ## Form vs ModelForm
 * Form : 사용자 입력 데이터를 DB에 저장하지 않을 때(ex.로그인)
 * ModelForm : 사용자 입력 데이터를 DB에 저장해야 할 때(ex. 게시글 작성, 회원가입)
+
 ## ModelForm
-Model과 연결된 Form을 자동으로 생성해주는 기능을 제공(Form + model)
+* Model과 연결된 Form을 자동으로 생성해주는 기능을 제공(Form + model)
+==> django가 Model을 알아서 해석해서 ModelForm을 형성해줌
+* ModelForm을 쓰는 이유는 유효성검사를 하기 위해 사용(DB에 저장하기 위해서는 유효성검사가 필요함)
 
 ![ModelForm class 정의](<../이미지/240327/ModelForm class 정의.PNG>)
 
 ![ModelForm class 결과](<../이미지/240327/ModelForm class 결과.PNG>)
 fields = 튜플, 리스트 형태의 컬럼명
-
+ex) field = (title, content)도 사용 가능
 ### Meta class
 * ModelForm의 정보를 작성하는 곳
-* Meta class는 모델정보, 필드 정보가 필수로 입력되어야 함.
-사진(데이터)<br>
+* Meta class는 모델정보, 필드 정보가 필수로 입력되어야 함.(model = 모델종류, fields = 어떤필드를 사용할지)
+* Meta Data = 데이터를 위한 데이터
+
+* ex) 사진(데이터)<br>
     - 사진의 메타 데이터<br>
         * 조리개값<br>
         * 날짜<br>
@@ -60,6 +66,7 @@ fields = 튜플, 리스트 형태의 컬럼명
 
 * 'fields' 및 'exclude'속성
     * exclude 속성을 사용하여 모델에서 포함하지 않을 필드를 지정할 수도 있음
+    * exclude는 빼는게 더 빠를때 사용
 
 ![model field exclude](<../이미지/240327/Modelform field and exclude.PNG>)
 
@@ -68,10 +75,11 @@ fields = 튜플, 리스트 형태의 컬럼명
     * view함수에서 반드시 import를 해줘야함
 
 * Modelform을 사용하면 사용자에게서 받아오는 입력값에 대해 알아서 해석 해서 form을 제공 (예를들어, 수정시간이나 등록시간의 경우에는 사용자가 입력하는 것이 아니라 자동으로 형성되므로 form에 형성하지 않음)
+* ModelForm의 save()는 리턴값이 있음
 
 ![Modelform 적용 Creat 함수 변화](<../이미지/240327/ModelForm 적용한 create.PNG>)
 
-* ModelForm의 save()는 리턴값이 있음
+* ModelForm에서 유효성 검사를 통과하지 못할 경우, 에러메세지를 Form의 Data에 반환하기 때문에 if절 아래의 content에 form을 새로 담아서 다시 렌더링을 해서 결과를 확인
 
 ![ModelForm 적용한 create 결과](<../이미지/240327/ModelForm 적용한 create 결과.PNG>)
 
@@ -91,6 +99,7 @@ fields = 튜플, 리스트 형태의 컬럼명
 ## save
 * save()메서드가 생성과 수정을 구분하는 법
     * 키워드 인자 instance여부를 통해 생성할 지, 수정할 지를 결정
+    * instance가 있으면 update, 없으면 create
 * update과정은 create의 코드와 유사한데, 이때 생성인지 수정인지 확인하는 코드는 instance=article의 유무 -> instance로 원래에 있던 article을 넣어주면서 수정이라는 것을 알려주게됨
 
 # Handling HTTP requests
@@ -100,6 +109,8 @@ fields = 튜플, 리스트 형태의 컬럼명
 * new와 create는 데이터 생성을 구현하기 위한 함수라는 공통점이 있지만,
 * new는 GET method 요청만을, create는 POST method 요청만을 처리
 * 두 함수를 결합할 수 있음
+* 노란 영역의 POST에서 유효성 검사를 통과하지 못한다면 아래 context로 넘어가 에러메시지가 담긴 페이지가 나올 수 있도록 context의 위치를 조심해야함. else밖에 있도록
+
 ![new+create](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240327/new+create.PNG)
 
 * 공통점과 차이점을 이용
@@ -131,6 +142,9 @@ fields = 튜플, 리스트 형태의 컬럼명
 ![basemodelform](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240327/basemodelform.PNG)
 
 ## widget 응용
+* Form에 class를 입히고 싶을 경우 model에 field를 직접 설정해주어야함.(widget은 form에 상속되어 있기 때문에)
+* widget의 class안의 attrs(attributes)에 원하는 속성(css class)을 입혀줄 수 있음.
+* widget은 meta class 위쪽에 작성하는 것을 권장
 ![widget응용](<../이미지/240327/widget 응용2.PNG>)
 
 
