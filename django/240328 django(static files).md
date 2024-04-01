@@ -1,13 +1,13 @@
 # Static fiels
 * 정적 파일
-* 서버 측에서 변경되지 않고 고정적으로 제공되는 파일(이미지, JS,CSS 파일 등)
-* 처음부터 제공되는 파일
+* 서버 측에서 변경되지 않고 고정적으로 제공되는 파일(이미지, JS, CSS 파일 등)
+* 처음부터 준비되어 제공되는 파일
 
 ## 웹서버와 정적 파일
 * 웹서버의 기본동작은 특정위치(URL)에 있는 자원을 요청(HTTP request) 받아서 응답(HTTP response)을 처리하고 제공하는 것
 * 이는 자원에 접근 가능한 주소가 있다는 것을 의미== static file에 대한 온라인 URL 주소를 생성해야한다.
 * 웹서버는 요청 받은 URL로 서버에 존재하는 정적 자원을 제공함
-* 정적 파일을 제공하기 위한 경로가 있어야함
+* 정적 파일을 제공하기 위한 경로(URL 주소)가 있어야함
 
 ![웹서버](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240328/%EC%9B%B9%EC%84%9C%EB%B2%84.PNG)
 
@@ -18,7 +18,7 @@
 ![static 경로지정](<../이미지/240328/static 경로 지정.PNG>)
 
 - static file을 불러올 HTML 파일에서 경로 제공
-    - load tag를 이용하여 static을 불러오는 걸 설정 후 static file의 주소를 static tag를 이용하여 불러옴(이때 확장자명까지 입력해야함)
+    - load tag를 이용하여 static을 불러오는 걸 설정 후 static file의 주소를 static tag를 이용하여 불러옴(이때 확장자명까지 입력해야함) == url tag랑 비슷함
 
 ![static 불러오기](<../이미지/240328/static 불러오기.PNG>)
 
@@ -69,17 +69,18 @@
 
 1. settings.py에 MEDIA_ROOT, MEDIA_URL 설정
 
-MEDIA_ROOT : 실제 미디어 파일들이 위치하는 디렉토리의 절대 경로
+* MEDIA_ROOT : 실제 미디어 파일들이 위치하는 디렉토리의 절대 경로
 ![MEDIA_ROOT](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240328/MEDIA_ROOT.PNG)
 
-MEDIA_URL : MEDIA_ROOT에서 제공되는 미디어 파일에 대한 주소를 생성(STATIC_URL과 동일한 역할)
-
+* MEDIA_URL : MEDIA_ROOT에서 제공되는 미디어 파일에 대한 주소를 생성(STATIC_URL과 동일한 역할)
 ![MEDIA_URL](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240328/MEDIA_URL.PNG)
 
 2. 작성한 MEDIA_ROOT와 MEDIA_URL에 대한 URL 지정
-* 업로드 된 파일을 제공하는 URL == settings.MEDIA_URL
-* 위 URL을 통해 참조하는 파일의 실제 위치 == settings.MEDIA_ROOT
-![MEDIA_ROOT와 MEDIA_URL에 대한 URL 지정](<../이미지/240328/MEDIA_ROOT와 MEDIAURL에 대한 url 지정.PNG>)
+    * 업로드 된 파일을 제공하는 URL == settings.MEDIA_URL
+    * 위 URL을 통해 참조하는 파일의 실제 위치 == settings.MEDIA_ROOT
+    * path함수와 비슷하게 생각할 것
+
+    ![MEDIA_ROOT와 MEDIA_URL에 대한 URL 지정](<../이미지/240328/MEDIA_ROOT와 MEDIAURL에 대한 url 지정.PNG>)
 
 ### 이미지 업로드
 * blank= True 속성을 작성해 빈 문자열이 저장될 수 있도록 제약 조건 설정
@@ -122,11 +123,12 @@ MEDIA_URL : MEDIA_ROOT에서 제공되는 미디어 파일에 대한 주소를 �
 ![update view함수 수정](<../이미지/240328/updateview 수정.PNG>)
 
 * 동일한 파일명이 업로드되는 경우 django가 알아서 뒤에 랜덤명을 붙여서 media 폴더에 저장
-
+* 새로 수정한다고 해서 이전에 저장된 파일들이 지워지는 것이 아님. 여러번 수정하게 되거나 이미지가 쌓이면 용량이 증가하게 되는데 이미지를 관리하는 라이브러리를 통해 안쓰는 이미지를 제거가능함.
 # 참고
 * media_ROOT 경로는 부득이하게 리스트 형식이 아니라 하나로만 경로 지정이 가능함
 
-* 따라서 media의 내부경로를 지정해주고 싶을 경우에 imagefield에서 upload_to를 이용하여 만들수 있음
+* 따라서 media의 내부경로를 지정해주고 싶을 경우에 imagefield에서 upload_to를 이용하여 만들수 있음 == username 별로 media파일 관리가 가능
+* 함수를 형성하여 미디어파일 관리할 경우 models.py(model과 같은경로)에서 작성하여 사용
 
 * ImageField()의 upload_to 인자를 사용해 미디어 파일 추가 경로 설정
 ![mediaroot경로 설정](<../이미지/240328/image mediaroot경로 설정.PNG>)
