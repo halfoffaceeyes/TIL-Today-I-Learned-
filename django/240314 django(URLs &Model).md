@@ -1,4 +1,5 @@
 # URLs
+* Django의 Url은 일을 배분하는 역할
 ![URLs의 역할](<../이미지/240314/URLs의 역할.PNG>)
 
 ## URL dispatcher
@@ -19,7 +20,7 @@
 
 ### include(앱이름.url)
 * 프로젝트 내부 앱들의 URL을 참조할 수 있도록 매핑하는 함수
-* URL의 일치하는 부분까지 잘래내고, 남은 문자열 부분은 후속 처리를 위해 include된 URL로 전달
+* URL의 일치하는 부분까지 잘라내고, 남은 문자열 부분은 후속 처리를 위해 include된 URL로 전달
 
 ![변경후 url.py](<../이미지/240314/변경된 URL py.PNG>)
 
@@ -30,6 +31,7 @@
 * url 구조 변경에 따른 문제점
   * 기존 'articles/' 주소가 'articles/index/'로 번경됨에 따라 해당 주소를 사용하는 모든 위치를 찾아가 변경해야 함
   * 이것을 해결하기 위해 이름을 지어주면 됨
+
 ### Naming URL patterns
 * URL에 이름을 지정하는 것(path 함수의 name인자를 정의해서 사용)
 
@@ -37,14 +39,18 @@
 
 * URL 표기 변화
   * a 태그의 href 속성 값뿐만 아니라 form의 action 속성처럼 url을 작성하는 모든 위치에서 변경
+
 ![url 표기 변화](<../이미지/240314/url 표기 변화.PNG>)
+
 * 'url' tag
+  * 주어진 URL 패턴의 이름과 일치하는 절대 경로주소를 반환
+  * URL tag에서 variable routing 인자를 넘기는 방법은 url name 뒤에 인자를 띄어쓰기로 전달
 
 ![url 태그](<../이미지/240314/url tag.PNG>)
-  * 주어진 URL 패턴의 이름과 일치하느 절대 경로
 
 ![url 태그 적용](<../이미지/240314/url tag 적용.PNG>)
 
+### URL 이름공간
 * URL 이름 지정 후 남은 문제
   * articles 앱의 url이름과 pages앱의 url 이름이 같은 상황
   * 단순히 이름만으로는 완벽하게 분리할 수 없기 때문에 분리하기 위해 이름의 성의 역할을 해주는 key를 붙임
@@ -59,9 +65,10 @@
 ![URL tag 최종](<../이미지/240314/url tag 최종.PNG>)
 
 # Model
-* Model을 통한 DB 관리
+* Model을 통한 DB 관리(Model은 DB를 관리하는 역할을 함)
   
 ![Model 구조](<../이미지/240314/Model 구조.PNG>)
+
 ## Django Model
 * DB의 테이블을 정의하고 데이터를 조작할 수 있는 기능들을 제공
   * 테이블 구조를 설계하는 청사진(blueprint)역할
@@ -174,12 +181,14 @@ class Article(models.Model):# models라는 모듈의 내장된 Model클래스를
   * 비밀번호 입력시 보안상 터미널에 출력되지 않으니 무시하고 입력 이어가기
 
 * DB에 생성된 admin 계정 확인
+  * password는 그대로 저장되지 않고 키형태로 변환되어서 저장됨
 ![admin 생성1](<../이미지/240314/admin site1.PNG>)
 
 * admin에 모델 클래스 등록
   * admin.py에 작성한 모델 클래스를 등록해야만 admin site에서 확인 가능
+  * admin.site.register(Article) == admin 사이트에 등록한다. Article 클래스를
 ![admin 생성2](<../이미지/240314/admin site2.PNG>)
-#admin 사이트에 등록한다. Article 클래스를
+
 
 * admin site 로그인 후 등록된 모델 클래스 확인
 ![admin 생성3](<../이미지/240314/admin site3.PNG>)

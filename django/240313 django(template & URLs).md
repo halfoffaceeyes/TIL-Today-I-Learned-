@@ -4,6 +4,7 @@
 * HTML의 콘텐츠를 변수값에 따라 바꾸고 싶다면?
 * render의 3번째인자에 딕셔너리 형태의 데이터를 넘겨주어야함
 * 이 때, 값 표현은 {{}}로 표기
+
 ![HTML변수설정](<../이미지/240313/HTML콘텐츠 변수설정.PNG>)
 
 ## Django Template Language(DTL)
@@ -14,7 +15,7 @@
   * Variable
     * render 함수의 세번째 인자로 딕셔너리 데이터를 사용
     * 딕셔너리 key에 해당하는 문자열이 template에서 사용 가능한 변수명이 됨
-    * **dot('.')를 사용하여 변수 속성**에 접근할 수 있음
+    * **dot('.')를 사용하여 변수 속성**에 접근할 수 있음(예를 들어, 딕셔너리 안에 딕셔너리를 갖거나 리스트를 갖을 경우 또 다른 속성이 새로 생기므로 '.'으로 접근)
     * {{variable}
     * {{variable.attribute}}}
     * ex) list: arr[0]== arr.0, dict : dict.'a'
@@ -25,15 +26,17 @@
     * {{variable|filter}}
     * {{name|trincatewords:30}}
     * filter 사용시 == 앞뒤의 띄어쓰기 주의, variable|filter사이에는 띄어쓰기 없음
+    * filter에 문자열 길이함수 적용 예시 : \<p>{{picked}} 메뉴는 {{picked|length}}글자 입니다.\</p>
   * Tags
     * 반복 또는 논리를 수행하여 제어 흐름을 만듦
     * 일부 태그는 시작과 종료 태그가 필요
     * 약 24개의 built-in template tags를 제공
     * {% tag %}
     * {% if %}{% endif %}
+    * {% for 변수 in sequence %}{%endfor%}
   * Comments
     * DTL에서 주석
-    * \<h1>Hello,{#name#}\</h1>
+    * \<h1>Hello,{#name#}\</h1>(부분 주석)
     * {%comment%}<br>
         ... <br>
      {%endcomment%}
@@ -100,14 +103,17 @@ def create_todo(request):
 * 'block' tag
   * 하위템플릿에서 재정의 할 수 있는 블록을 정의
   * 상위 템플릿에 작성하며 하위 템플릿이 작성할 수 있는 공간을 지정하는 것
+  * 여러개 작성이 가능해서 {% block content %} 외에 base template의 style영역에 {% block style %}를 작성해서 style 영역에 코드 작성을 가능하게 만들 수 있음 == 개별적인 CSS 작성가능
   
 ![block영역](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240313/block%EC%98%81%EC%97%AD.PNG)
+![block예시2](<../이미지/240313/block 작성예시.png>)
 
 # HTML form(요청과 응답)
 * 데이터를 보내고 가져오기(Sending and Retrieving form data)
   * HTML 'form' element를 통해 사용자와 애플리케이션 간의 상호작용 이해하기
   * HTML'form'은 HTTP 요청을 서버로 보내는 가장 편리한 방법
   * form tag는 사용자가 입력한 정보를 모아서 서버로 보내는 역할
+
 ![form 예시](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240313/form%EC%98%88%EC%8B%9C.PNG)
 ![실제 Form 사용예시](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240313/%EC%8B%A4%EC%A0%9Cform%EC%98%88%EC%8B%9C.PNG)
 
@@ -161,6 +167,9 @@ def create_todo(request):
 
 * HTTP request 객체
   * form으로 전송한 데이터 뿐만 아니라 모든 요청 관련 데이터가 담겨 있음(view함수의 첫번째인자)
+  * request는 하나의 class이고 class의 속성값들을 확인하는 함수 dir을 통해 어떠한 속성, 메서드들이 있는지 확인가능
+  * 그 중 GET이나 POST에서 전송된 정보들을 불러올 수 있음
+  * GET, POST로 전송된 데이터들은 Querydict 타입으로 되어 있음 == django에서 지원하는 딕셔너리 형식 -> 딕셔너리에서 정보를 얻어오기 위해 get메서드를 사용
 
 ![request객체](<../이미지/240313/request객체 살펴보기.PNG>)
 
@@ -175,6 +184,7 @@ def create_todo(request):
 # 참고
 * 추가 템플릿 경로 지정
   * 템플릿 기본 경로 외 커스텀 경로 추가하기
+  * BASE_DIR / '폴더명' / '하위폴더명'
 
 ![추가 템플릿 경로 지정](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240313/template%EA%B2%BD%EB%A1%9C%EC%A7%80%EC%A0%95.PNG)
 
@@ -183,6 +193,9 @@ def create_todo(request):
   * settings에서 경로지정을 편하게 하기 위해 최상단 지점을 지정 해놓은 변수
   * 'DIRS' : [BASE_DIR / 'templates'(, 'templates2')]
   * 'DIRS': app 폴더 외부에서도 html 파일을 찾을 수 있도록 설정, 기본설정은 app 폴더에서 탐색, 딕셔너리 형태이므로 여러 형태를 콤마로 연결 가능(templates2처럼)
+
+  https://docs.python.org/ko/3.9/library/pathlib.html#module-pathlib
+
 ![basedir](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240313/BASE_DIR.PNG)
 
 * 파이썬 문법의 객체 지향적인 경로 표기는 OS마다 다른 것을 알아서 변환해줌
@@ -216,7 +229,7 @@ def create_todo(request):
   * http://docs.djangoproject.com/en/4.2/topics/http/urls/#path-converters
   
 * Variable routing 실습
-
+  * Urls.py에 작성한 variable routing의 변수는 view 함수의 인자로 넘어옴
 ![Variable routing 실습1](<../이미지/240313/variable routing 실습.PNG>)
 
 ![Variable routing 실습2](<../이미지/240313/variable routing 실습2.PNG>)
