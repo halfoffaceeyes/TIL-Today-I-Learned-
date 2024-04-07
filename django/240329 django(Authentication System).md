@@ -12,9 +12,11 @@ HTML 문서와 같은 리소스들을 가져올 수 있도록 해주는 규약
 상태가 없다는 것 == 장바구니에 담은 상품을 유지할 수 없음, 로그인 상태를 유지할 수 없음, 상태를 유지하기 위한 기술이 필요
 
 ### 쿠키
-* 서버가 사용자의 웹 브라우저에 전송하는 작은 데이터 조각
+* 서버가 사용자의 웹 브라우저에 전송하는 작은 데이터 조각 = 다음 요청을 위해 클라이언트에 저장
 > 클라이언트 측에서 저장되는 작은 데이터 파일이며, 사용자 인증, 추적, 상태 유지 등에 사용되는 데이터 저장 방식
+
 ![Cookie](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240329/Cookie.PNG)
+* 매 요청마다 상태를 제공(로그인 여부를 계속제공 == HTTP는 상태를 저장할 수 없기 때문에)
 
 #### 쿠키 사용 원리
 1. 브라우저(클라이언트)는 쿠키를 Key-Value의 데이터 형식으로 저장
@@ -23,14 +25,20 @@ HTML 문서와 같은 리소스들을 가져올 수 있도록 해주는 규약
     - 이를 이용해 사용자의 로그인 상태를 유지할 수 있음
     - 상태가 없는(stateless) HTTP 프로토콜에서 상태 정보를 기억시켜 주기 때문
 
+* 쿠키는 상태를 저장하기 위해 사용하는 것!
+
 #### 쿠키를 이용한 장바구니 예시
 * 장바구니에 상품 담기
     * 개발자 도구- Network 탭 - cartView.pang 확인
-    * 서버는 응답과 함께 Set-Cookie 응답 헤더를 브라우저에게 전송
-        - 이 헤더는 클라이언트에게 쿠키를 저장하라고 전달하는 것
+    * 서버는 응답과 함께 Set-Cookie 응답 헤더(Response-Header)를 브라우저에게 전송
+        - 이 헤더 중 Set-Cokie는 클라이언트에게 쿠키를 저장하라고 전달하는 것
+
 ![쿠키 이용예시](<../이미지/240329/쿠키 이용 예시.PNG>)
 * 메인페이지 이동해도 장바구니 유지
+* 만약 쿠키를 지운다면 장바구니가 사라짐
+
 #### 쿠키 사용 목적
+상태가 없는 HTTP에서 상태를 만들어준다!
 1. 세션 관리(Session management)
 - 로그인, 아이디 자동완성, 공지 하루 안보기, 팝업체크, 장바구니 등의 정보 관리
 2. 개인화(Personalization)
@@ -38,9 +46,12 @@ HTML 문서와 같은 리소스들을 가져올 수 있도록 해주는 규약
 3. 트래킹(Tracking)
 - 사용자 행동을 기록 및 분석
 
+* 시크릿모드는 추적 쿠키를 저장하지 않는다는 것
+
 ### 세션
 * 서버 측에서 생성되어 클라이언트와 서버간의 상태를 유지 상태 정보를 저장하는 데이터 저장 방식
 - 쿠키에 세션 데이터를 저장하여 매 요청시마다 세션 데이터를 함께 보냄
+- 쿠키 데이터 중 상태를 담당하는 데이터
 
 #### 세션 작동 원리
 1. 클라이언트가 로그인을 하면 서버가 session 데이터를 생성 후 저장
@@ -50,13 +61,14 @@ HTML 문서와 같은 리소스들을 가져올 수 있도록 해주는 규약
 5. 클라이언트는 다시 동일한 서버에 접속하면 요청과 함께 쿠키(session id가 저장된)를 서버에 전달
 6. 쿠키는 요청 때마다 서버에 함께 전송 되므로 서버에서 session id를 확인해 로그인 되어있다는 것을 알도록 함
 
-* 서버측에서는 세션 데이터를 생성 후 저장하고 이 데이터에 접근할 수 있는 세션 ID를 생성
+* 서버측에서는 세션 데이터를 생성 후 저장하고 이 데이터에 접근할 수 있는 세션 ID(key 역할)를 생성
 * 이 ID를 클라이언트 측으로 전달하고, 클라이언트는 쿠키에 이 ID를 저장
 
 * 이후 클라이언트가 같은 서버에 재요청 시마다 저장해 두었던 쿠키도 요청과 함께 전송
     * 예를 들어 로그인 상태 유지를 위해 로그인 되어 있다는 사실을 입증하는 데이터를 매 요청마다 계속해서 보내는 것
 
 * 쿠키와 세션은 서버와 클라이언트 간의 '상태'를 유지하려는 목적으로 사용
+* 로그아웃하면 세션 데이터를 제거
 
 ### 쿠키 종류별 Lifetime(수명)
 * 서버에서 세션데이터는 기한을 둘 수 있음
@@ -91,7 +103,8 @@ HTML 문서와 같은 리소스들을 가져올 수 있도록 해주는 규약
 
 * User 클래스를 대체하는 이유
     * 우리는 지금까지 별도의 User 클래스 정의 없이 내장된 auth 앱에 작성된 User 클래스를 사용했음
-    * 별도의 설정 없이 사용할 수 있어 간편하지만, 개발자가 직접 수정할 수 없는 문제가 존재
+    * 별도의 설정 없이 사용할 수 있어 간편하지만, 개발자가 직접 수정할 수 없는 문제가 존재(기존의 user클래스와 동일하게 변경 후 필요시 커스터마이징)
+
 https://github.com/django/django/blob/main/django/contrib/auth/models.py#L406
 
 ![내장된 auth 앱](<../이미지/240329/내장된 auth app.PNG>)
@@ -101,7 +114,7 @@ https://github.com/django/django/blob/main/django/contrib/auth/models.py#L406
 
 * 기존 User클래스도 AbstactUser를 상속받기 때문에 이렇게 하면 커스텀 User클래스도 기존 User 클래스와 완전히 같은 모습을 가지게 됨(내장 User클래스 == Abstractuser)
 ![auth 대체하기1](<../이미지/240329/auth 대체1.PNG>)
-* django 프로젝트가 사용하는 기본 User 모델을 우리가 작성한 User 모델로 지정
+* django 프로젝트가 사용하는 기본 User 모델을 우리가 작성한 User 모델로 지정(수정전 기본값 auth.User)
 ![auth 대체하기2](<../이미지/240329/auth 대체2.PNG>)
 * admin site에 대체한 User 모델 등록
 * 기본 User 모델이 아니기 때문에 등록하지 않으면 출력되지 않기 때문에
@@ -123,7 +136,7 @@ https://github.com/django/django/blob/main/django/contrib/auth/models.py#L406
 
 ### 데이터 베이스 초기화 방법
 1. migrations 안의 설계도만 지우고
-2. DB를 지워주면 됨
+2. DB를 지워주면 됨(db.sqlite를 제거)
 
 # Login
 * Session을 Create하는 과정
@@ -136,6 +149,8 @@ https://github.com/django/django/blob/main/django/contrib/auth/models.py#L406
 ==create와 동일한 과정
 ![로그인 페이지 작성](<../이미지/240329/로그인 페이지 작성.PNG>)
 ![로그인 페이지 작성2](<../이미지/240329/로그인 페이지 작성 2.PNG>)
+
+* AuthenticationForm은 ModelForm이 아니라 일반 Form이기 때문에 첫번째인자로 data(request.POST)가 아닌 request를 먼저 받음
 ![로그인 로직 작성](<../이미지/240329/로그인 로직 작성.PNG>)
 
 * login(request,user)
@@ -174,7 +189,7 @@ https://github.com/django/django/blob/main/django/contrib/auth/models.py#L406
 
 ## 현재 로그인 되어 있는 유저 정보를 출력하기
 * user라는 context데이터를 사용할 수 있는 이유는?
-django가 미리 준비한 context데이터가 존재하기 때문(context processors)
+django가 미리 준비한 context데이터가 존재하기 때문(context processors에서 auth관련 context==settings.py의 templates의 option에서 확인가능)
 
 ![현재 로그인된 유저정보 출력](<../이미지/240329/현재 로그인된 유저정보 출력.PNG>)
 
@@ -185,7 +200,8 @@ django가 미리 준비한 context데이터가 존재하기 때문(context proce
 
 ![context processor](<../이미지/240329/context processor.PNG>)
 
-내부적으로 비로그인 유저 클래스가 존재 == AnonymousUser
+* 내부적으로 비로그인 유저 클래스가 존재 == AnonymousUser
+    * AnonymousUser.username = None 값
 
 # 참고
 ## github 코드 참고
@@ -199,11 +215,13 @@ django가 미리 준비한 context데이터가 존재하기 때문(context proce
 
 ### 'AbstarctUser' class
 "관리자 권한과 함께 완전한 기능을 가지고 있는 User model을 구현하는 추상 기본 클래스"
+* 실제로 존재하지 않는 클래스
 
 * Abstract base classes(추상 기본 클래스)
-    * 몇 가지 공통 정보를 여러 다른 모델에 넣을 때 사용하는 클래스
+    * 몇 가지 공통 정보를 여러 다른 모델에 넣을 때 사용하는 클래스(도장같은 역할, 기본기능만 제공하는 클래스)
     * 데이터베이스 테이블을 만드는 데 사용되지 않으며, 대신 다른 모델의 기본 클래스로 사용되는 경우 해당 필드가 하위 클래스의 필드에 추가 됨
     * https://docs.python.org/3/library/abc.html
+    
 * User모델 대체하기 Tip
     * User 모델을 대체하는 순서를 숙지하기 어려울 경우 해당 공식 문서를 보며 순서대로 진행하는 것을 권장
     * https://docs.djangoproject.com/en/4.2/topics/auth/customizing/#substituting-a-custom-user-model
