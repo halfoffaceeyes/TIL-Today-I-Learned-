@@ -15,7 +15,7 @@
 # 중개 모델
 ## 예약모델 생성
 * 환자 모델의 외래 키를 삭제하고 별도의 예약 모델을 새로 생성
-* 예약 모델은 의사와 환자에 각각 N:1 관계를 가짐
+* 예약 모델은 의사와 환자에 각각 N:1 관계를 가짐(어느곳에도 종속되지 않기 때문에 각자를 관리 가능)
 ![중개 모델 1](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240408/%EC%A4%91%EA%B0%9C%EB%AA%A8%EB%8D%B81.PNG)
 ![중개 모델 2](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240408/%EC%A4%91%EA%B0%9C%EB%AA%A8%EB%8D%B82.PNG)
 
@@ -24,24 +24,30 @@
 * 동일한 의사에게 새로운 환자 예약 가능
 ![중개 모델 4](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240408/%EC%A4%91%EA%B0%9C%EB%AA%A8%EB%8D%B84.PNG)
 
-* Django에서는 'ManyToMany Field'로 중개 모델을 자동으로 생성
+* 예약은 보통 환자가 예약을 하던지 의사가 예약을 하던지 정해져야하는데 코드를 보면 주체가 예약 자체가 되어서 환자와 의사를 입력하는 구조이기 때문에 어색함
+
+* Django에서는 'ManyToMany Field'로 중개 모델을 자동으로 생성하여 이를 이용함
 
 # ManyToManyField
-* M:N 관계 설정 모델 필드
+* M:N 관계 설정 모델 필드(다대다 관계형성)
 * 환자 모델에 ManyToManyField 작성
     - 의사 모델에 작성해도 상관 없으며 참조/역참조 관계만 잘 기억할 것
     
 ![ManyToManyField 설정](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240408/ManyToManyField.PNG)
 
 * hospitals_patient_doctors라는 중개 테이블 형성
+    * ManyToManyfield는 작성한 곳에 물리적인 필드가 생성되는 것이 아님
+    * class patient에 써도 class doctor에 써도 무관하게 작동함(참조와 역참조의 관계만 바뀜, 작성되는 곳이 참조하려는 class, 예를들어 patient에 작성하면 patient가 doctor를 참조)
+    * 서로에게 종속되지 않은 새로운 테이블 형성
 
 * 의사 1명 환자 2명 생성후, 예약 생성 및 제거
-    * 생성 : add
-        * 환자가 의사를 참조하고 있기 때문에 환자에서 생성시 patient1.doctors.add(doctor1)
+    * 다대다 관계 생성 : add
+        * 환자가 의사를 참조하고 있기 때문에(class patient에 manytomany field를 작성했으므로) 환자에서 관계 생성시 patient1.doctors.add(doctor1)
         * 의사는 환자를 역참조하여 생성가능
         doctor1.patient_set.add(patient2)
+
         ![Many to many 테이블 생성](<../이미지/240408/MNtable 형성.PNG>)
-    * 제거 : remove
+    * 다대다 관계 제거 : remove
 ![예약 생성 제거](<../이미지/240408/ManyToManyField 생성 제거.PNG>)
 
 # 'through' argument
@@ -62,26 +68,26 @@
 ![field 삭제 가능](<../이미지/240408/ManyToManyField 특징.PNG>)
 
 # M:N 관계 주요 사항
-* M:N 관계로 맺어진 두테이블에는 물리적인 변화가 없음
+* M:N 관계로 맺어진 두 테이블에는 물리적인 변화가 없음
 * ManyToManyField는 중개 테이블을 자동으로 생성
 * ManyToManyField는 M:N 관계를 맺는 두 모델 어디에 위치해도 상관 없음
     - 대신 필드 작성 위치에 따라 참조와 역참조 방향을 주의할 것
 * N:1은 완전한 종속의 관계였지만 M:N은 종속적인 관계가 아니며 '의사에게 진찰받는 환자 & 환자를 진찰하는 의사' 이렇게 2가지 형태 모두 표현 가능
 
 # ManyToManyField
-* ManyToManyField(to,**options) : M:N관계 설정 시 사용하는 모델 필드
+* ManyToManyField(to(누구와 관계를 맺을것인가),**options) : M:N관계 설정 시 사용하는 모델 필드
 * 대표인자 세가지
     * related_name
     * symmetrical
     * through
 
 1. 'related_name' arguments
-* 역참조의 이름을 변경
+* 역참조의 이름을 변경 ==(doctor.patients.all()), 완전히 변경하는것이기 떄문에 과거의 역참조 이름을 사용할 수 없음
 ![related_name](<../이미지/240408/related name.PNG>)
 
 2. 'symmetrical' arguments
 * 관계 설정 시 대칭 유무 설정
-* ManyToManyField가 동일한 모델을 가리키는 정의에서만 사용
+* ManyToManyField가 동일한 모델을 가리키는 정의에서만 사용(아래 사진의 친구관계 형성과 같은 경우에 사용, 1번과 2번이 친구가 되면 1->2, 2->1)
 * 기본값: True
 ![symmetrical](<../이미지/240408/symmetrical argument.PNG>)
 
@@ -90,7 +96,7 @@
 - 즉, 내가 당신의 친구라면 자동으로 당신도 내친구가 됨
 
 * False일 경우
-- True와 반대(대칭되지 않음)
+- True와 반대(대칭되지 않음, SNS 팔로우와 같음 한쪽이 팔로우한다고 반대가 자동으로 팔로우되는 것은 아님)
 
 3. 'through' arguments
 * 사용하고자 하는 중개모델을 지정
@@ -122,14 +128,15 @@
             * 유저가 좋아요한 게시글
             * user.article_set.all()
         * like_users필드 생성 시 자동으로 역참조 매니저 .article_set가 생성됨
-        * 그러나 이전 N:1(Article-User)관계에서 이미 같은 이름의 매니저를 사용 중
+        * 그러나 이전 N:1(Article-User)관계에서 이미 같은 이름의 매니저를 사용 중임
         - user.article_set.all()->해당 유저가 작성한 모든 게시글 조회
         - user가 작성한 글(user.article_set)과 user가 좋아요를 누른 글(user.article_set)을 구분할 수 없게 되므로 둘 중 하나에 related_name 작성 필요
 
 * 변경된 모델
 ![모델 관계 설정3](<../이미지/240408/모델 관계 설정3.PNG>)
+    * ManyToMany는 중개 테이블이 생성되는 것을 명심! 실제 테이블에는 변화없음
     
-### User-Article 간 사용 가능한 전체 related manager
+### User-Article 간 사용 가능한 전체 related manager 명령어
 * article.user : 게시글을 작성한 유저 - N:1
 * user.article_set : 유저가 작성한 게시글(역참조) - N:1
 * article.like_users : 게시글을 좋아요 한 유저 - M:N
