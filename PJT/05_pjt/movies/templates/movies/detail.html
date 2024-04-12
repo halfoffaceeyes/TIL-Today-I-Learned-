@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1 class="display-6">Detail PAGE</h1>
+    <h4>{{movie.title}}</h4>
+<p>{{movie.description}}</p>
+<p>장르 : {{movie.genre}}</p>
+<p>평점 : {{movie.score}}</p>
+<hr>
+<form style='display : inline-block' action="{% url "movies:update" movie.pk %}">
+    <button type="submit" class="btn btn-secondary">UPDATE</button>
+</form>
+<form style='display : inline-block' action="{% url "movies:delete" movie.pk%}" method ='POST'>
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">DELETE</button>
+</form>
+<hr>
+<h3>댓글 목록</h3>
+<div class="card" style="width: 100%">
+    <ul class="list-group list-group-flush">
+        {% for comment in comments %}
+        <li class="list-group-item d-flex justify-content-between">
+            {{comment.user}} - {{comment.content}}
+            <form style='display : inline-block' action="{% url "movies:comments_delete" movie.pk comment.pk %}" method="post">
+                {% csrf_token %}
+                <input type="submit" class = 'btn btn-danger' value="DELETE">
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+  </div>
+
+<hr>
+<form action="{% url "movies:comments_create" movie.pk %}" method="POST">
+    {% csrf_token %}
+    {{form}}
+    <input type="submit" value="댓글 작성">
+</form>
+    
+<hr>
+
+<form style='display : inline-block' action="{% url "movies:index" %}">
+    <button type="submit" class="btn btn-primary">BACK</button>
+</form>
+{% endblock content %}
+
