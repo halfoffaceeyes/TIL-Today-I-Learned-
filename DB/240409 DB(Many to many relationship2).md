@@ -1,6 +1,7 @@
 # 팔로우 기능 구현
 
 1. url 작성
+* 주의 사항 : \<usename>/주소를 urlpatterns의 첫번째로 작성한다면 문자열로 입력받는 모든 주소가 profile로 들어감(login,logout,signup등등) ==> 해결하기 위해 맨아래로 내리거나 /profile/\<username>처럼 앞에 profile을 붙여서 다른 주소로 만들어줌
 ![팔로우 url](<../이미지/240409/팔로우 url.PNG>)
 
 2. view함수 작성
@@ -27,6 +28,7 @@
 * 회원은 0명 이상의 팔로워를 가질수 있고, 0명 이상의 다른 회원들을 팔로잉 할 수 있음
 
 1. ManyToManyField 작성
+* ManyToManyField는 복수형으로 작성
 * self로 참조하는 ManyToMany Field를 작성(이때, 자신을 참조할 경우 symmetrical 옵션을 사용할 수 있음, 이때 대칭을 꺼줌)
 
 * 참조 : 내가 팔로우하는 사람들(팔로잉, followings)
@@ -99,6 +101,7 @@
 #### dumpdata
 * 데이터 베이스의 모든 데이터를 추출
 * 작성 예시
+    * --indent 4는 데이터 형식을 들여쓰기 4칸을 넣어서 작성할 것이라는 뜻(인덴트를 안주면 데이터가 한줄로 나옴, 데이터를 잘 구별하고자 하기 위함, 필수 아님)
 ![작성 예시](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240409/dumpdata.PNG)
 * 활용
 ![dumpdata 활용](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240409/dumpdata2.PNG)
@@ -120,6 +123,7 @@
     - comment는 article에 대한 key 및 user에 대한 key가 필요
     - article은 user에 대한 key가 필요
 * 즉, 현재 모델 관계에서는 user -> article -> comment 순으로 data를 load해야 오류를 발생하지 않음
+* 한번에 로드하면 django가 알아서 데이터를 입혀줌
 
 #### 참고
 * 모든 모델을 한번에 dump하기
