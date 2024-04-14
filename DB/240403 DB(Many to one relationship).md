@@ -11,25 +11,42 @@
 * ForeignKey 클래스의 인스턴스 이름은 참조하는 모델 클래스 이름의 단수형으로 작성하는 것을 권장
 * 외래 키는 ForeignKey 클래스를 작성하는 위치와 관계없이 테이블 필드 마지막에 생성됨
 ![댓글모델](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240403/%EB%8C%93%EA%B8%80%EB%AA%A8%EB%8D%B8.PNG)
+
 ### Foreignkey(to, on_delete)
-    * to : 참조하는 모델 class 이름
-    * on_delete : 외래 키가 참조하는 객체(1)가 사라졌을때, 외래 키를 가진 객체(N)를 어떻게 처리할 지를 정의하는 설정(데이터 무결성)
-        * on_delete의 'CASCADE'
-            * 부모객체(참조된 객체)가 삭제됐을 때 이를 참조하는 객체도 삭제
-            * 참고 : https://docs.djangoproject.com/en/4.2/ref/models/fields/#arguments
+* to : 참조하는 모델 class 이름
+* on_delete : 외래 키가 참조하는 객체(1)가 사라졌을때, 외래 키를 가진 객체(N)를 어떻게 처리할 지를 정의하는 설정(데이터 무결성)
+    * on_delete의 'CASCADE'
+        * 부모객체(참조된 객체)가 삭제됐을 때 이를 참조하는 객체도 삭제
+        * 참고 : https://docs.djangoproject.com/en/4.2/ref/models/fields/#arguments
     
 ### Migration 이후 댓글 테이블 확인
 * 댓글 테이블의 article_id 필드 확인 == 따라서 모델에서 외래키 설정시 변수명을 article_id가 아닌 article로 형성(article_id로 설정하면 외래키 형성된경우 article_id_id로 필드명이 형성)
 * '참조 대상 클래스' + '_'+ '클래스 이름'
     * 참조하는 클래스 이름의 소문자(단수형)로 작성하는 것이 권장되었던 이유
+![댓글 테이블 확인](<../이미지/240403/댓글 참조관계 테이블확인 .png>)
 
 ## 댓글 생성 연습
+1. shell_plus 실행 및 게시글 작성
 ![댓글 생성 연습1](<../이미지/240403/댓글 생성 연습1.PNG>)
+
+2. 댓글 생성
 ![댓글 생성 연습2](<../이미지/240403/댓글 생성 연습2.PNG>)
+
+3. shell_plus 실행 및 게시글 작성
+* 이 때, 참조하는 외래키 데이터를 작성할 때 직접 키값을 넣지 않고 참조할 인스턴스를 연결해 주기(자동으로 pk연결)
 ![댓글 생성 연습3](<../이미지/240403/댓글 생성 연습3.PNG>)
+
+4. comment 인스턴스를 통한 article 값 참조하기
+* comment에 연결된 article을 호출할 수 있음
 ![댓글 생성 연습4](<../이미지/240403/댓글 생성 연습4.PNG>)
+
+5. comment 인스턴스를 통한 article 값 참조하기
 ![댓글 생성 연습5](<../이미지/240403/댓글 생성 연습5.PNG>)
+
+6. 두번째 댓글 생성
 ![댓글 생성 연습6](<../이미지/240403/댓글 생성 연습6.PNG>)
+
+7. 작성된 댓글 데이터 확인
 ![댓글 생성 연습7](<../이미지/240403/댓글 생성 연습7.PNG>)
 
 # 관계 모델 참조
@@ -39,11 +56,13 @@
 ### 역참조 QuerySet API
 * 모델.참조_set.API 형태로 작성
 * article= 모델, comment= article을 참조하는 모델, all()= querysetAPI
+* _set은 복수형의 형태를 나타냄
+* 
 ![역참조](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240403/%EC%97%AD%EC%B0%B8%EC%A1%B0.PNG)
 ![역참조 예시](<../이미지/240403/역참조 예시.PNG>)
 
 ### related manager
-* N:1혹은 M:N관계에서 역참조 시에 사용하는 매니저
+* N:1혹은 M:N관계에서 역참조 시에 사용하는 매니저== 역참조 대상클래스 이름_set
 * 'objects' 매니저를 통해 QuerySet API를 사용했던 것처럼 related manager를 통해 QuerySet API를 사용할 수 있게 됨
 * related manager 이름 규칙
     * N:1관계에서 생성되는 Related manager의 이름은 참조하는 '모델명_set' 이름 규칙으로 만들어짐
