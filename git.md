@@ -222,28 +222,233 @@ $ git log --oneline --graph --all
 
 
 # Branch Merging
+* git merge
 * 분기된 브랜치를 하나로 병합
 * git merge <합칠 브랜치 이름>
-* local에서 하는 경우 or Remote에서 하는 경우
-합치려는 main code를 브랜치로 스위치해줘야함(master를 기준으로 합치고 싶으면 현재 브랜치가 master여야함)
+* local에서 하는 경우 or Remote에서 하는 경우 합치려는 main code를 브랜치로 스위치해줘야함(master를 기준으로 합치고 싶으면 현재 브랜치가 master여야함)
 * 순서
     * 합치고자 하는 중심이 될 브랜치로 switch : git switch <main branch>
     * 중심 브랜치에서 합침 : git merge <합칠branch>
+```bash
+# 1. 현재 branch1과 branch2가 있고, HEAD가 가리키는 곳은 branch1 입니다.
+$ git branch
+# * branch1
+#   branch2
+# 2. branch2를 branch1에 합치기
+$ git merge branch2
+# 3. branch1을 branch2에 합치기
+$ git switch branch2
+$ git merge branch1
+
+```
+
 ## Merge 종류
-1. Fast-Foward Merge
+### Fast-Foward Merge
+* 브랜치를 병합할 때 마치 빨리감기처럼 브랜치가 가리키는 커밋을 앞으로 이동시키는 것(merge 과정 없이 단순히 브랜치의 포인터가 이동)
 * master를 분기했을 때, 마스터의 수정이 없는경우에 사용
 * hotfix의 commit내용을 반영하면서 마스터가 뒤로 이동
-2. 3-way-merge
+
+#### 예시
+1. master가 c2 커밋, hotfix가 c4 커밋을 가리키고 있는 상황
+![FastFoward 예시](<이미지/240412/fastforward 예시.PNG>)
+
+2. master에 hotfix를 병합
+```bash
+$ git switch master
+$ git merge hotfix
+# Updating s1d5f1s..1325sd4
+# Fast-forward
+# index.html | 2 ++
+# 1 file changed, 2 insertions(+)
+```
+3. hotfix가 가리키는 C4는 C2에 기반한 커밋이므로, master는 C4로 이동
+    - 이렇게 따로 merge과정 없이 브랜치의 포인터가 이동하는 것을 Fast-Forward라고 함
+
+![fastforward 결과](<이미지/240412/fastforward 결과.PNG>)
+
+4. 병합이 완료된 hotfix는 더이상 필요 없으므로 삭제
+```bash
+$ git branch -d hotfix
+# Deleted branch hotfix (1325sd4)
+```
+### 3-way-merge
+* 브랜치를 병합할 때 각 브랜치의 커밋 두개와 공통 조상 하나를 사용하여 병합하는 것
+    * 두 브랜치에서 다른 파일 혹은 같은 파일의 다른 부분을 수정했을 때 가능한 방법
 * 분기 이후, master에 커밋이 있는 경우에 사용
 * 기준점에서 마스터의 변경점, 브랜치의 변경점과 기준점 3가지
 
-## Merge conflict
-* 병합하는 두브랜치에서 같은 파일의 같은부분을 수정한 경우
-* git은 어느 브랜치의 내용을 
+#### 예시
+1. 현재 master는 C4 커밋, iss53은 C5 커밋을 가리키고, master와 iss53의 공통 조상은 C2 커밋
 
+![3waymerge 예시](<이미지/240412/3waymerge 예시.PNG>)
+
+2. master에 iss53을 병합
+```bash
+$ git switch master
+# Switched to branch 'master'
+$ git merge iss53
+# Merge made by the 'ort' strategy.
+# index.html | 1 +
+# 1 file changed, 1 insertion(+)
+```
+
+3. master와 iss53은 갈래가 나누어져 있기 때문에 Fast-Forward로 합쳐질수 없음
+    - 따라서 공통 조상인 C2와 각자가 가리키는 커밋인 C4,C5를 비교하여 3-way-merge를 진행
+- C6는 master와 iss53이 병합되어 발생한 Merge Commit
+![3-way-merge 결과](<이미지/240412/3waymerge 진행.PNG>)
+
+4. 병합이 완료된 iss53은 더이상 필요 없으므로 삭제
+
+```bash
+$ git branch -d iss53
+# Deleted branch iss53 (58sdf23).
+```
+
+## Merge conflict
+* 병합하는 두브랜치에서 같은 파일의 같은부분을 수정한 경우, git은 어느 브랜치의 내용으로 작성해야 하는지 판단하지 못해 발생하는 충돌(Conflict) 현상
+    * 결국 사용자가 직접 내용을 선택해서 Conflict를 해결해야 함.
+
+### 예시
+1. 현재 master는 C4 커밋, iss53은 C5 커밋을 가리키고, master와 iss53의 공통 조상은 C2 커밋
+
+![merge conflict](<이미지/240412/merge conflict.PNG>)
+
+2. 3-way merge 와는 달리, 만약 master와 iss53이 같은 파일의 같은 부분을 수정하고 병합한다면 충돌이 발생
+```bash
+$ git merge iss53
+# Auto-merging index.html
+# CONFLICT (content): Merge conflict in index.html
+# Automatic merge failed; fix conflicts and then commit the result.
+```
+3. 충돌이 일어난 파일을 확인
+```bash
+$ git status
+# On branch master
+# You have unmerged paths.
+# (fix conflicts and run "git commit")
+# Unmerged paths:
+# (use "git add <file>..." to mark resolution)
+# both modified: index.html
+# no changes added to commit (use "git add" and/or "git commit -a")
+```
+
+4. index.html을 열어보면 아래와 같이 충돌 내역이 나옴
+```html
+<<<<<<< HEAD:index.html
+<div id="footer">contact : email.support@github.com</div>
+=======
+<div id="footer">
+please contact us at support@github.com
+</div>
+>>>>>>> iss53:index.html
+
+```
 충돌지점은 vscode에서 돋보기에 좌측이나 우측 꺽새를 5개 이상 입력시 찾을 수 있음
 충돌한 지점에서 어떤 코드를 남길 것인지 선택 후 저장
 저장 후 git add . -> git commit (-m 작성 x)-> :wq
+
+======= 를 기준으로 위는 master의 내용, 아래는 iss53의 내용
+
+둘중 하나를 선택할 수 있고, 둘다 선택 할수도 있고, 아예 새롭게 작성 가능
+```html
+<div id="footer">
+please contact us at email.support@github.com
+</div>
+```
+
+5. 이 후 git add와 git commit을 통해 병합한 내용을 커밋
+```bash
+$ git add .
+$ git commit
+# 이때 commit 까지만 작성
+```
+7. Vim 편집기가 켜지며 이를 이용해서 커밋 내역을 수정할 수 있음.
+(수정을 마치거나 수정할 것이 더이상 없을 경우 esc 를 누른후 :wq 를 입력하여 저장 및 종료)
+```txt
+Merge branch 'iss53'
+Conflicts:
+index.html
+#
+# It looks like you may be committing a merge.
+# If this is not correct, please remove the file
+# .git/MERGE_HEAD
+# and try again.
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# All conflicts fixed but you are still merging.
+#
+# Changes to be committed:
+# modified: index.html
+#
+```
+## Branch Merge scenario
+```bash
+$ mkdir git_merge
+$ cd git_merge
+$ git init
+$ touch test.txt
+# test.txt 에 master test 1 을 입력 후 저장
+$ git status
+$ git add .
+$ git commit -m "master test 1"
+```
+
+### 3종류 Merge 상황
+#### fast-forward
+* login 브랜치가 생성된 이후 master브랜치에 변경 사항이 없는 상황
+* 즉, master 브랜치에서 login 브랜치를 Merge할 때, login 브랜치가 master 브랜치 이후의 커밋을 가리키고 있으면, 그저 master 브랜치가 login와 동일한 커밋을 가리키도록 이동시킴.
+![fast-forward](%EC%9D%B4%EB%AF%B8%EC%A7%80/240412/fastforward_%EC%82%AC%EC%9A%A9.PNG)
+
+1. login branch 생성 및 이동
+```bash
+$ git switch -c login
+```
+
+2. 특정 작업 완료 후 commit
+```bash
+$ touch login.txt
+$ git add .
+$ git commit -m "login test 1"
+```
+
+3. master 브랜치로 이동
+```bash
+$ git switch master
+$ git log --oneline --all --graph
+# * df231d0 (login) login test 1
+# * 1e62b4c (HEAD -> master) master test 1
+```
+
+4. master에 병합 login을 병합
+```bash
+$ git merge login
+# Updating 43fab3e..2fe539c
+# Fast-forward
+# login.txt | 0
+# 1 file changed, 0 insertions(+), 0 deletions(-)
+# create mode 100644 login.txt
+```
+5. 결과 확인(fast-foward, 단순히 HEAD를 앞으로 빨리감기)
+```bash
+$ git log --oneline --all --graph
+# * 2fe539c (HEAD -> master, login) login test 1
+# * 43fab3e master test 1
+```
+
+6. login 브랜치를 삭제
+```bash
+$ git branch -d login
+# Deleted branch login (was df231d0).
+$ git log --oneline --all --graph
+# * 2fe539c (HEAD -> master) login test 1
+# * 43fab3e master test 1
+```
+#### 3-way Merge(Merge commit)
+* 현재 브랜치(master)가 가리키는 커밋이 Merge할 브랜치의 조상이 아니면, git은 각 브랜치가 가리키는 커밋 2개와 공통조상 하나를 사용하며 3-way Merge 진행
+* 단순히 브랜치 포인터를 최신 커밋으로 옮기는 게 아니라 3-way Merge의 결과를 별도의 커밋으로 만들고 나서 해당 브랜치가 그 커밋을 가리키도록 이동
+![3-way Merge 적용](%EC%9D%B4%EB%AF%B8%EC%A7%80/240412/3waymerge_%EC%82%AC%EC%9A%A9.PNG)
+
 
 # Undoing
 git restore 보다는 git stash를 권장 (왜냐하면 stash는 수정사항을 어딘가에 저장하고 되돌리기 때문에 git stash apply를 하면 수정한 내용을 다시 적용할 수 있음)
