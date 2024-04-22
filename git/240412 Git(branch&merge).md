@@ -524,6 +524,208 @@ $ git log --oneline --all --graph
 - 단순히 브랜치 포인터를 최신 커밋으로 옮기는 게 아니라 3-way Merge의 결과를 별도의 커밋으로 만들고 나서 해당 브랜치가 그 커밋을 가리키도록 이동
   ![3-way Merge 사용](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240412/3waymerge_%EC%82%AC%EC%9A%A9.PNG)
 
+1. signout 브랜치 생성 및 이동
+```bash
+$ git switch -c signout
+```
+
+2. 특정 작업 완료 후 commit
+```bash
+$ touch signout.txt
+$ git add .
+$ git commit -m "signout test 1"
+[signout d9f33e2] signout test 1
+1 file changed, 0 insertions(+), 0 deletions(-)
+create mode 100644 signout.txt
+$ git log --oneline --all --graph
+* d9f33e2 (HEAD -> signout) signout test 1
+* 2fe539c (master) login test 1
+* 43fab3e master test 1
+```
+
+3. master 브랜치로 이동
+```bash
+$ git switch master
+```
+
+4. master에 추가 작업 후 commit(단, signout 브랜치와 다른 파일을 생성 혹은 수정)
+```bash
+$ touch master.txt
+$ git add .
+$ git commit -m "master test 2"
+$ git log --oneline --all --graph
+* 07fae72 (HEAD -> master) master test 2
+| * d9f33e2 (signout) signout test 1
+|/
+* 2fe539c login test 1
+* 43fab3e master test 1
+```
+
+5. master에 signout을 병합(자동 merge commit 발생)
+```bash
+$ git merge signout
+Merge made by the 'recursive' strategy.
+signout.txt | 0
+1 file changed, 0 insertions(+), 0 deletions(-)
+create mode 100644 signout.txt
+```
+
+6. log 확인
+```bash
+$ git log --oneline --all --graph
+* 1170a02 (HEAD -> master) Merge branch 'signout'
+|\
+| * d9f33e2 (signout) signout test 1
+* | 07fae72 master test 2
+|/
+* 2fe539c login test 1
+* 43fab3e master test 1
+
+```
+
+7. signout 브랜치 삭제
+```bash
+$ git branch -d signout
+Deleted branch signout (was d9f33e2).
+```
+#### Merge Conflict
+* Merge하는 두 브랜치에서 같은 파일의 같은 부분을 동시에 수정하고 Merge하면 Git은 해당 부분을 자동으로 Merge하지 못하고 충돌이 일어남(반면 동일 파일이더라도 서로 다른 부분을 수정했다면, Conflict 없이 자동으로 자동으로 Merge Commit 된다.)
+![Merge Conflict](<../이미지/240412/merge conflict 적용.PNG>)
+
+1. hotfix 브랜치 생성 및 이동
+```bash
+$ git switch -c hotfix
+```
+
+2. 특정 작업 완료 후 commit
+```bash
+# test.txt 수정
+master test 1
+이건 hotfix 에서 작성한 문장이에요!
+```
+```bash
+$ git add .
+$ git commit -m "hotfix test 1"
+[hotfix e6cf5ec] hotfix test 1
+1 file changed, 2 insertions(+)
+$ git log --graph --oneline --all
+* e6cf5ec (HEAD -> hotfix) hotfix test 1
+* 1170a02 (master) Merge branch 'signout'
+|\
+| * d9f33e2 signout test 1
+* | 07fae72 master test 2
+|/
+* 2fe539c login test 1
+* 43fab3e master test 1
+```
+
+3. master 브랜치로 이동
+```bash
+$ git switch master
+```
+
+4. 특정 작업(hotfix와 동일 파일의 동일 부분 수정) 완료 후 commit
+```bash
+# text.txt 수정
+master test 1
+이건 master 에서 작성한 코드에용ㅎㅎ!!
+```
+```bash
+$ git add .
+$ git commit -m "master test 3"
+$ git log --oneline --all --graph
+* 1bc2eeb (HEAD -> master) master test 3
+| * e6cf5ec (hotfix) hotfix test 1
+|/
+* 1170a02 Merge branch 'signout'
+|\
+| * d9f33e2 signout test 1
+* | 07fae72 master test 2
+|/
+* 2fe539c login test 1
+* 43fab3e master test 1
+```
+
+5. master에 hotfix를 병합
+```bash
+$ git merge hotfix
+```
+
+6. 결과 -> merge conflict 발생(같은 파일의 같은 문장을 수정했기 때문)
+
+![merge conflict](<../이미지/240412/merge conflict 적용.PNG>)
+
+7. 충돌 확인 및 해결
+* Merge 충돌이 일어났을 때 Git이 어떤 파일을 Merge할 수 없었는지 살펴보려면 git status 명령을 이용한다.
+```bash
+$ git status
+On branch master
+You have unmerged paths.
+(fix conflicts and run "git commit")
+(use "git merge --abort" to abort the merge)
+Unmerged paths:
+(use "git add <file>..." to mark resolution)
+both modified: test.txt
+no changes added to commit (use "git add" and/or "git commit -a")
+```
+```bash
+master test 1
+<<<<<<< HEAD
+이건 master 에서 작성한코드에용ㅎㅎ!!
+=======
+이건 hotfix 에서 작성한문장이에요!!
+>>>>>>> hotfix
+```
+* ======= 위쪽의 내용은 HEAD 버전(merge 명령을 실행할 때 작업하던 master 브랜치)의 내
+용이고 아래쪽은 hotfix 브랜치의 내용이다. 
+충돌을 해결하려면 위쪽이나 아래쪽 내용 중에서 고르거나 새로 작성하여 Merge 해야 한다.
+( <<<<<<<, =======, >>>>>>> 가 포함된 행을 삭제)
+![충돌확인 및 해결](<../이미지/240412/충돌확인 및 해결.PNG>)
+
+```txt
+# test.txt 최종본
+master test 1
+충돌을 해결해보자!!
+```
+
+8. merge commit 진행
+```bash
+$ git add .
+$ git commit
+
+```
+* VIM 에디터 등장
+![vim editor](<../이미지/240412/VIM editor.PNG>)
+
+* 자동으로 작성된 커밋 메세지( Merge branch 'hotfix' )를 확인하고
+esc 를 누른후 :wq 를 입력하여 저장 & 종료
+```bash
+[master eec8da4] Merge branch 'hotfix'
+```
+
+9. log 확인
+```bash
+$ git log --oneline --all --graph
+* eec8da4 (HEAD -> master) Merge branch 'hotfix'
+|\
+| * e6cf5ec (hotfix) hotfix test 1
+* | 1bc2eeb master test 3
+|/
+* 1170a02 Merge branch 'signout'
+|\
+| * d9f33e2 signout test 1
+* | 07fae72 master test 2
+|/
+* 2fe539c login test 1
+* 43fab3e master test 1
+```
+
+10. hotfix 브랜치를 삭제
+```bash
+$ git branch -d hotfix
+Deleted branch hotfix (was e6cf5ec).
+```
+
 # Undoing
 
 git restore 보다는 git stash를 권장 (왜냐하면 stash는 수정사항을 어딘가에 저장하고 되돌리기 때문에 git stash apply를 하면 수정한 내용을 다시 적용할 수 있음)
