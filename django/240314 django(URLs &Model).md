@@ -1,6 +1,7 @@
 # URLs
 * Django의 Url은 일을 배분하는 역할
-![URLs의 역할](<../이미지/240314/URLs의 역할.PNG>)
+
+  ![URLs의 역할](<../이미지/240314/URLs의 역할.PNG>)
 
 ## URL dispatcher
 * URL 패턴을 정의하고 해당 패턴이 일치하는 요청을 처리할 view 함수를 연결(매핑)
@@ -83,7 +84,8 @@ class Article(models.Model):# models라는 모듈의 내장된 Model클래스를
 
 * 작성한 model 클래스는 최종적으로 DB에 다음과 같은 테이블 구조를 만듦
 (id 필드는 django가 자동으로 생성)
-![model class 살펴보기 1](<../이미지/240314/model class 살펴보기.PNG>)
+
+  ![model class 살펴보기 1](<../이미지/240314/model class 살펴보기.PNG>)
 
 * django.db.models 모듈의 Model이라는 부모 클래스를 상속받음
 * Model은 model에 관련된 모든 코드가 이미 작성 되어있는 클래스
@@ -182,22 +184,27 @@ class Article(models.Model):# models라는 모듈의 내장된 Model클래스를
 
 * DB에 생성된 admin 계정 확인
   * password는 그대로 저장되지 않고 키형태로 변환되어서 저장됨
-![admin 생성1](<../이미지/240314/admin site1.PNG>)
+  
+  ![admin 생성1](<../이미지/240314/admin site1.PNG>)
 
 * admin에 모델 클래스 등록
   * admin.py에 작성한 모델 클래스를 등록해야만 admin site에서 확인 가능
   * admin.site.register(Article) == admin 사이트에 등록한다. Article 클래스를
-![admin 생성2](<../이미지/240314/admin site2.PNG>)
+
+  ![admin 생성2](<../이미지/240314/admin site2.PNG>)
 
 
 * admin site 로그인 후 등록된 모델 클래스 확인
-![admin 생성3](<../이미지/240314/admin site3.PNG>)
+
+  ![admin 생성3](<../이미지/240314/admin site3.PNG>)
 
 * 데이터 생성, 수정, 삭제 테스트
-![admin 생성4](<../이미지/240314/admin site4.PNG>)
+
+  ![admin 생성4](<../이미지/240314/admin site4.PNG>)
 
 * 테이블 확인
-![admin 생성5](<../이미지/240314/admin site5.PNG>)
+  
+  ![admin 생성5](<../이미지/240314/admin site5.PNG>)
 
 # 참고
 * 데이터 베이스를 초기화하고 싶으면

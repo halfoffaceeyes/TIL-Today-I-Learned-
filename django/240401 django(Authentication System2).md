@@ -119,6 +119,7 @@ https://github.com/django/django/blob/main/django/contrib/auth/base_user.py#L85
 
 ## 회원가입후 로그인 까지 이어서 진행하는 법
 * signup후 로그인을 진행
+
 ![회원가입후 자동 로그인](<../이미지/240401/회원가입 후 로그인 자동.PNG>)
 
 ## 탈퇴와 함께 기존 사용자의 Session Data 삭제 방법

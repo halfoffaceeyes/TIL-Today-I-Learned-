@@ -94,8 +94,8 @@ def create_todo(request):
 * skeleton 역할을 하게되는 상위 템플릿을 작성
   * bootstrap CDN코드에 block이라는 영역을 만듦
 
-![상속구조만들기1](<../이미지/240313/상속구조 만들기1.PNG>)
-![상속구조만들기2](<../이미지/240313/상속구조 만들기2.PNG>)
+  ![상속구조만들기1](<../이미지/240313/상속구조 만들기1.PNG>)
+  ![상속구조만들기2](<../이미지/240313/상속구조 만들기2.PNG>)
 
 * 'extends' tag
   * 자식(하위)템플릿이 부모 템플릿을 확장한다는 것을 알림
@@ -105,8 +105,8 @@ def create_todo(request):
   * 상위 템플릿에 작성하며 하위 템플릿이 작성할 수 있는 공간을 지정하는 것
   * 여러개 작성이 가능해서 {% block content %} 외에 base template의 style영역에 {% block style %}를 작성해서 style 영역에 코드 작성을 가능하게 만들 수 있음 == 개별적인 CSS 작성가능
   
-![block영역](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240313/block%EC%98%81%EC%97%AD.PNG)
-![block예시2](<../이미지/240313/block 작성예시.png>)
+  ![block영역](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240313/block%EC%98%81%EC%97%AD.PNG)
+  ![block예시2](<../이미지/240313/block 작성예시.png>)
 
 # HTML form(요청과 응답)
 * 데이터를 보내고 가져오기(Sending and Retrieving form data)
@@ -114,8 +114,8 @@ def create_todo(request):
   * HTML'form'은 HTTP 요청을 서버로 보내는 가장 편리한 방법
   * form tag는 사용자가 입력한 정보를 모아서 서버로 보내는 역할
 
-![form 예시](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240313/form%EC%98%88%EC%8B%9C.PNG)
-![실제 Form 사용예시](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240313/%EC%8B%A4%EC%A0%9Cform%EC%98%88%EC%8B%9C.PNG)
+  ![form 예시](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240313/form%EC%98%88%EC%8B%9C.PNG)
+  ![실제 Form 사용예시](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240313/%EC%8B%A4%EC%A0%9Cform%EC%98%88%EC%8B%9C.PNG)
 
 ## 'form' element
 * 사용자로부터 할당된 데이터를 서버로 전송
@@ -123,14 +123,14 @@ def create_todo(request):
 
 ### fake Naver 실습
 
-![fake naver](<../이미지/240313/fake naver.PNG>)
+  ![fake naver](<../이미지/240313/fake naver.PNG>)
 
-![fake naver2](<../이미지/240313/fake naver2.PNG>)
+  ![fake naver2](<../이미지/240313/fake naver2.PNG>)
 
-![fake naver3](<../이미지/240313/fake naver3.PNG>)
+  ![fake naver3](<../이미지/240313/fake naver3.PNG>)
 * 주소값을 보면 key=value 형태인 것을 알 수 있음
 
-![fake naver4](<../이미지/240313/fake naver4.PNG>)
+  ![fake naver4](<../이미지/240313/fake naver4.PNG>)
 
 ## 'action' & 'method'
 * form의 핵심 속성 2가지
@@ -155,15 +155,15 @@ def create_todo(request):
     * http://host:port/path?key=value&key=value
   
 # form 활용
-![활용예시 서버만들기](<../이미지/240313/사용자 입력데이러를 출력하는 서버만들기.PNG>)
+  ![활용예시 서버만들기](<../이미지/240313/사용자 입력데이러를 출력하는 서버만들기.PNG>)
 
-![Throw작성](<../이미지/240313/throw 작성.PNG>)
+  ![Throw작성](<../이미지/240313/throw 작성.PNG>)
 * 만약 form tag에서 action값을 입력하지 않는다면 현재 페이지로 입력값을 전달
 * 사용자로부터 받은 데이터를 전달하는 방법 2가지(method) : GET - 전달되는 데이터가 URL에 노출이 됨, POST - 데이터가 header에 담겨서 전달이 되어 URL에 노출되지 않음(길거나 중요한 데이터)
   
-![Throw 예시](<../이미지/240313/Throw 예시.PNG>)
+  ![Throw 예시](<../이미지/240313/Throw 예시.PNG>)
 
-![catch 작성](<../이미지/240313/catch 작성.PNG>)
+  ![catch 작성](<../이미지/240313/catch 작성.PNG>)
 
 * HTTP request 객체
   * form으로 전송한 데이터 뿐만 아니라 모든 요청 관련 데이터가 담겨 있음(view함수의 첫번째인자)
@@ -171,24 +171,24 @@ def create_todo(request):
   * 그 중 GET이나 POST에서 전송된 정보들을 불러올 수 있음
   * GET, POST로 전송된 데이터들은 Querydict 타입으로 되어 있음 == django에서 지원하는 딕셔너리 형식 -> 딕셔너리에서 정보를 얻어오기 위해 get메서드를 사용
 
-![request객체](<../이미지/240313/request객체 살펴보기.PNG>)
+  ![request객체](<../이미지/240313/request객체 살펴보기.PNG>)
 
 * form 데이터를 가져오는 방법 get method 활용(딕셔너리 형태의 데이터이기 때문)
 
-![method활용해서 딕셔너리 데이터 가져오기](<../이미지/240313/form method.PNG>)
+  ![method활용해서 딕셔너리 데이터 가져오기](<../이미지/240313/form method.PNG>)
 
-![catch 마무리](<../이미지/240313/catch 마무리.PNG>)
+  ![catch 마무리](<../이미지/240313/catch 마무리.PNG>)
 
-![catch 실행 결과](<../이미지/240313/catch 예시.PNG>)
+  ![catch 실행 결과](<../이미지/240313/catch 예시.PNG>)
 
 # 참고
 * 추가 템플릿 경로 지정
   * 템플릿 기본 경로 외 커스텀 경로 추가하기
   * BASE_DIR / '폴더명' / '하위폴더명'
 
-![추가 템플릿 경로 지정](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240313/template%EA%B2%BD%EB%A1%9C%EC%A7%80%EC%A0%95.PNG)
+  ![추가 템플릿 경로 지정](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240313/template%EA%B2%BD%EB%A1%9C%EC%A7%80%EC%A0%95.PNG)
 
-![추가 템플릿 경로 지정2](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240313/template%EA%B2%BD%EB%A1%9C%EC%A7%80%EC%A0%952.PNG)
+  ![추가 템플릿 경로 지정2](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240313/template%EA%B2%BD%EB%A1%9C%EC%A7%80%EC%A0%952.PNG)
 * BASE_DIR(manage.py의 부모 폴더)
   * settings에서 경로지정을 편하게 하기 위해 최상단 지점을 지정 해놓은 변수
   * 'DIRS' : [BASE_DIR / 'templates'(, 'templates2')]
@@ -196,7 +196,7 @@ def create_todo(request):
 
   https://docs.python.org/ko/3.9/library/pathlib.html#module-pathlib
 
-![basedir](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240313/BASE_DIR.PNG)
+  ![basedir](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240313/BASE_DIR.PNG)
 
 * 파이썬 문법의 객체 지향적인 경로 표기는 OS마다 다른 것을 알아서 변환해줌
 
@@ -210,7 +210,7 @@ def create_todo(request):
 # Django URLs
 * 요청과 응답에서 Django URLs의 역할
 
-![django의 역할](<../이미지/240313/django URL의 역할.PNG>)
+  ![django의 역할](<../이미지/240313/django URL의 역할.PNG>)
 
 * URL dispatcher
   * URL 패턴을 정의하고 해당 패턴이 일치하는 요청을 처리할 view함수를 연결(매핑)
@@ -222,7 +222,7 @@ def create_todo(request):
 * URL 일부에 변수를 포함시키는 것(변수는 view 함수의 인자로 전달할 수 있음)
 * varibale routing 작성법: <>사용
 
-![variable routing](<../이미지/240313/variable routing.PNG>)
+  ![variable routing](<../이미지/240313/variable routing.PNG>)
 
 * Path converters
   * URL 변수의 타입을 지정(str,int 등 5가지 타입 지원)
@@ -230,9 +230,10 @@ def create_todo(request):
   
 * Variable routing 실습
   * Urls.py에 작성한 variable routing의 변수는 view 함수의 인자로 넘어옴
-![Variable routing 실습1](<../이미지/240313/variable routing 실습.PNG>)
 
-![Variable routing 실습2](<../이미지/240313/variable routing 실습2.PNG>)
+  ![Variable routing 실습1](<../이미지/240313/variable routing 실습.PNG>)
+
+  ![Variable routing 실습2](<../이미지/240313/variable routing 실습2.PNG>)
 
 * Trailing Slashes
   * Django는 URL 끝에 '/'가 없다면 자동으로 붙임

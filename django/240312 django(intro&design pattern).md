@@ -77,7 +77,9 @@ Python 기반 대표적인 웹 프레임워크
 ## 가상환경 생성(git bash활용)
 가상연결끊기 - deactivate
 1. 가상환경 venv 생성(이름을 바꿀수 있지만 하지 않는다 가상환경이라는 약속)
+```bash
 $ python -m venv(가상환경을 만들거라는 명령어) venv(가상환경 이름)
+```
 
 ![가상환경 생성2](<../이미지/240312/가상환경 생성1.PNG>)
 
@@ -185,21 +187,24 @@ $ pip install -r requirements.txt 로 입력
 * 앱을 사용하기 위한 순서
 1. 앱 생성
 * 앱의 이름은 '복수형으로 지정하는 것을 권장'
-![앱생성](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240312/%EC%95%B1%EC%83%9D%EC%84%B1.PNG)
+
+  ![앱생성](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240312/%EC%95%B1%EC%83%9D%EC%84%B1.PNG)
 
 2. 앱 등록
 * 반드시 앱을 생성한 후에 등록해야 함
 * 등록 후 생성은 불가능
 * ,를 반드시 입력해야함
-![앱등록](<../이미지/240312/앱 등록.PNG>)
+
+  ![앱등록](<../이미지/240312/앱 등록.PNG>)
 
 
 * 프로젝트 구조
-![프로젝트구조1](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240312/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EA%B5%AC%EC%A1%B01.PNG)
-![프로젝트구조2](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240312/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EA%B5%AC%EC%A1%B02.PNG)
-![프로젝트구조3](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240312/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EA%B5%AC%EC%A1%B03.PNG)
-![앱구조1](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240312/%EC%95%B1%EA%B5%AC%EC%A1%B01.PNG)
-![앱구조2](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240312/%EC%95%B1%EA%B5%AC%EC%A1%B02.PNG)
+
+  ![프로젝트구조1](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240312/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EA%B5%AC%EC%A1%B01.PNG)
+  ![프로젝트구조2](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240312/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EA%B5%AC%EC%A1%B02.PNG)
+  ![프로젝트구조3](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240312/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EA%B5%AC%EC%A1%B03.PNG)
+  ![앱구조1](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240312/%EC%95%B1%EA%B5%AC%EC%A1%B01.PNG)
+  ![앱구조2](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240312/%EC%95%B1%EA%B5%AC%EC%A1%B02.PNG)
 
 
 # 요청과 응답
@@ -209,22 +214,26 @@ View에 화살표가 많은 것처럼 view가 제일 하는 역할이 많음
 
 1. URLs
 * 사용자가 요청하는 주소와 path를 작성하는 영역  
-![URLs](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240312/URLs.PNG)
-![URL 요청](<../이미지/240312/URLs 요청 응답.PNG>)
+
+  ![URLs](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240312/URLs.PNG)
+  ![URL 요청](<../이미지/240312/URLs 요청 응답.PNG>)
 
 2. View
 모든 view함수는 함수에 받아오는 첫번째 인자(request)가 반드시 필요함. 없으면 view함수가 실행되지 않음
-![view](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240312/view.PNG)
+  
+  ![view](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240312/view.PNG)
 
 3. Template
-![template](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240312/templates.PNG)
-![경로 규칙](<../이미지/240312/templates 경로 규칙.PNG>)
-![templates](<../이미지/240312/templates 요청 결과.PNG>)
+
+  ![template](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240312/templates.PNG)
+  ![경로 규칙](<../이미지/240312/templates 경로 규칙.PNG>)
+  ![templates](<../이미지/240312/templates 요청 결과.PNG>)
 
 * 중요!
   * 데이터 흐름에 따른 코드 작성하기
   * URLs -> View -> Template
-![코드 작성 순서](<../이미지/240312/데이터 흐름에 따른 코드 작성.PNG>)
+
+  ![코드 작성 순서](<../이미지/240312/데이터 흐름에 따른 코드 작성.PNG>)
 
 # 참고
 * render 함수

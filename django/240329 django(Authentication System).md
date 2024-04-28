@@ -33,7 +33,7 @@ HTML 문서와 같은 리소스들을 가져올 수 있도록 해주는 규약
     * 서버는 응답과 함께 Set-Cookie 응답 헤더(Response-Header)를 브라우저에게 전송
         - 이 헤더 중 Set-Cokie는 클라이언트에게 쿠키를 저장하라고 전달하는 것
 
-![쿠키 이용예시](<../이미지/240329/쿠키 이용 예시.PNG>)
+    ![쿠키 이용예시](<../이미지/240329/쿠키 이용 예시.PNG>)
 * 메인페이지 이동해도 장바구니 유지
 * 만약 쿠키를 지운다면 장바구니가 사라짐
 
@@ -113,12 +113,15 @@ https://github.com/django/django/blob/main/django/contrib/auth/models.py#L406
 * AbstractUser 클래스를 상속받는 커스텀 User 클래스 작성
 
 * 기존 User클래스도 AbstactUser를 상속받기 때문에 이렇게 하면 커스텀 User클래스도 기존 User 클래스와 완전히 같은 모습을 가지게 됨(내장 User클래스 == Abstractuser)
-![auth 대체하기1](<../이미지/240329/auth 대체1.PNG>)
+
+    ![auth 대체하기1](<../이미지/240329/auth 대체1.PNG>)
 * django 프로젝트가 사용하는 기본 User 모델을 우리가 작성한 User 모델로 지정(수정전 기본값 auth.User)
-![auth 대체하기2](<../이미지/240329/auth 대체2.PNG>)
+
+    ![auth 대체하기2](<../이미지/240329/auth 대체2.PNG>)
 * admin site에 대체한 User 모델 등록
 * 기본 User 모델이 아니기 때문에 등록하지 않으면 출력되지 않기 때문에
-![auth 대체하기3](<../이미지/240329/auth 대체3.PNG>)
+
+    ![auth 대체하기3](<../이미지/240329/auth 대체3.PNG>)
 
 * AUTH_USER_MODEL
     - Django 프로젝트의 User를 나타내는 데 사용하는 모델을 지정
@@ -126,6 +129,7 @@ https://github.com/django/django/blob/main/django/contrib/auth/models.py#L406
 
 * 프로젝트 중간에 AUTH_USER_MODEL을 변경할 수 없음
 - 이미 프로젝트가 진행되고 있을 경우 데이터베이스 초기화 후 진행
+
 ![사용하는 User테이블의 변화](<../이미지/240329/사용하는 User 테이블의 변화.PNG>)
 
 * 프로젝트를 시작하며 반드시 User 모델을 대체해야한다.
@@ -147,11 +151,13 @@ https://github.com/django/django/blob/main/django/contrib/auth/models.py#L406
 
 ## 로그인 페이지 작성
 ==create와 동일한 과정
+
 ![로그인 페이지 작성](<../이미지/240329/로그인 페이지 작성.PNG>)
 ![로그인 페이지 작성2](<../이미지/240329/로그인 페이지 작성 2.PNG>)
 
 * AuthenticationForm은 ModelForm이 아니라 일반 Form이기 때문에 첫번째인자로 data(request.POST)가 아닌 request를 먼저 받음
-![로그인 로직 작성](<../이미지/240329/로그인 로직 작성.PNG>)
+
+    ![로그인 로직 작성](<../이미지/240329/로그인 로직 작성.PNG>)
 
 * login(request,user)
     * AuthenticationForm을 통해 인증된 사용자를 로그인 하는 함수
@@ -163,14 +169,15 @@ https://github.com/django/django/blob/main/django/contrib/auth/models.py#L406
 ### 로그인이 됐는지 확인하는 방법
 1. 로그인 후 발급받은 세션 확인 
 * DB에서 session(django_session)이 만들어져 있는지 확인
-![세션데이터확인](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240329/%EC%84%B8%EC%85%98%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%99%95%EC%9D%B81.PNG)
+
+    ![세션데이터확인](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240329/%EC%84%B8%EC%85%98%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%99%95%EC%9D%B81.PNG)
 
 2. 브라우저에서 확인
 * 개발자도구 - Application - Cookies
 
-![세션데이터확인2](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240329/%EC%84%B8%EC%85%98%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%99%95%EC%9D%B82.PNG)
+    ![세션데이터확인2](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240329/%EC%84%B8%EC%85%98%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%99%95%EC%9D%B82.PNG)
 
-![로그인 링크 작성](<../이미지/240329/로그인 링크 작성.PNG>)
+    ![로그인 링크 작성](<../이미지/240329/로그인 링크 작성.PNG>)
 
 # Logout
 * Session을 Delete하는 과정
@@ -179,9 +186,9 @@ https://github.com/django/django/blob/main/django/contrib/auth/models.py#L406
 * 현재 요청에 대한 Session Data를 DB에서 삭제하는 함수
 * 클라이언트의 쿠키에서도 Session Id를 삭제
 
-![로그아웃 로직 작성](<../이미지/240329/로그아웃 로직 작성.PNG>)
+    ![로그아웃 로직 작성](<../이미지/240329/로그아웃 로직 작성.PNG>)
 
-![로그아웃 결과](<../이미지/240329/로그아웃 페이지.PNG>)
+    ![로그아웃 결과](<../이미지/240329/로그아웃 페이지.PNG>)
 * 로그아웃을 하면 쿠키에서 session ID가 삭제되고 DB에서도 session ID가 삭제됨
 
 # Template with Authentication data

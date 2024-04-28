@@ -107,6 +107,7 @@ url tag 입력시 article.pk를 입력하지 않으면 No Reversed Match 발생
 * 게시글 작성 결과
     * 게시글 생성 후 개발자 도구를 사용해 Form Data가 전송되는 것 확인
     * 더 이상 URL에 Query String 형태로 보냈던 데이터가 표기되지 않음
+
 ![게시글 작성결과](<../이미지/240326/게시글 작성 CSRF토큰.PNG>)
 
 # Redirect
@@ -134,8 +135,9 @@ def create(request):
 ![redirect 결과](<../이미지/240326/redirect 결과.PNG>)
 
 # Delete 기능 구현
-조회 후 삭제!
-![delete](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240326/delete.PNG)
+* 조회 후 삭제!
+
+    ![delete](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240326/delete.PNG)
 
 # Update
 * 2개의 view함수가 필요
@@ -166,7 +168,8 @@ def create(request):
 * 왜냐하면 get함수를 사용하면 조회를 url로 보내고 post는 조회를 body에 담음
 
 * post는 DB의 구조를 직접적으로 바꿈
-![POST GET](<../이미지/240326/GET POST.PNG>)
+
+    ![POST GET](<../이미지/240326/GET POST.PNG>)
 
 ## GET 요청이 필요한 경우
 * 캐싱 및 성능

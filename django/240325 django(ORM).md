@@ -10,7 +10,8 @@
 # QuerySet API
 * ORM에서 데이터를 검색, 필터링, 정렬 및 그룹화 하는 데 사용하는 도구
 > API를 사용하여 SQL이 아닌 Python 코드로 데이터를 처리
-![QuerySet API 구문](<../이미지/240325/QuerySet API 구문.png>)
+
+    ![QuerySet API 구문](<../이미지/240325/QuerySet API 구문.png>)
 QuerySet: 다중 데이터<br>
 Instance : 단일 데이터
 
@@ -53,12 +54,14 @@ shell_plus는 shell과 다르게 django의 Model을 불러옴
 ### 데이터 객체를 만드는 3가지 방법
 1. 특정 테이블에 새로운 행을 추가하여 데이터를 추가하는 방법
 
-클래스가 instance를 만들면서 시작
-![객체형성1](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240325/create1.PNG)
-save()를 호출해주어야 DB에 전달 가능
-![객체형성2](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240325/create2.PNG)
-![객체형성3](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240325/create3.PNG)
-![객체형성4](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240325/create4.PNG)
+* 클래스가 instance를 만들면서 시작
+
+    ![객체형성1](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240325/create1.PNG)
+* save()를 호출해주어야 DB에 전달 가능
+
+    ![객체형성2](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240325/create2.PNG)
+    ![객체형성3](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240325/create3.PNG)
+    ![객체형성4](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240325/create4.PNG)
 
 2. save 메서드를 호출해야 비로소 DB에 데이터가 저장됨
 * 테이블에 한줄(행,레코드)이 쓰여진 것
@@ -82,17 +85,19 @@ save()를 호출해주어야 DB에 전달 가능
     * get()
 
 ### all()
-전체 데이터 조회
+* 전체 데이터 조회
+
 ![all()](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240325/all().PNG)
 
 ### filter()
-특정 조건 데이터 조회(키워드 인자가 있음, 데이터가 없어도 반환된 결과는 Queryset)
-![filter()](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240325/filter().PNG)
+* 특정 조건 데이터 조회(키워드 인자가 있음, 데이터가 없어도 반환된 결과는 Queryset)
+
+    ![filter()](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240325/filter().PNG)
 
 ### get()
-단일 데이터 조회(반환값이 존재하여 변수에 저장가능하고 만약 데이터가 없으면 오류 발생, 여러개의 데이터를 조회해도 오류발생)
+* 단일 데이터 조회(반환값이 존재하여 변수에 저장가능하고 만약 데이터가 없으면 오류 발생, 여러개의 데이터를 조회해도 오류발생)
 
-![get()](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240325/get().PNG)
+    ![get()](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240325/get().PNG)
 
 * get() 특징
     * 객체를 찾을 수 없다면 DoesNotExist 예외를 발생시키고, 둘이상의 객체를 찾으면 MultipleObjectsReturned 예외를 발생시킴
@@ -102,11 +107,13 @@ save()를 호출해주어야 DB에 전달 가능
 * 인스턴스 변수를 변경 후 save 메서드 호출
 * 수정과 삭제를 하려면 조회를 먼저 하고 진행해야함(get->update)
 * 수정후 반드시 저장을 해줘야 db에 전달됨
-![update](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240325/update.PNG)
+
+    ![update](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240325/update.PNG)
 
 ## Delete
 * 삭제하려는 데이터 조회 후 delete 메서드 호출(get-> delete)
-![delete](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240325/delete.PNG)
+
+    ![delete](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240325/delete.PNG)
 
 * 중간의 행을 지우고 새로운 행을 만든다면??
     * ex) id가 1,2,3 중 2를 지우고 새로 만든다면, 4가 생성

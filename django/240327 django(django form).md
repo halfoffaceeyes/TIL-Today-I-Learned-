@@ -91,10 +91,12 @@ ex) field = (title, content)도 사용 가능
 * 에러가 발생하면 에러가 값이 Form에 담김 -> 에러가 담긴 Form을 새로운 HTML에 담아서 표현하기 위해 redirect가 아니라 render를 사용
 
 * ModelForm을 적용한 edit 로직
-![ModelForm edit](<../이미지/240327/ModelForm edit.PNG>)
+
+    ![ModelForm edit](<../이미지/240327/ModelForm edit.PNG>)
 
 * ModelForm을 적용한 update 로직
-![ModelForm update](<../이미지/240327/ModelForm update로직.PNG>)
+
+    ![ModelForm update](<../이미지/240327/ModelForm update로직.PNG>)
 
 ## save
 * save()메서드가 생성과 수정을 구분하는 법
@@ -145,7 +147,8 @@ ex) field = (title, content)도 사용 가능
 * Form에 class를 입히고 싶을 경우 model에 field를 직접 설정해주어야함.(widget은 form에 상속되어 있기 때문에)
 * widget의 class안의 attrs(attributes)에 원하는 속성(css class)을 입혀줄 수 있음.
 * widget은 meta class 위쪽에 작성하는 것을 권장
-![widget응용](<../이미지/240327/widget 응용2.PNG>)
+
+    ![widget응용](<../이미지/240327/widget 응용2.PNG>)
 
 
 ## 필드 수동 랜더링
