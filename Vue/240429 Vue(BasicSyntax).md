@@ -11,6 +11,7 @@
 * msg 속성이 변경될 때마다 업데이트 됨
 
 2. Raw HTML
+* html 자체를 출력하는 방법
 ```html
 <div v-html='rawHtml'></div>
 const rawHtml = ref('<span style='color:red'>This should be red.</span>) 
@@ -19,6 +20,8 @@ const rawHtml = ref('<span style='color:red'>This should be red.</span>)
 * 콧수염 구문은 데이터를 일반 텍스트로 해석하기 때문에 실제 HTML을 출력하려면 v-html을 사용해야함
 
 3. Attribute Bindings
+* 속성을 연결하는 방법
+* 반응형 변수가 바뀌면 id도 바뀜
 ```html
 <div v-bind:id="dynamicId"></div>
 const dynamicId= ref('my-id')
@@ -39,14 +42,14 @@ const dynamicId= ref('my-id')
 ```
 * Vue는 모든 데이터 바인딩 내에서 JavaScript 표현식의 모든 기능을 지원
 * Vue 템플릿에서 JavaScript 표현식을 사용할 수 있는 위치
-  
   1. 콧수염 구문 내부
   2. 모든 directive의 속성 값 ('v-'로 시작하는 특수 속성)
 
-### Expressions 주의사항
+### 표현식 작성시 Expressions 주의사항
 * 각 바인딩에는 하나의 단일 표현식만 포함될 수 있음
   * 표현식은 값으로 평가할 수 있는 코드 조각(return 뒤에 사용할 수 있는 코드여야 함)
 * 작동하지 않는 경우
+  * 선언식, if 문
 
   ![expressions 주의사항](<../이미지/240429/expressions 주의사항.PNG>)
 
@@ -56,16 +59,18 @@ const dynamicId= ref('my-id')
 ## Directive 특징
 * Directive의 속성 값은 단일 JavaScript 표현식이어야함(v-for, v-on 제외)
 * 표현식 값이 변경될 때 DOM에 반응적으로 업데이트를 적용
+* 아래 코드에서 v-if 뒤에 seen부분이 단순한 문자열이 아니라 바로 javascript의 표현식
 ```html
 <p v-if='seen'>Hi There</p>
 ```
 * Directive 전체 구문
+  * Directive이후에는 콜론으로 시작
 
   ![Directive 전체구문](<../이미지/240429/directive 전체 구문.PNG>)
 
 ### Directive-'Arguments'
-* 일부 directive는 directive 뒤에 콜론(':')으로 표시되는 인자를 사용할 수 있음
-* 아래 예시의 href는 HTML<a>요소의 href 속성 값을 myUrl 값에 바인딩 하도록 하는 v-bind의 인자
+* 일부 directive는 directive 뒤에 콜론(':')으로 표시되는 인자를 사용할 수 있음(ex. v-on)
+* 아래 예시의 href는 HTML\<a>요소의 href 속성 값을 myUrl 값에 바인딩 하도록 하는 v-bind의 인자
 ```html
 <a v-bind:href="myUrl">Link</a>
 ```
@@ -88,31 +93,40 @@ const dynamicId= ref('my-id')
 
 # Dynamically data binding
 ## v-bind
-* 하나 이상의 속성 또는 컴포넌트 데이터를 표현식에 동적으로 바인딩
+* 하나 이상의 속성 또는 컴포넌트(Vue 인스턴스) 데이터를 표현식에 동적으로 바인딩(연결)
 * 단방향 바인딩 <-> v-model은 양방향 바인딩
 ## v-bind 사용처
 ### Attribute Bindings
   * HTML의 속성 값을 Vue의 상태 속성 값과 동기화 되도록 함
+  * script에서 선언된 변수를 속성값으로 동적으로 연결지어줌 
 ```html
 <!-- v-bind.html -->
 <img v-bind:src='imageSrc'>
 <a v-bind:href='myUrl'>Move to url</a>
 ```
   * v-bind shorthand(약어)
-    - ':'(colon)
+    - ':'(colon)만 쓰고 v-bind를 생략
 ```html
 <img :src='imageSrc'>
 <a :href='myUrl'>Move to url</a>
 ```
 
   * Dynamic attribute name(동적 인자 이름)
+    * 속성의 값이 아니라 이름을 동적인자로 연결
     - 대괄호([])로 감싸서 directive argument에 JavaScript 표현식을 사용할 수도 있음
     - JavaScript 표현식에 따라 동적으로 평가된 값이 최종 argument 값으로 사용됨
+    * 대괄호 안에 작성하는 이름은 반드시 소문자로만 구성 가능(브라우저가 속성 이름을 소문자로 강제 변환하기 때문)
 
 ```html
 <button :[key]="myValue"></button>
+
+ <p :[dynamicattr]="dynamicValue">.......</p> 
+    <!-- <p title='Hello Vue.js'>로 생김 -->
+      const dynamicattr = ref('title')
+      const dynamicValue = ref('Hello Vue.js')
 ```
-  * 대괄호 안에 작성하는 이름은 반드시 소문자로만 구성 가능(브라우저가 속성 이름을 소문자로 강제 변환하기 때문)
+
+* Attribute Binding 예시
 ```html
 <body>
   <div id="app">
@@ -121,7 +135,8 @@ const dynamicId= ref('my-id')
   <!-- v bind의 생략 구문(약어) -->
     <img :src="imageSrc" alt="#">
     <a :href="myUrl">이동!</a>
-
+    <p :[dynamicattr]="dynamicValue">.......</p> 
+    <!-- <p title='Hello Vue.js'>로 생김 -->
   </div>
 
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
@@ -152,10 +167,11 @@ const dynamicId= ref('my-id')
 ### Class and Style Bindings
 * class와 style은 모두 HTML 속성이므로 다른 속성과 마찬가지로 v-bind를 사용하여 동적으로 문자열 값을 할당할 수 있음
 
-* Vue는 class 및 style속성 값을 v-bind로 사용할 때 객체 또는 배열을 활용하여 작성할 수 있도록 함
+* Vue는 class 및 style속성 값을 v-bind로 사용할 때 객체 또는 배열을 활용(여러개의 style을 동시에 적용하기 위해 사용)하여 작성할 수 있도록 함
   - 단순히 문자열 연결을 사용하여 이러한 값을 생성하는 것은 번거롭고 오류가 발생하기가 쉽기 때문
 
 #### Class and Style Bindings가 가능한 경우
+각각의 방법에서 객체로 진행하거나 배열로 진행하는 경우로 나누어짐
 1. Binding HTML Classes
   1.1 Binding to Objects
   1.2 Binding to Arrays
@@ -170,22 +186,41 @@ const dynamicId= ref('my-id')
 
   ![binding objects](<../이미지/240429/binding to objects.PNG>)
 
+```html
+<!-- style에 있는 class를 넣는지 여부를 isactive로 결정 -->
+```
+
+
 * 객체에 더 많은 필드를 포함하여 여러 클래스를 전환할 수 있음
   * 예시2
     - :class directive를 일반 클래스 속성과 함께 사용 가능
+    * 클래스명에 -가 들어있으면 문자열로 키를 만들어주어야함, javascript에서는 키값의 ""을 생략할 수 있지만 -가 있는 경우는 생략할 수 없음
 
   ![binding objects2](<../이미지/240429/binding to objects2.PNG>)
+
+```html
+
+```
+
 
 * 반드시 inline 방식으로 작성하지 않아도 됨
 * 반응형 변수를 활용해 객체를 한번에 작성하는 방법
 
   ![binding objects3](<../이미지/240429/binding to objects3.PNG>)
 
+```html
+
+```
+
 #### 1.2 Binding HTML Classes - Binding to Arrays
 * :class를 배열에 바인딩하여 클래스 목록을 적용할 수 있음
   * 예시1
   
   ![binding to arrays1](<../이미지/240429/binding to Arrays.PNG>)
+
+```html
+
+```
 
 * 배열 구문 내에서 객체 구문을 사용하는 경우
   * 예시 2
@@ -203,15 +238,42 @@ const dynamicId= ref('my-id')
 * 실제 CSS에서 사용하는 것처럼 :style은 kebab-cased 키 문자열도 지원(단, camelCase 작성을 권장)
 
   * 예시2
-  ![binding to objexts2](<../이미지/240429/binding inline styles2.PNG>)
+  ![binding to objects2](<../이미지/240429/binding inline styles2.PNG>)
+
+* 반드시 inline 방식으로 작성하지 않아도 됨
+* 반응형 변수를 활용해 객체를 한번에 작성하는 방법
+  * 예시3
+
+  ![binding to objects3](<../이미지/240429/binding inline styles3.png>)
+
+```html
+
+```
 
 #### 2.2 Binding Inline Styles - Binding to Arrays
+* 여러 스타일 객체를 배열에 작성해서 :style을 바인딩할 수 있음
+* 작성한 객체는 병합 되어 동일한 요소에 적용
+  * 예시 1
+  * 스타일이 겹치면 가장 마지막에 적용된 스타일이 적용됨
+  ![binding inline styles-binding to array1](<../이미지/240429/binding inline styles-binding to array1.png>)
+
+```html
+
+```
+
+### v-bind 종합
+* 동적인 속성을 부여(일반속성(href,src..), class, style)
+* http://vuejs.org/api/built-in-directives.html#v-bind
 
 # Event Handling
 ## v-on
 * DOM 요소에 이벤트 리스너를 연결 및 수신
+* javascript에서 addeventlistener를 사용하는대신 v-on을 사용
+### v-on 구성
 ```html
 v-on:event="handler"
+event ==JS에서 존재하는 이벤트 이름
+handler==한줄짜리 코드
 ```
 * handler 종류
   1. Inline handlers : 이벤트가 트리거 될때 실행 될 JavaScript 코드
@@ -229,24 +291,27 @@ v-on:event="handler"
 
 ### 2. Method Handlers
 * Inline handlers로는 불가능한 대부분의 상황에서 사용
+* method를 작성해서 호출하는 경우
 
   ![Method handlers](<../이미지/240429/Method handler.PNG>)
 
-![Method handlers 결과](<../이미지/240429/Method handler 결과.PNG>)
+  ![Method handlers 결과](<../이미지/240429/Method handler 결과.PNG>)
 
 * Method Handlers는 이를 트리거하는 기본 DOM Event 객체를 자동으로 수신
 
-![method handlers 2](<../이미지/240429/method handler 2.PNG>)
+  ![method handlers 2](<../이미지/240429/method handler 2.PNG>)
 
 ### Inline Handlers에서의 메서드 호출
 * 메서드 이름에 직접 바인딩하는 대신 Inline Handlers에서 메서드를 호출할 수도 있음
 * 이렇게 하면 기본 이벤트 대신 사용자 지정 인자를 전달할 수 있음
 
-![Inline Handlers에서의 메서드 호출](<../이미지/240429/Inline Handlers에서의 메서드 호출.PNG>)
+
+  ![Inline Handlers에서의 메서드 호출](<../이미지/240429/Inline Handlers에서의 메서드 호출.PNG>)
 
 ### Inline Handlers에서의 event 인자에 접근하기
 * Inline Handlers에서 원래 DOM 이벤트에 접근하기
-* $event 변수를 사용하여 메서드에 전달
+* 사용자 지정인자를 정의한 순간 event인자는 자동으로 사라지기 때문에 사용하고 싶으면 직접 선언이 필요
+* $event 변수를 사용하여 메서드에 전달, 인자 전달 순서는 상관없음(위치인자로 사용되기 때문)
 
   ![Inline Handlers에서의 event 인자에 접근하기](<../이미지/240429/Inline handler에서의 event 인자에 접근하기.PNG>)
 
@@ -254,9 +319,12 @@ v-on:event="handler"
 * Vue는 v-on에 대한 Event Modifiers를 제공해 event.preventDefault()와 같은 구문을 메서드에서 작성하지 않도록 함
 * stop, prevent, self 등 다양한 modifiers를 제공
 * 메서드는 DOM 이벤트에 대한 처리보다는 데이터에 관한 논리를 작성하는 것에 집중할 것
+* 여러개의 수식어를 작성한다면 수식어 작성 순서대로 진행됨
+
 ```html
     <form @submit.prevent="onSubmit">...</form>
     <a @click.stop.prevent="onLink">...</a>
+    <!-- stop은 이벤트의 전파를 막음 == 버블링을 막음 prevent는 기본 동작을 막음 -->
 ```
 * Modifiers는 chained 되게끔 작성할 수 있으며 이때는 작성된 순서로 실행되기 때문에 작성 순서에 유의
 
@@ -275,6 +343,7 @@ v-on:event="handler"
 
 # Form Input Bindings
 * form을 처리할 때 사용자가 input에 입력하는 값을 실시간으로 JavaScipt 상태에 동기화해아 하는 경우(양방향 바인딩)
+* 사용자 입력값을 바로 반응형 변수로 동기화
 * 양방향 바인딩 방법
   1. v-bind와 v-on을 함께 사용
   2. v-model 사용
@@ -337,16 +406,19 @@ v-on:event="handler"
 ## v-model 사용
 * v-model : form input 요소 또는 컴포넌트에서 양방향 바인딩을 만듦
 * v-model을 사용하여 사용자 입력 데이텅와 반응형 변수를 실시간 동기화
+
+  ![v-model 사용](<../이미지/240429/v-model 사용.png>)
+
 * IME가 필요한 언어(한국어,중국어,일본어 등)의 경우 v-model이 제대로 업데이트되지 않음
 * 해당 언어에 대해 올바르게 응답하려면 v-bind와 v-on 방법을 사용해야 함
 
-![v-model](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240429/v-model.PNG)
+  ![v-model 예시](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240429/v-model.PNG)
 
-### v-model 활용
+## v-model 활용
 * v-model과 다양한 입력 양식
   * v-model은 단순 Text input 뿐만 아니라 Checkbox, Radio, Select 등 다양한 타입의 사용자 입력 방식과 함께 사용 가능
 
-#### Checkbox 활용
+### Checkbox 활용
 1. 단일 체크박스와 boolean 값 활용
   
   ![checkbox 활용1](<../이미지/240429/checkbox 활용1.PNG>)
@@ -463,6 +535,7 @@ v-on:event="handler"
 - Vue 인스턴스 내에서 제공되는 내부 변수
 - 사용자가 지정한 반응형 변수나 메서드와 구분하기 위함
 - 주로 Vue 인스턴스 내부 상태를 다룰 때 사용
+- 대표적으로 $event가 있음
 
 ## IME(Input Method Editor)
 
