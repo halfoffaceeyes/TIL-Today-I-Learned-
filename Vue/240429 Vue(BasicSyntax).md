@@ -183,12 +183,9 @@ const dynamicId= ref('my-id')
 * 객체를 :class에 전달하여 클래스를 동적으로 전환할 수 있음
   * 예시1
     - isActive의 Boolean 값에 의해 active 클래스의 존재가 결정됨
+    * style에 있는 class를 넣는지 여부를 isactive로 결정 
 
   ![binding objects](<../이미지/240429/binding to objects.PNG>)
-
-```html
-<!-- style에 있는 class를 넣는지 여부를 isactive로 결정 -->
-```
 
 
 * 객체에 더 많은 필드를 포함하여 여러 클래스를 전환할 수 있음
@@ -198,19 +195,12 @@ const dynamicId= ref('my-id')
 
   ![binding objects2](<../이미지/240429/binding to objects2.PNG>)
 
-```html
-
-```
-
 
 * 반드시 inline 방식으로 작성하지 않아도 됨
 * 반응형 변수를 활용해 객체를 한번에 작성하는 방법
 
   ![binding objects3](<../이미지/240429/binding to objects3.PNG>)
 
-```html
-
-```
 
 #### 1.2 Binding HTML Classes - Binding to Arrays
 * :class를 배열에 바인딩하여 클래스 목록을 적용할 수 있음
@@ -218,9 +208,6 @@ const dynamicId= ref('my-id')
   
   ![binding to arrays1](<../이미지/240429/binding to Arrays.PNG>)
 
-```html
-
-```
 
 * 배열 구문 내에서 객체 구문을 사용하는 경우
   * 예시 2
@@ -228,7 +215,70 @@ const dynamicId= ref('my-id')
   ```html
   <div :class="[{ active : isActive }, infoClass]">Text</div>
   ```
+```html
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .active {
+      color: crimson;
+    }
+
+    .text-primary {
+      color: blue;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+
+    <!-- Binding to Objects -->
+    <div :class="{ active: isActive }">Text</div>
+    <div class="static" :class="{ active: isActive, 'text-primary': hasInfo }">Text</div>
+    <div class="static" :class="classObj">Text</div>
+
+    <!-- Binding to Arrays -->
+    <div :class="[activeClass, infoClass]">Text</div>
+    <div :class="[{ active: isActive }, infoClass]">Text</div>
+
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    const { createApp, ref } = Vue
+
+    const app = createApp({
+      setup() {
+        const isActive = ref(false)
+        const hasInfo = ref(true)
+        const classObj = ref({
+          active: isActive,
+          'text-primary': hasInfo
+        })
+        const activeClass = ref('active')
+        const infoClass = ref('text-primary')
+        return {
+          isActive,
+          hasInfo,
+          classObj,
+          activeClass,
+          infoClass
+        }
+      }
+    })
+
+    app.mount('#app')
+  </script>
+</body>
+
+</html>
+
+```
 #### 2.1 Binding Inline Styles - Binding to Objects
 * :style은 JavaScript 객체 값에 대한 바인딩을 지원(HTML style 속성에 해당)
 
@@ -258,6 +308,59 @@ const dynamicId= ref('my-id')
   ![binding inline styles-binding to array1](<../이미지/240429/binding inline styles-binding to array1.png>)
 
 ```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <!-- Binding to Objects -->
+    <div style="color: crimson; font-size: 50px;">Text</div>
+    <div :style="{ color: activeColor, fontSize: fontSize + 'px'}">Text</div>
+    <div :style="{ color: activeColor, 'font-size': fontSize + 'px'}">Text</div>
+    <div :style="styleObj">Text</div>
+
+    <!-- Binding to Arrays -->
+    <div :style="[styleObj, styleObj2]">Text</div>
+    <!-- <div style="color: blue; font-size: 50px; border: 1px solid black;">Text</div> -->
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    const { createApp, ref } = Vue
+
+    const app = createApp({
+      setup() {
+        const activeColor = ref('crimson')
+        const fontSize = ref(50)
+        const styleObj = ref({
+          color: activeColor,
+          fontSize: fontSize.value + 'px'
+        })
+        const styleObj2 = ref({
+          color: 'blue',
+          border: '1px solid black'
+        })
+
+        return {
+          activeColor,
+          fontSize,
+          styleObj,
+          styleObj2
+        }
+      }
+    })
+
+    app.mount('#app')
+  </script>
+</body>
+
+</html>
 
 ```
 
@@ -336,6 +439,83 @@ handler==한줄짜리 코드
   ```
   <input @keyup.enter ='onSubmit'>
   ```
+
+### 전체코드
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <!-- Inline Handlers -->
+    <button v-on:click="count++">Add 1</button>
+    <button @click="count++">Add 1</button>
+    <p>Count: {{ count }}</p>
+
+    <!-- Method Handlers -->
+    <button @click="myFunc">Hello</button>
+
+    <!-- Calling Methods in Inline Handlers -->
+    <button @click="greeting('hello')">Say hello</button>
+    <button>Say bye</button>
+
+    <!-- Accessing Event Argument in Inline Handlers -->
+    <button @click="warning('경고입니다.', $event)">Submit</button>
+    <button @click="warning($event, '경고입니다.')">Submit</button>
+
+    <!-- event modifiers -->
+    <form @submit.prevent="onSubmit">...</form>
+    <a @click.stop.prevent="onLink">...</a>
+
+    <!-- key modifiers -->
+    <input @keyup.enter="onSubmit">
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    const { createApp, ref } = Vue
+
+    const app = createApp({
+      setup() {
+        const count = ref(0)
+        const name = ref('Alice')
+        const myFunc = function (event) {
+          console.log(event)
+          console.log(event.currentTarget)
+          console.log(`Hello, ${name.value}`)
+        }
+        const greeting = function (message) {
+          console.log(message)
+        }
+        const warning = function (message, event) {
+          console.log(message)
+          console.log(event)
+        }
+
+        return {
+          count,
+          name,
+          myFunc,
+          greeting,
+          warning
+        }
+      }
+    })
+
+    app.mount('#app')
+  </script>
+</body>
+
+</html>
+
+```
+
 
 ### v-on 종합
 * https://vuejs.org/api/built-in-directives.html#v-on
