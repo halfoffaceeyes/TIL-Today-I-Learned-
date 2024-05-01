@@ -81,6 +81,7 @@ for _ in range(E):
     graph[s][e]=w
     graph[e][s]=w
 
+prim(0)
 ```
 ![prim 알고리즘 수도코드](<../이미지/240321/prim알고리즘 수도.PNG>)
 
