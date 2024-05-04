@@ -30,6 +30,10 @@
 * Permutation & Recursion (240227)
 * Binary Counting (240228)
 * Logic & Proposition (240305)
+* Divid & Conquer (240318)
+* BackTracking applications (240319) 
+* Graph (240320)
+* MST & Dijkstra (240321)
 
 ## HTML & CSS
 * HTML & CSS (240306)
@@ -41,7 +45,40 @@
 * Introduction & Design Pattern (240312)
 * Templates & URLs (240313)
 * URLs & Model (240314)
+* ORM (240325)
+* ORM with View (240326)
+* Django Form (240327)
+* Static Files (240328)
+* Authentication System (240329)
+* Authentication System2 (240401)
+* REST API (240411)
+* REST API2 (240415)
 
+## DB
+* SQL (240402)
+* Many to One Relationship 1 (240403)
+* Many to One Relationship 2 (240404)
+* Many to Many Relationship 1 (240408)
+* Many to Many Relationship 2 (240409)
+
+## Git
+* Branch & Merge (240412)
+* Undoing, Reset, Revert (240419)
+* Workflow (240419)
+
+## JavaScript
+* DOM (240416)
+* Basic Syntax (240417)
+* Reference Type (240418)
+* Event (240422)
+* Asynchronous JavaScript (240423)
+* Ajax with Django (240424)
+
+## Vue
+* Introduction (240425)
+* Basic Syntax (240426)
+* Basic Syntax2 (240427)
+* Single-File Component (240502)
 
 ## PJT
 * Web Site page(movie)
