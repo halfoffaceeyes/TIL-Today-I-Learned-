@@ -241,20 +241,134 @@ create mode 100644 foo.txt
 * 이렇게 --amend 옵션으로 커밋을 고치는 작업은, 추가로 작업한 일이 작다고 하더라도 이전의 커밋을 완전히 새로 고쳐서 새 커밋으로 변경하는 것을 의미
 * 이전의 커밋은 일어나지 않은 일이 되는 것이고, 당연히 히스토리에도 남지 않음
 
+
+# Reset & Revert
+* 둘의 공통점 : 과거로 되돌린다.
+* 차이점 : 과거로 되돌리겠다는 내용이 commit에 남는가??
+
+## git reset
+* 시계를 마치 과거로 돌리는 듯한 행위로써, 특정 커밋 상태로 되돌아감
+* 특정 커밋으로 되돌아 갔을 떄, 해당 커밋 이후로 쌓아놨던 커밋들은 전부 사라짐
+
 ```bash
+$ git reset [옵션] <커밋 ID>
 ```
+* 옵션
+  1. --soft
+    * 돌아가려는 커밋으로 되돌아가고, 이후의 commit된 파일들을 staging area로 돌려놓음(commit하기 전 상태)
+    * 즉 다시 커밋할 수 있는 상태가 됨
+  2. --mixed
+    * 돌아가려는 커밋으로 되돌아가고, 이후의 commit된 파일들을 working directory로 돌려놓음(add하기 전 상태)
+    * 즉, unstage된 상태로 남아 있음
+    * 기본값
+  3. --hard
+    * 돌아거려는 커밋으로 되돌아가고, 이후의 commit된 파일들(tracked 파일들)은 모두 working directory에서 삭제
+    * 단, Untracked파이릉ㄴ 그대로 Untracted로 남음
+
+### 옵션별 결과
+* 돌아가려는 커밋(first) 이후에 커밋된 2.txt, 3.txt가 어떻게 처리되는지 확인하기
+* 시작전 커밋 확인
+
 ```bash
-```
-```bash
-```
-```bash
-```
-```bash
-```
-```bash
-```
-```bash
-```
-```bash
+$ git log --oneline
+20d320d (HEAD -> master) third
+1eb059e second
+6baf32f first
 ```
 
+1. --soft
+```bash
+$ git reset --soft 6baf
+```
+* commit log의 앞의 몇글자만 적어도 적용됨
+
+![reset soft](<../이미지/240419/reset soft.png>)
+
+2. --mixed
+```bash
+$ git reset 6baf
+```
+![reset mixed](<../이미지/240419/reset mixed.png>)
+
+3. --hard
+```bash
+$ git reset --hard 6baf
+```
+![reset hard](<../이미지/240419/reset hard.png>)
+
+* 옵션 한눈에 보기
+![reset 옵션한눈에 보기](<../이미지/240419/옵션 한눈에 보기.png>)
+
+* git rest 이해하기
+![git reset](<../이미지/240419/git reset.png>)
+
+### 참고
+* 이미 삭제한 커밋으로 다시 돌아가고 싶다면 git reflog를 사용
+```bash
+$ git reflog
+1a410ef HEAD@{0}: reset: moving to 1a410ef
+ab1afef HEAD@{1}: commit: modified repo.rb a bit
+484a592 HEAD@{2}: commit: added repo.rb
+$ git reset --hard <복구하고자 하는 커밋ID>
+# git reflog 명령어는 HEAD가 이전에 가리켰던 모든 커밋을 보여줌
+# 따라서 --hard 옵션을 통해 지워진 커밋도, reflog로 조회하여 돌아갈 수 있음
+```
+
+## git revert
+* 특정 사건을 없었던 일로 만드는 행위로써, 이전 커밋을 취소한다는 새로운 커밋을 만듦.
+* git reset은 커밋 내역을 삭제하는 반면, git revert는 새로 커밋을 쌓는 다는 차이
+* git reset은 쉽게 과거로 돌아갈 수있다는 장점이 있지만, 커밋 내역이 사라진다는 단점이 있음
+  * 이 때문에 다른사람과 협업할 때 커밋 내역의차이로 인해 충돌이 발생할 수 있음
+
+```bash
+$ git revert <커밋 ID>
+```
+
+### 사용 예시
+* 시작전 커밋 확인
+```bash
+$ git log --oneline
+20d320d third
+1eb059e second
+6baf32f first
+```
+* second 커밋으로 revert
+```bash
+$ git revert 1eb059
+```
+
+* vim 편집기가 나오면 저장 후 종료
+```bash
+$ git log --oneline
+f0b5364 (HEAD -> master) Revert "second" # 새로 쌓인 커밋
+20d320d third
+1eb059e second # 히스토리는 남아있음
+6baf32f first
+```
+
+* second 커밋에서 있었던 2.txt 가 사라진 것을 확인(== second 커밋을 없었던 일로 만든 것)
+
+![git revert 예시](<../이미지/240419/git revert 예시.png>)
+
+* git revert 이해
+
+![git revert](<../이미지/240419/git revert.png>)
+
+### 중요
+* git reset과 비슷하다는 이유로 조심할 점
+  * git reset --hard 5sd2f42라고 작성하면 5sd2f42라는 커밋으로 돌아간다는 뜻
+  * git revert 5sd2f42라고 작성하면 5sd2f42라는 커밋을 되돌린다는 뜻
+
+### 참고
+
+```bash
+# 공백을 통해 여러 커밋을 한꺼번에 되돌리기 가능
+$ git revert 7f6c24c 006dc87 3551584
+# 범위 지정을 통해 여러 커밋을 한꺼번에 되돌리기 가능
+$ git revert 3551584..7f6c24c
+# 커밋 메시지 작성을 위한 편집기를 열지 않음 (자동으로 커밋 완료)
+$ git revert --no-edit 7f6c24c
+# 자동으로 커밋하지 않고, Staging Area에만 올림 (이후, git commit으로 수동 커밋)
+# 이 옵션은 여러 커밋을 revert 할 때 하나의 커밋으로 묶는게 가능
+$ git revert --no-commit 7f6c24c
+```
