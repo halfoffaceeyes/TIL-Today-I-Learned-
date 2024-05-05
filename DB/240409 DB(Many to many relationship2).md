@@ -173,7 +173,7 @@
 
 ### annotate 적용
 * 문제 해결
-    - 게시글을 조회하면서 댓글 개수까지 한번에 조회해서 가져오기
+    - 게시글을 조회하면서 댓글 개수까지 한번에 조회해서 가져오기(게시글을 가져오면서 댓글개수를 groupby를 통해 컬럼을 새로만들어 데이터 반환)
 
     ![annotate 적용 1](<../이미지/240409/annotate 적용1.PNG>)
 
@@ -191,7 +191,7 @@
 ![selected related 문제상황](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240409/selected_related.PNG)
 
 ### 문제 해결
-* 게시글을 조회하면서 유저정보까지 한번에 조회해서 가져오기
+* 게시글을 조회하면서 유저정보까지 한번에 조회해서 가져오기(게시글을 가져오면서 select_related로 유저정보를 innerjoin시킴)
 
     ![selected_related 적용](<../이미지/240409/selected_related 적용.PNG>)
 
