@@ -1,5 +1,6 @@
 # Template Syntax
 * DOM을 기본 구성 요소 인스턴스의 데이터에 선언적으로 바인딩(Vue Instance와 DOM을 연결)할 수 있는 HTML 기반 템플릿 구문(확장된 문법 제공)을 사용
+
 ## Template syntax 종류
 1. Text Interpoltation
 ```html
@@ -7,7 +8,7 @@
 ```
 * 데이터 바인딩의 가장 기본적인 형태
 * 이중 중괄호 구문 (콧수염 구문)을 사용
-* 콧수염 구문은 해당 구성요소 인스턴스의 msg 속성값으로 대체
+* 콧수염 구문은 해당 구성요소 인스턴스의 msg 속성값으로 대체(msg는 일반 변수가 아닌 반응형 변수)
 * msg 속성이 변경될 때마다 업데이트 됨
 
 2. Raw HTML
@@ -55,6 +56,7 @@ const dynamicId= ref('my-id')
 
 # Directive
 * 'v-' 접두사가 있는 특수 속성
+* v-bind, v-on, v-if ...
 
 ## Directive 특징
 * Directive의 속성 값은 단일 JavaScript 표현식이어야함(v-for, v-on 제외)
@@ -65,6 +67,7 @@ const dynamicId= ref('my-id')
 ```
 * Directive 전체 구문
   * Directive이후에는 콜론으로 시작
+  * value에는 Javascript 표현식 == 아래 예시에서는 onSubmit이라는 함수를 호출
 
   ![Directive 전체구문](<../이미지/240429/directive 전체 구문.PNG>)
 
@@ -80,7 +83,7 @@ const dynamicId= ref('my-id')
 ```
 ### Directive-'Modifiers'
 * '.(dot)'로 표시되는 특수 접미사로, directive가 특별한 방식으로 바인딩되어야 함을 나타냄
-* 아래 예시의 .prevent는 발생한 이벤트에서 event.preventDefault()를 호출하도록 v-on에 지시하는 modifier
+* 아래 예시의 .prevent는 발생한 이벤트에서 event.preventDefault()를 호출하도록 v-on에 지시하는 modifier(수식어)
 ```html
 <form @submit.prevent="onSubmit">...</form>
 ```
@@ -95,7 +98,11 @@ const dynamicId= ref('my-id')
 ## v-bind
 * 하나 이상의 속성 또는 컴포넌트(Vue 인스턴스) 데이터를 표현식에 동적으로 바인딩(연결)
 * 단방향 바인딩 <-> v-model은 양방향 바인딩
+
 ## v-bind 사용처
+1. Attribute Binding = src, href와 같은 속성을 넣는 경우
+2. Class and Style Bindings = class나 inline-style을 넣는 경우
+
 ### Attribute Bindings
   * HTML의 속성 값을 Vue의 상태 속성 값과 동기화 되도록 함
   * script에서 선언된 변수를 속성값으로 동적으로 연결지어줌 
@@ -106,6 +113,7 @@ const dynamicId= ref('my-id')
 ```
   * v-bind shorthand(약어)
     - ':'(colon)만 쓰고 v-bind를 생략
+    - v-bind와 v-on만 생략 구문이 있음
 ```html
 <img :src='imageSrc'>
 <a :href='myUrl'>Move to url</a>
@@ -117,14 +125,8 @@ const dynamicId= ref('my-id')
     - JavaScript 표현식에 따라 동적으로 평가된 값이 최종 argument 값으로 사용됨
     * 대괄호 안에 작성하는 이름은 반드시 소문자로만 구성 가능(브라우저가 속성 이름을 소문자로 강제 변환하기 때문)
 
-```html
-<button :[key]="myValue"></button>
+  ![attribute bindings 동적인자 예시](<../이미지/240429/attribute bindings 동적인자.png>)
 
- <p :[dynamicattr]="dynamicValue">.......</p> 
-    <!-- <p title='Hello Vue.js'>로 생김 -->
-      const dynamicattr = ref('title')
-      const dynamicValue = ref('Hello Vue.js')
-```
 
 * Attribute Binding 예시
 ```html
@@ -183,7 +185,7 @@ const dynamicId= ref('my-id')
 * 객체를 :class에 전달하여 클래스를 동적으로 전환할 수 있음
   * 예시1
     - isActive의 Boolean 값에 의해 active 클래스의 존재가 결정됨
-    * style에 있는 class를 넣는지 여부를 isactive로 결정 
+    * style에 있는 active class를 넣는지 여부를 isactive로 결정 
 
   ![binding objects](<../이미지/240429/binding to objects.PNG>)
 
@@ -283,16 +285,18 @@ const dynamicId= ref('my-id')
 * :style은 JavaScript 객체 값에 대한 바인딩을 지원(HTML style 속성에 해당)
 
 * 예시1
-  ![binding to objects](<../이미지/240429/binding inline styles.PNG>)
 
-* 실제 CSS에서 사용하는 것처럼 :style은 kebab-cased 키 문자열도 지원(단, camelCase 작성을 권장)
+![binding to objects](<../이미지/240429/binding inline styles.PNG>)
 
-  * 예시2
-  ![binding to objects2](<../이미지/240429/binding inline styles2.PNG>)
+  * 실제 CSS에서 사용하는 것처럼 :style은 kebab-cased 키 문자열도 지원(단, camelCase 작성을 권장)
+
+* 예시2
+
+![binding to objects2](<../이미지/240429/binding inline styles2.PNG>)
 
 * 반드시 inline 방식으로 작성하지 않아도 됨
 * 반응형 변수를 활용해 객체를 한번에 작성하는 방법
-  * 예시3
+* 예시3
 
   ![binding to objects3](<../이미지/240429/binding inline styles3.png>)
 
@@ -305,6 +309,7 @@ const dynamicId= ref('my-id')
 * 작성한 객체는 병합 되어 동일한 요소에 적용
   * 예시 1
   * 스타일이 겹치면 가장 마지막에 적용된 스타일이 적용됨
+
   ![binding inline styles-binding to array1](<../이미지/240429/binding inline styles-binding to array1.png>)
 
 ```html
@@ -384,6 +389,7 @@ handler==한줄짜리 코드
 
 * v-on shorthand(약어)
   - '@'
+  - v-bind와 다르게 ':'도 작성을 안함
 ```html
 @event="handler"
 ```
@@ -408,7 +414,6 @@ handler==한줄짜리 코드
 * 메서드 이름에 직접 바인딩하는 대신 Inline Handlers에서 메서드를 호출할 수도 있음
 * 이렇게 하면 기본 이벤트 대신 사용자 지정 인자를 전달할 수 있음
 
-
   ![Inline Handlers에서의 메서드 호출](<../이미지/240429/Inline Handlers에서의 메서드 호출.PNG>)
 
 ### Inline Handlers에서의 event 인자에 접근하기
@@ -421,9 +426,10 @@ handler==한줄짜리 코드
 ### Event Modifiers
 * Vue는 v-on에 대한 Event Modifiers를 제공해 event.preventDefault()와 같은 구문을 메서드에서 작성하지 않도록 함
 * stop, prevent, self 등 다양한 modifiers를 제공
+  * stop은 이벤트의 전파를 막음 == bubbling을 막음
+  * prevent는 이벤트의 기본동작을 막음(ex. 새로고침을 막음)
 * 메서드는 DOM 이벤트에 대한 처리보다는 데이터에 관한 논리를 작성하는 것에 집중할 것
-* 여러개의 수식어를 작성한다면 수식어 작성 순서대로 진행됨
-
+* 수식어는 연결이 가능하며, 여러개의 수식어를 작성한다면 수식어 작성 순서대로 진행됨
 ```html
     <form @submit.prevent="onSubmit">...</form>
     <a @click.stop.prevent="onLink">...</a>
@@ -516,7 +522,6 @@ handler==한줄짜리 코드
 
 ```
 
-
 ### v-on 종합
 * https://vuejs.org/api/built-in-directives.html#v-on
 
@@ -531,6 +536,7 @@ handler==한줄짜리 코드
 ## v-bind와 v-on을 함께 사용
   1. v-bind를 사용하여 input 요소의 value 속성 값을 입력 값으로 사용
   2. v-on을 사용하여 input 이벤트가 발생할 때마다 input요소의 value값을 별도 반응형 변수에 저장하는 핸들러를 호출
+    * v-on은 이벤트를 인자로 받아올 수 있음==eventlistener
 
   ![v-bind & v-on](<../이미지/240429/v-bind v-on.PNG>)
   ![v-bind & v-on 코드](<../이미지/240429/v-bind v-on 함께 사용.PNG>)
@@ -611,7 +617,8 @@ handler==한줄짜리 코드
 
 2. 여러 체크박스와 배열 활용
   * 해당 배열에는 현재 선택된 체크박스의 값이 포함됨
-![checkbox 활용2](<../이미지/240429/checkbox 활용2.PNG>)
+
+  ![checkbox 활용2](<../이미지/240429/checkbox 활용2.PNG>)
 ```html
 <!-- multiple checkbox -->
     <div>Checked names: {{ checkedNames }}</div>
