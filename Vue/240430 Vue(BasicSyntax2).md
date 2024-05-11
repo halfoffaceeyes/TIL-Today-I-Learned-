@@ -6,6 +6,7 @@
 
 ### computed 기본 예시
 * 할 일이 남아 있는지 여부에 따라 다른 메시지를 출력하기
+* 변화가 생겼을 때만 계산을 하도록 하는 함수
   * computed 미적용
 
     ![computed 미적용](<../이미지/240430/computed 기본예시 미적용.PNG>)
@@ -41,7 +42,7 @@
 ### Cache(캐시)
 * 데이터나 결과를 일시적으로 저장해두는 임시 저장소
 * 이후에 같은 데이터나 결과를 다시 계산하지 않고 빠르게 접근할 수 있도록 함
-
+* 개발자도구의 network 탭에서 볼수 있음
 #### Cache 예시
 * '웹페이지의 캐시 데이터'
   - 과거 방문한 적이 있는 페이지에 다시 접속할 경우
@@ -53,6 +54,7 @@
   - 의존하는 데이터에 따라 결과가 바뀌는 계산된 속성을 만들 때 유용
   - 동일한 의존성을 가진 여러 곳에서 사용할 때 계산 결과를 캐싱하여 중복 계산 방지
   - 의존된 데이터가 변경되면 자동으로 업데이트
+  - 계산된 결과가 cache에 저장되기 때문에 위와 같은 속성들이 있음
 
 * method
   - 단순히 특정 동작을 수행하는 함수를 정의할 때 사용
@@ -66,10 +68,18 @@
 * 표현식 값의 true/false를 기반으로 요소를 조건부로 렌더링
 ### v-if 예시
 * 'v-else' directive를 사용하여 v-if에 대한 else 블록을 나타낼 수 있음
+
 ![v-if 예시](<../이미지/240430/v-if 예시.PNG>)
+
+* isSeen 값을 클릭하면 !isSeen으로 변경
+
 ![v-if 예시 코드](<../이미지/240430/v-if 예시 코드.PNG>)
+
+
 * 'v-else-if' directive를 사용하여 v-if에 대한 else if 블록을 나타낼 수 있음
+
 ![v-else-if](<../이미지/240430/v-else-if 코드.PNG>)
+
 ### 여러 요소에 대한 v-if 적용
 * HTML template요소에 v-if를 사용하여 하나 이상의 요소에 대해 적용할 수 있음(v-else, v-else-if 모두 적용 가능)
 * 페이지가 로드될 때 렌더링 되지 않지만 JavaScript를 사용하여 나중에 문서에서 사용할 수 있도록 하는 HTML을 보유하기 위한 메커니즘
@@ -90,6 +100,7 @@
 * v-if(Cheap intial load, expensive toggle)
   * 초기 조건이 false인 경우 아무작업도 수행하지 않음
   * 토글 비용이 높음
+
 * v-show(Expensive initial load, cheap toggle)
   * 초기 조건에 관계없이 항상 렌더링
   * 초기 렌더링 비용이 더 높음
@@ -119,9 +130,11 @@
 
 ### v-for 예시
 * 배열 반복
+
 ![v-for 예시](<../이미지/240430/v-for 예시.PNG>)
 
 * 객체 반복
+
 ![v-for 예시2](<../이미지/240430/v-for 예시2.PNG>)
 
 ### 여러 요소에 대한 v-for 적용
@@ -130,17 +143,17 @@
   ![template v-for](<../이미지/240430/template v-for.PNG>)
 ### 중첩된 v-for
 * 각 v-for 범위는 상위 범위에 접근 할 수 있음
-![중첩된 for](<../이미지/240430/중첩된 for.PNG>)
-### 전체 코드
-```html
 
-```
+![중첩된 for](<../이미지/240430/중첩된 for.PNG>)
+
+
 ## v-for with key
 * 반드시 v-for와 key를 함께 사용한다
   * 내부 컴포넌트의 상태를 일관되게 하여 데이터의 예측 가능한 행동을 유지하기 위함
 ### v-for와 key
 * key는 반드시 각 요소에 대한 고유한 값을 나타낼 수 있는 식별자여야 함
-![v-for와 key](<../이미지/240430/v-for와 key.PNG>)
+
+  ![v-for와 key](<../이미지/240430/v-for와 key.PNG>)
 
 ### 내장 특수 속성 key
 * number 혹은 string으로만 사용해야 함
@@ -155,25 +168,32 @@
 
 ### v-for와 v-if 문제 상황
 * todo 데이터 중 이미 처리한(isComplete === true) todo만 출력하기
-![문제상황 예시](<../이미지/240430/v-for v-if 동시사용 문제상황.PNG>)
+
+  ![문제상황 예시](<../이미지/240430/v-for v-if 동시사용 문제상황.PNG>)
 
 * v-if가 더 높은 우선순위를 가지므로 v-for 범위의 todo 데이터를 v-if에서 사용할 수 없음
-![동시사용시 오류 발생](<../이미지/240430/v-for v-if 동시사용 오류.PNG>)
+
+  ![동시사용시 오류 발생](<../이미지/240430/v-for v-if 동시사용 오류.PNG>)
 
 ### 해결법 1. computed 활용
 * computed를 활용해 필터링 된 목록을 반환하여 반복하도록 설정
 
-![v-for v-if 해결 computed](<../이미지/240430/v-for v-if 해결 computed.PNG>)
+  ![v-for v-if 해결 computed](<../이미지/240430/v-for v-if 해결 computed.PNG>)
 
 ### 해결법 2. v-for와 \<template> 요소 활용
 * v-for와 template 요소를 사용하여 v-if 위치를 이동
 
-![v-for와 <template> 요소 활용](<../이미지/240430/v-for v-if 해결 template.PNG>)
+  ![v-for와 <template> 요소 활용](<../이미지/240430/v-for v-if 해결 template.PNG>)
+## v-for 주의사항
+* v-for와 key를 같이 사용
+* v-for와 v-if는 동시에 사용하면 안됨
 
 # Watchers
 ## watch
 * 하나 이상의 반응형 데이터를 감시하고, 감시하느 데이터가 변경되면 콜백 함수를 호출
+* computed와 유사하지만 다름
 ### wahch 구조
+
 ![watch 구조](<../이미지/240430/watch 구조.PNG>)
 * 첫번째 인자(source)
   - watch가 감시하는 대상(반응형 변수, 값을 반환하는 함수 등)
@@ -184,9 +204,11 @@
     * 감시하는 대상이 변화된 값
   2. oldValue(optional)
     * 감시하는 대상의 기존 값
-  
+* watch는 변경되기 전, 후의 값들을 모두 관리할 수 있음
+* watch는 변화되면 바로 호출이 되기 때문에 const를 통해 선언할 필요가 없음
+
 ![watch 기본동작](<../이미지/240430/watch 기본동작.PNG>)
-* watch는 선언만 해놓으면 실행해서 변화가 생겼을 때 동작을 함 == 변화가 없으면 변화는 없음
+* watch는 선언만 해놓으면 실행해서 변화가 생겼을 때 동작을 함 == 변화가 없으면 실행이 없음
 
 ### watch 예시
 * 감시하는 변수에 변화가 생겼을 때 연관 데이터 업데이트 하기
@@ -203,9 +225,8 @@
 ![computed vs watch](<../이미지/240430/computed vs watch.PNG>)
 > computed와 watch 모두 의존(감시)하는 원본 데이터를 직접 변경하지 않음 == computed는 읽기전용 속성이라고도 함
 
-* computed는 의존하는 데이터가 중요
+* computed는 의존하는 데이터가 중요==값을 반환하기 위해 사용
 * watch는 axios랑 같이 사용함
-
 
 # Lifecycle Hooks
 * Vue 인스턴스의 생애주기 동안 특정 시점에 실행되는 함수
@@ -213,11 +234,13 @@
 ## Lifecycle Hooks Diagram
 * 인스턴스의 생애주기 중간 중간에 함수를 제공하여 개발자가 특정 단계에서 원하는 로직을 작성할 수 있도록 함
 
+
   ![life cycle hook](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240430/lifecycle.png)
 * https://vuejs.org/guide/essentials/lifecycle.html#lifecycle-diagram
 
 ## Lifecycle Hooks 예시
 1. Vue 컴포넌트 인스턴스가 초기 렌더링 및 DOM 요소 생성이 완료된 후 특정 로직을 수행하기(onMounted)
+  * onMounted는 app이 실행되면서 자동으로 같이 실행되는 함수
 
   ![lifecycle hook 예시](<../이미지/240430/lifecycle hook 예시.PNG>)
 
@@ -281,13 +304,14 @@
 
 
 2. 반응형 데이터의 변경으로 인해 컴포넌트의 DOM이 업데이트 된 후 특정 로직을 수행하기(onUpdated)
+  * onUpdated는 값이 변경되면 함수가 실행됨
 
   ![lifecycle hook 예시2](<../이미지/240430/lifecycle hook 예시2.PNG>)
   ![lifecycle hook 예시2 결과](<../이미지/240430/lifecycle hook 예시 결과.PNG>)
 
 ## Lifecycle Hooks 특징
 * Vue는 Lifecycle Hooks에 등록된 콜백 함수들을 인스턴스와 자동으로 연결함
-* 이렇게 동작하려면 hooks 함수들은 반드시 동기적으로 작성되어야 함
+* 이렇게 동작하려면 hooks 함수들은 반드시 동기적으로 작성되어야 함== 콜백함수에 넣으면 안됨, 그 자체로 작성해서 사용해야함
 * 인스턴스 생애주기의 여러 단계에서 호출되는 다른 hooks도 있으며, 가장 일반적으로 사용되는 것은 onMounted, onUpdated, onUnmounted
 * https://vuejs.org/api/composition-api-lifecycle.html
 
@@ -295,7 +319,6 @@
 * Vue의 스타일 가이드 규칙은 우선순위에 따라 4가지 범주로 나눔
 * 규칙 범주
   - 우선순위 A : 필수(Essential)
-    - 오
   - 우선순위 B : 적극 권장(Strongly Recommended)
   - 우선순위 C : 권장(Recommended)
   - 우선순위 D : 주의 필요(Use with Cation)
@@ -319,10 +342,10 @@
 * Computed의 반환 값은 변경하지 말것
   * computed의 반환 값은 의존하는 데이터의 파생된 값
     * 이미 의존하는 데이터에 의해 계산이 완료된 값
-  * 일종의 snapshot이며 의존하는 데이터가 변경될 때만 새 snapshot이 생성됨
-  * 계산된 값은 읽기 전용으로 취급되어야 하며 변경 되어서는 안됨
-  * 대신 새값을 얻기 위해서는 의존하는 데이터를 업데이트 해야함
-  * computed에서 reverse() 및 sort() 사용시 원본 배열을 변경하기 때문에 원본 배열의 복사본을 만들어서 진행해야함
+* 일종의 snapshot이며 의존하는 데이터가 변경될 때만 새 snapshot이 생성됨
+* 계산된 값은 읽기 전용으로 취급되어야 하며 변경 되어서는 안됨
+* 대신 새값을 얻기 위해서는 의존하는 데이터를 업데이트 해야함
+* computed에서 reverse() 및 sort() 사용시 원본 배열을 변경하기 때문에 원본 배열의 복사본을 만들어서 진행해야함
   
   ![computed 주의사항](<../이미지/240430/computed 주의사항.PNG>)
 
