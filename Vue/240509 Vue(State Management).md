@@ -1,17 +1,20 @@
 # State Management
 * Vue 컴포넌트는 이미 반응형 상태를 관리하고 있음
 * 상태 === 데이터
+
 ## 컴포넌트 구조의 단순화
 * 상태(State) : 앱 구동에 필요한 기본 데이터
 * 뷰(View) : 상태를 선언적으로 매핑하여 시각화
 * 기능(Actions) : 뷰에서 사용자 입력에 대해 반응적으로 상태를 변경할 수 있게 동작
 * 단방향 데이터 흐름의 간단한 표현
+
 ![컴포넌트 구조의 단순화](<../이미지/240509/컴포넌트 구조의 단순화.PNG>)
+
 ![컴포넌트 구조의 단순화2](<../이미지/240509/컴포넌트 구조의 단순화2.PNG>)
 
 ### 상태 관리의 단순성이 무너지는 시점
 * 여러 컴포넌트가 상태를 공유할 때
-1. 여러뷰가 동일한 상태에 종속되는 경우
+1. 여러 뷰가 동일한 상태에 종속되는 경우
 * 공유 상태를 공통 조상 컴포넌트로 "끌어올린" 다음 props로 전달하는 것
 * 하지만 계층 구조가 깊어질 경우 비효율적, 관리가 어려워 짐
 
@@ -36,6 +39,7 @@
 # State management library(Pinia)
 ## Pinia
 * Vue 공식 상태 관리 라이브러리
+
 ### Pinia 설치
 * Vite 프로젝트 빌드시 Pinia 라이브러리 추가
 
@@ -56,7 +60,7 @@
 ![store](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240509/store.PNG)
 
 ### Pinia 구성요소 - state
-* 반응형 상태(epdlxj)
+* 반응형 상태(데이터)
 * ref() === state
 
 ![state](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240509/state.PNG)
@@ -78,12 +82,15 @@
 * store에서는 공유하지 않는 private한 상태 속성을 가지지 않음
 
 ![setup stores의 반환값](<../이미지/240509/setup stores 반환값.PNG>)
+
 ### Pinia 구성요소 - plugin
 * 애플리케이션의 상태 관리에 필요한 추가 기능을 제공하거나 확장하는 도구나 모듈
 * 애플리케이션의 상태 관리를 더욱 간편하고 유연하게 만들어주며 패키지 매니저로 설치 이후 별도 설정을 통해 추가 됨
+* 추가 라이브러리를 등록하는 과정
 
 ## Pinia 구성 요소 정리
 * Pinia는 store라는 저장소를 가짐
+    * 여러개의 저장소를 가질 수 있음
 * store는 state, getters, actions으로 이루어지며 각각 ref(), computed(), function()과 동일함
 
 ## Pinia 구성 요소 활용
@@ -101,9 +108,11 @@
 ### Actions
 * store의 모든 actions 또한 직접 접근 및 호출 할 수 있음
 * getters와 달리 state 조작, 비동기, API 호출이나 다른 로직을 진행할 수 있음
+
 ## Vue devtools로 Pinia 구성요소 확인
 
 ![devtools로 Pinia 구성요소 확인](<../이미지/240509/devtools로 확인.PNG>)
+
 # Pinia 실습
 ## Pinia를 활용한 Todo 프로젝트 구현
 * Todo CRUD 구현
@@ -169,6 +178,8 @@
 ![create Todo3](<../이미지/240509/create todo3.PNG>)
 
 4. form 요소를 선택하여 todo 입력 후 input 데이터를 초기화 할 수 있도록 처리
+    * 이 때 ref의 변수명과 script에서 선언한 변수명이 동일해야함
+    * reset()메서드를 이용하여 초기화
 
 ![create Todo4](<../이미지/240509/create todo4.PNG>)
 
@@ -231,10 +242,12 @@
 
 ## Local Storage
 * 브라우저 내에 key-value 쌍을 저장하는 웹 스토리지 객체
+
 ### Local Storage 특징
 * 페이지를 새로 고침하고 브라우저를 다시 실행해도 데이터가 유지
 * 쿠키와 다르게 네트워크 요청 시 서버로 전송되지 않음
 * 여러 탭이나 창 간에 데이터를 공유할 수 있음
+
 ### Local Storage 사용 목적
 * 웹 애플리케이션에서 사용자 설정, 상태정보, 캐시데이터 등을 클라이언트 측에서 보관하여 웹 사이트의 성능을 향상시키고 사용자 경험을 개선하기 위함
 
@@ -254,12 +267,12 @@ $ npm i pinia-plugin-persistedstate
 ![설치 및 등록2](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240509/piniapluginpersistedstate2.PNG)
 
 3. 적용결과(개발자도구 -> Application -> Local Storage)
-* 브라우저의 Local Storage에 저장되는 todos state 확인
+* 브라우저의 Local Storage에 저장되는 todos state 확인(개발자도구 application 탭에서 확인 가능)
 
 ![설치 및 등록3](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240509/piniapluginpersistedstate3.PNG)
 
 # 참고
-* Pinia를 사용한다고 해서 모든 데이터를 state에 넣어야 하는 것은 아님
+* Pinia를 사용한다고 해서 모든 데이터를 state에 넣어야 하는 것은 아님(깊은 계층 구조인 경우에 제일 유용하게 사용가능)
 * pass props, emit event를 함께 사용하여 애플리케이션을 구성해야 함
 * 상황에 따라 적절하게 사용하는 것이 필요
 
