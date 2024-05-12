@@ -1,15 +1,19 @@
 # Routing
 * 네트워크 경로를 선택하는 프로세스
 * 웹 애플리케이션에서 다른 페이지 간의 전환과 경로를 관리하는 기술
-## SRR에서 Routing
+
+## SSR에서 Routing
 ![SSR](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240508/SSR.PNG)
-* SSR에서 routing은 서버 측에서 수행
+* Server Side Rendering
+* SSR에서 routing은 서버 측에서 수행(매 응답마다 완성된 페이지를 제공)
 * 서버가 사용자 방문한 URL 경로를 기반으로 응답을 전송
 * 링크를 클릭하면 브라우저는 서버로부터 HTML 응답을 수신하고 새 HRML로 전체 페이지를 다시 로드
+
 ## CSR에서 Routing
 ![CSR](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240508/CSR.PNG)
+* Client Side Rendering
 * CSR에서 routing은 클라이언트 측에서 수행
-* 클라이언트 측 JavaScript가 새 데이터를 동적으로 가져와 전체 페이지를 다시 로드하지 않음
+* 클라이언트 측 JavaScript가 새 데이터를 동적으로 가져와 전체 페이지를 다시 로드하지 않음(SPA로 작성하고 있기 때문)
 
 ## SPA에서 Routing이 없다면?
 * 유저가 URL을 통한 페이지의 변화를 감지할 수 없음
@@ -22,6 +26,7 @@
 # Vue Router
 * Vue 공식 라우터
 * https://router.vuejs.org
+
 ### 사전 준비
 * Vite로 프로젝트 생성 시 Router 추가
 
@@ -30,6 +35,8 @@
 * Home, About 링크에 따라 변경되는 URL과 새로 렌더링 되는 화면
 
     ![Router로 인한 프로젝트 변화 확인](<../이미지/240508/router 사전준비.PNG>)
+
+* routing 기술은 실제로 새로고침을 하지않고 주소를 변경해서 실제로 새로운 페이지를 만드는 것처럼 보이지만 필요한 요소만을 지우고 다시 그리는 방식을 사용함
 
 ### Vue 프로젝트 구조 변화
 ![vue프로젝트 구조 변화](<../이미지/240508/Vue 프로젝트 변화.PNG>)
@@ -50,11 +57,13 @@
 * 원하는 곳에 배치하여 컴포넌트를 레이아웃에 표시할 수 있음
 
 ![RouterView](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240508/RouterView.PNG)
+
 ![RouterView 예시](<../이미지/240508/RouterView 예시.PNG>)
 
 ### router/index.js
 * 라우팅에 관련된 정보 및 설정이 작성되는 곳
 * router에 URL과 컴포넌트를 매핑
+* django의 urls.py와 비슷한 구조와 역할을 갖고 있음
 
 ![router index js](<../이미지/240508/router indexjs.PNG>)
 
@@ -62,6 +71,7 @@
 * RouterView 위치에 렌더링 할 컴포넌트를 배치
 * 기존 components 폴더와 기능적으로 다른 것은 없으며 단순 분류의 의미로 구성됨
 * 일반 컴포넌트와 구분하기 위해 컴포넌트 이름을 View로 끝나도록 작성하는 것을 권장
+* router에 등록되는 컴포넌트들을 뜻함(app.vue에서 routerlink를 통해 보여주는 컴포넌트)
 
 ![views](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240508/views.PNG)
 
@@ -150,6 +160,7 @@
 3. 'children' 옵션을 사용해 중첩된 라우터에 컴포넌트를 등록
 * childeren 옵션
     * children 옵션은 배열 형태로 필요한 만큼 중첩 관계를 표현할 수 있음
+    * 중첩된 routing을 할경우 path경로에 앞쪽의 '/'가 없음
 
     ![중첩된 라우팅3](<../이미지/240508/중첩된 라우팅3.PNG>)  
 
@@ -228,6 +239,7 @@
 * Vue router를 통해 특정 URL에 접근할 때, 다른 URL로 redirect를 하거나 취소하여 내비게이션을 보호
 * 라우트 전환 전/후 자동으로 실행되는 Hook
 * 로그인한 사용자가 로그인 페이지로 이동한다면 이동을 못하게 막아야함. 이 때 로그인 되었는지 확인하는 것이 Hook
+
 ## Navigation Guard 종류
 1. Globally(전역 가드)
     - 애플리케이션 전역에서 모든 라우트 전환에 적용되는 가드
@@ -284,6 +296,15 @@
 
 * 만약 로그인이 되어있지 않고, 이동하는 주소 이름이 login이 아니라면 login 페이지로 redirect
 
+```js
+router.beforeEach((to,from) =>{
+    if (!isAuthenticated && to.name !== 'login'){
+        console.log('로그인이 필요합니다.')
+        return {name : 'login'}
+    }
+})
+```
+
 ## Per-route Guard
 * 특정 라우터에서만 동작하는 가드
 * 작성 위치 : index.js의 각 routes
@@ -291,7 +312,7 @@
 
 ### router.beforeEnter()
 * 특정 route에 진입했을 때만 실행되는 함수
-* 단순히 URL의 매개변수나 쿼리 값이 변경될 때는 실행되지 않고, 다른 URL에서 탐색해 올때만 실행됨
+* 단순히 URL의 매개변수나 쿼리 값이 변경될 때는 실행되지 않고, 다른 URL에서 탐색해 올때만 실행됨 ==> user/1 -> user/2의 상황에서는 실행되지 않음
 
 #### router.beforeEnter 구조
 ![router.beforeEnter 구조](<../이미지/240508/router beforeEnter 구조.PNG>)
@@ -330,7 +351,9 @@
 * 리턴 생략시 to 로 이동
 
 ![onBeforeRouteLeave 활용1](<../이미지/240508/onBeforeRouteLeave 활용2.PNG>)
+
 ![onBeforeRouteLeave 활용2](<../이미지/240508/onBeforeRouteLeave 활용1.PNG>)
+
 ### onBeforeRouteUpdate 활용
 * UserView 페이지에서 다른 id를 가진 User의 UserView 페이지로 이동하기
 * 같은 라우트 내에서 업데이트 되는 경우(/user/1 -> /user/100)
@@ -358,6 +381,7 @@
     - 특정 컴포넌트 내에서만 동작
     - 작성위치 : 각 컴포넌트의 script
 
+* Guard들의 실행되는 시점은 지정되어 있기 때문에 상황에 맞는 가드를 사용해야함
 # 참고
 ## Lazy Loading Routes
 ![Lazy Loading Routes](<../이미지/240508/Lazy Loading Routes.PNG>)
