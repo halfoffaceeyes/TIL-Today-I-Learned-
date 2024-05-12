@@ -11,11 +11,12 @@
 
 ## Single-File Components(SFC)
 * 컴포넌트의 템플릿, 로직 및 스타일을 하나의 파일로 묶어낸 특수한 파일 형식(*.vue 파일)
+* 파일을 하나로 동일한 구조를 갖지만 다른 정보를 갖는 페이지를 형성
 
 ### SFC 파일 예시
 * Vue SFC는 HTML, CSS 및 JavaScript를 단일 파일로 합친것
 * \<template>, \<script> 및 \<style> 블록은 하나의 파일에서 컴포넌트의 뷰,로직 및 스타일을 독립적으로 배치
-* v-base-3-setup
+* v-base-3-setup(lang=scss만 지우고 사용)
 
   ![SFC 예시](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240502/SFC%EC%98%88%EC%8B%9C.PNG)
 
@@ -30,7 +31,7 @@
   * 변수 및 함수는 동일한 컴포넌트의 템플릿에서 자동으로 사용 가능
 * 언어 블록 \<style scoped>
   * *.vue 파일에는 여러\<style> 태그가 포함될 수 있음
-  * scoped가 지정되면 CSS는 현재 컴포넌트에만 적용됨
+  * scoped가 지정되면 CSS는 현재 컴포넌트에만 적용됨(하위 컴포넌트나 상위 컴포넌트에는 적용이 안됨)
 
 ### 컴포넌트 사용하기
 
@@ -78,7 +79,7 @@ $ npm run dev
 ## NPM
 * Node Package Manager
 * Node.js의 기본 패키지 관리자
-* pythond의 pip와 비슷한 역할
+* python의 pip와 비슷한 역할
 ### Node.js
 * Chrome의 V8 JavaScript 엔진을 기반으로 하는 Server-Side 실행 환경
 
@@ -103,6 +104,7 @@ $ npm run dev
 - 이러한 상황에서 성능 병목 현상이 발생하고 모듈 간의 의존성(연결성)이 깊어지면서 특정한 곳에서 발생한 문제가 어떤 모듈 간의 문제인지 파악하기 어려워짐
 - 복잡하고 깊은 모듈 간 의존성 문제를 해결하기 위한 도구가 필요
   > Bundler
+- node_module은 django의 venv보다도 의존성 깊이가 깊음(모듈에 대한 의존성이 큼)
 
 ### Bundler
 * 여러 모듈과 파일을 하나(혹은 여러개)의 번들로 묶어 최적화하여 애플리케이션에서 사용할 수 있게 만들어주는 도구
@@ -121,6 +123,7 @@ $ npm run dev
 * 프로젝트의 의존성 모듈을 저장하고 관리하는 공간
 * 프로젝트가 실행될 때 필요한 라이브러리와 패키지들을 포함
 * .gitignoire에 저장됨
+* python의 venv와 같은 역할
 
   ![node_modules](<../이미지/240502/node modules.PNG>)
 
@@ -175,6 +178,7 @@ $ npm run dev
 #### src/main.js
 * Vue 인스턴스를 생성하고, 애플리케이션을 초기화하는 역할
 * 필요한 라이브러리를 import하고 전역 설정을 수행
+* django의 settings와 같은 역할
 
   ![src/main](<../이미지/240502/src main.PNG>)
 
@@ -243,6 +247,7 @@ $ npm run dev
 ![Virtual DOM](<../이미지/240502/virtual DOM.PNG>)
 
 ### 내부 렌더링 과정
+* vue에서 가상의 DOM을 사용하면 실제 DOM으로 변경되면서 작동하므로 개발자는 DOM 조작을 할 필요가 사라짐(더이상 eventlistener나 createelement와 같은 직접 DOM조작을 안함)
 
 ![내부렌더링 과정](<../이미지/240502/내부 렌더링 과정.PNG>)
 
@@ -280,6 +285,7 @@ $ npm run dev
 ### Option API
 * data, methods 및 mounted 같은 객체를 사용하여 컴포넌트의 로직을 정의
  * Vue2에서의 작성 방식(Vue3에서도 지원)
+* 객체에 대한 깊이를 이해하고 참조하는 것이 어려움(this를 통한 접근)
 
 ![Option API](<../이미지/240502/Option API.PNG>)
 
