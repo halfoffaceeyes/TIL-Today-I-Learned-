@@ -5,9 +5,10 @@
 * 그렇다면 사진을 변경해야할 때 모든 컴포넌트에 대해 변경 요청을 해야함
 * 공통된 부모 컴포넌트에서 관리
 
-부모는 자식에게 데이터를 전달(Pass Props)하며, 자식은 자신에게 일어난 일을 부모에게 알림(Emit event) => 위로 보낼 때는 데이터를 전달하는 것이 아니라 알림만을 전달(데이터의 이동은 없음)
+![Passing Props](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240507/Props.PNG)
 
-![Alt text](../%EC%9D%B4%EB%AF%B8%EC%A7%80/240507/Props.PNG)
+> 부모는 자식에게 데이터를 전달(Pass Props)하며, 자식은 자신에게 일어난 일을 부모에게 알림(Emit event) => 위로 보낼 때는 데이터를 전달하는 것이 아니라 알림만을 전달(데이터의 이동은 없음)
+
 
 ## Props
 * 부모 컴포넌트로부터 자식 컴포넌트로 데이터를 전달하는데 사용되는 속성
@@ -29,6 +30,7 @@
 
 ## Props 작성
 * 부모 컴포넌트 Parent에서 자식 컴포넌트 ParentChild에 보낼 props 작성
+* 내려주는 쪽은 HTML 태그에서 kebab-case로 작성하고 내려받는 쪽은 JavaScript 영역에서 camelCase로 받음
 
 ![props 작성](<../이미지/240507/props 작성.PNG>)
 ### 사전준비
@@ -143,6 +145,7 @@ defineProps({
 ![Dynamic props 정의](<../이미지/240507/Dynamic props 정의.PNG>)
 
 2. Dynamic props 선언 및 출력
+* 반응형 변수를 사용해서 props를 보낼 수 있음
 
 ![Dynamic props 선언 및 출력](<../이미지/240507/Dynamic props 선언 및 출력.PNG>)
 
@@ -169,7 +172,7 @@ defineProps({
 ## props 특징
 1. 하향식 단방향
 2. 내려보내질때 이름 케이스는 케밥케이스와 카멜케이스
-3. 선언을 한 후에 사용해야함
+3. 선언을 한 후에 사용해야함(객체 방식 선언을 추천)
 
 # Component Events
 ## emit
@@ -201,7 +204,7 @@ $emit(event,...args)
 ![이벤트 수신하기](<../이미지/240507/이벤트 수신하기 결과.PNG>)
 
 ### emit 이벤트 선언
-* defineEmits()를 사용하여 발신할 이벤트를 선언
+* defineEmits()를 사용하여 발신할 이벤트를 선언(권장하는 emit사용법)
 * props와 마찬가지로 defineEmits()에 작성하는 인자의 데이터 타입에 따라 선언 방식이 나뉨(배열, 객체)
 * defineEmits()는 $emit 대신 사용할 수 있는 동등한 함수를 반환(script에서는 $emit 메서드를 접근할 수 없기 때문)
 
@@ -278,7 +281,16 @@ emit('someEvent')
 ## Props 선언 시 "객체 선언 문법"을 권장하는 이유
 * 컴포넌트를 가독성이 좋게 문서화하는데 도움이 되며, 다른 개발자가 잘못된 유형을 전달할 때에 브라우저 콘솔에 경고를 출력하도록 함
 * 추가로 props에 대한 유효성 검사로써 활용 가능
+```js
+const props = defineProps({
+    myMsg : [String,Object],
+    dynamicProps: String
+})
+//  이렇게 배열형식으로 여러가지 형태를 갖는 props라고 정의 가능,
+//  myMsg는 문자열이거나 객체형태일수 있다고 정의하는 것
+```
 
 ![props 객체선언 문법](<../이미지/240507/props 객체선언 문법.PNG>)
+* required 를 이용하여 필수로 전달해야하는 props 객체인지 설정도 가능==undefined로 나올 때 debugging 하기 편해짐
 
 * https://vuejs.org/guide/components/props.html#prop-validation
